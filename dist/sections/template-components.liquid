@@ -1,0 +1,42 @@
+<!-- ======================================
+CUSTOM CURSOR
+=========================================== -->
+<!--
+1. Include Slick JS and CSS if this is a slider
+<script type="text/javascript" src="//cdn.jsdelivr.net/jquery.slick/1.4.1/slick.min.js"></script>
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.4.1/slick.css"/>
+2. See components.scss for css code
+2. See theme.js for css code
+ -->
+
+
+ <!-- SLIDER WITH GRAB CURSOR -->
+
+ <div class="js-cursor home-product-slider" data-cursor-type="grab">
+  <div class="follower" aria-hidden="true">
+    <div class="animated-content">
+      <!-- Cursor content -->
+      GRAB
+    </div>
+  </div>
+  <div class="slider js-preload" id="full-product-list">
+    {% for product in collection.products %}
+    <div>
+      Product here!
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+ <!-- GLOW CURSOR -->
+<div class="gdpr-bar body-sans-4 js-cursor js-has-click-targets" aria-hidden="true" data-cursor-type="glow">
+  <div class="follower">
+    <div class="animated-content"></div>
+  </div>
+  <div class="desc">
+    {{ section.settings.desc }}
+  </div>
+  <button class="js-close-gdpr text-only close-btn" aria-label="Close GDPR Bar">
+    {%- include 'icon-close' -%}
+  </button>
+</div>

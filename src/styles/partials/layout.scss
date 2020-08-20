@@ -56,11 +56,31 @@ Centered Layout
 -----------------------------------------------------------------------------*/
 .container {
 	width: 100%;
-	padding-left: 6rem;
-	padding-right: 6rem;
+	padding-left: 9rem;
+	padding-right: 9rem;
 	@include mobile-only {
 		padding-left: 3rem;
 		padding-right: 3rem;
+	}
+}
+
+.container-md {
+	width: 100%;
+	padding-left: 14rem;
+	padding-right: 14rem;
+	@include mobile-only {
+		padding-left: 3rem;
+		padding-right: 3rem;
+	}
+}
+
+.padded {
+	padding-top: 6rem;
+	padding-bottom: 6rem;
+	@include mobile-only {
+		padding-top: 4rem;
+		padding-bottom: 4rem;
+
 	}
 }
 

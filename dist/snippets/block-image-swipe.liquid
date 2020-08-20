@@ -1,0 +1,38 @@
+{% comment %}
+Variables to pass in:
+swipe_dir (up, down, left, right)
+slide_origin top, bottom, left, right
+shape (if circle)
+slide_order
+class_name
+alt_text
+image
+bg_color
+
+To trigger: make sure parent gets js-animate class on scroll
+
+Example:
+
+{%- include 'block-image-swipe', swipe_dir: 'down', slide_origin: 'bottom', slide_order: '1', class_name: 'large-image', image: block.settings.image, bg_color: block.settings.image_bg -%}
+{% endcomment %}
+
+<!-- {% assign img_url = image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' %}
+
+<div class="sliding-img-wrapper {% if class_name != blank %}{{ class_name }}{% endif %}"
+      data-swipe-dir="{% if swipe_dir != blank %}{{ swipe_dir }}{% else %}down{% endif %}"
+      data-slide-origin="{% if slide_origin != blank %}{{ slide_origin }}{% else %}bottom{% endif %}"
+      data-shape="{% if shape != blank %}{{ shape }}{% else %}square{% endif %}"
+      data-slide-order="{% if slide_order != blank %}{{ slide_order }}{% else %}1{% endif %}">
+  <div class="img-slide-bg"
+    style="background-color: {% if bg_color != blank %}{{ bg_color }}{% else %}#FB48C4{% endif %}"></div>
+  <div class="cropped-image-wrapper">
+    <img
+      class="lazyload"
+      data-src="{{ img_url }}"
+      data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+      data-aspectratio="{{ image.aspect_ratio }}"
+      data-sizes="auto"
+      alt="{{ alt_text }}"
+      >
+  </div>
+</div> -->

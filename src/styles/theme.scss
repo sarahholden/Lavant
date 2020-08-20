@@ -1,54 +1,54 @@
-// @charset "UTF-8";
-//
-// /*================ COMMON ================*/
-// @import url('global/reset.scss');
-// @import url('global/slate-reset.scss');
-//
-// /*================ SETTINGS ================*/
-// @import url('partials/fonts.scss');
-// @import url('settings/variables.scss.liquid');
-//
-// /*================ PARTIALS ================*/
-// @import url('partials/images.scss');
-// @import url('partials/typography.scss');
-// @import url('partials/layout.scss');
-// @import url('partials/grid.scss');
-// @import url('partials/nav.scss');
-// @import url('partials/search.scss');
-// @import url('partials/footer.scss');
-// @import url('partials/forms.scss');
-// @import url('partials/buttons.scss');
-// @import url('partials/selectric.scss');
-// @import url('partials/cart.scss');
-// @import url('partials/email-popup.scss');
-// @import url('partials/components.scss');
-//
-// /*================ SECTIONS ================*/
-// @import url('sections/faq.scss');
-// @import url('sections/product.scss');
-//
-// /* --------------------------------------------------------------------------
-// Section Comment
-// -----------------------------------------------------------------------------*/
-// .visually-hidden {
-//   position: absolute !important;
-//   overflow: hidden;
-//   clip: rect(0 0 0 0);
-//   height: 1px;
-//   width: 1px;
-//   margin: -1px;
-//   padding: 0;
-//   border: 0;
-// }
+@charset "UTF-8";
 
-// .skip-link {
-//   position: absolute;
-//   top: -400px;
-//   left: 0;
-//   padding: 0.8rem;
-//   z-index: 400;
-//   background: white;
-//   &:focus {
-//     top: 0;
-//   }
-// }
+/*================ COMMON ================*/
+@import url('global/reset.scss');
+@import url('global/slate-reset.scss');
+
+/*================ SETTINGS ================*/
+@import url('partials/fonts.scss');
+@import url('settings/variables.scss.liquid');
+
+/*================ PARTIALS ================*/
+@import url('partials/images.scss');
+@import url('partials/typography.scss');
+@import url('partials/layout.scss');
+@import url('partials/grid.scss');
+@import url('partials/nav.scss');
+@import url('partials/search.scss');
+@import url('partials/footer.scss');
+@import url('partials/forms.scss');
+@import url('partials/buttons.scss');
+@import url('partials/selectric.scss');
+@import url('partials/cart.scss');
+@import url('partials/email-popup.scss');
+@import url('partials/components.scss');
+
+/*================ SECTIONS ================*/
+@import url('sections/faq.scss');
+@import url('sections/product.scss');
+
+/* --------------------------------------------------------------------------
+Section Comment
+-----------------------------------------------------------------------------*/
+.visually-hidden {
+  position: absolute !important;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  width: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  top: -400px;
+  left: 0;
+  padding: 0.8rem;
+  z-index: 400;
+  background: white;
+  &:focus {
+    top: 0;
+  }
+}

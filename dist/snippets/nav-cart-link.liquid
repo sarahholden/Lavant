@@ -1,0 +1,13 @@
+<!-- <a href="/cart">
+  {% include 'icon-cart' %}
+  {{ 'layout.cart.title' | t }}
+  ({{ cart.item_count }} {{ 'layout.cart.items_count' | t: count: cart.item_count }})
+</a> -->
+
+<!-- ===================================
+CART
+====================================== -->
+<a href="/cart" data-cart-view="data-cart-view" class="hide-mobile cart-icon-wrapper js-view-cart">
+  {% include 'icon-cart' %}
+  <span class="js-cart-counter cart-counter" rv-html="cart.item_count">{{ cart.item_count }}</span>
+</a>

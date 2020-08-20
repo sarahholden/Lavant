@@ -1,0 +1,35 @@
+<nav role="navigation">
+  <ul>
+    {% for link in linklists[section.settings.main_linklist].links %}
+      {% if link.links != blank %}
+        <li>
+          <a href="{{ link.url }}">{{ link.title | escape }}</a>
+          <ul>
+            {% for childlink in link.links %}
+              {% if childlink.links != blank %}
+                <li>
+                  <a href="{{ childlink.url }}">{{ childlink.title | escape }}</a>
+                  <ul>
+                    {% for grandchildlink in childlink.links %}
+                      <li>
+                        <a href="{{ grandchildlink.url }}">{{ grandchildlink.title | escape }}</a>
+                      </li>
+                    {% endfor %}
+                  </ul>
+                </li>
+              {% else %}
+                <li>
+                  <a href="{{ childlink.url }}">{{ childlink.title | escape }}</a>
+                </li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        </li>
+      {% else %}
+        <li>
+          <a href="{{ link.url }}">{{ link.title | escape }}</a>
+        </li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+</nav>

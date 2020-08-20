@@ -14,15 +14,15 @@
 ---
 
 development:
-  password: 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
-  theme_id: 82131222562
-  store: sh-template.myshopify.com
+  password: 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
+  theme_id: 83112591434
+  store: lavant-collective.myshopify.com
   ignore_files:
     - settings_data.json # Uncomment this line to avoid resetting theme settings
 
 production:
-  password: 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
+  password: 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
   theme_id: "live"
-  store: sh-template.myshopify.com
+  store: lavant-collective.myshopify.com
   ignore_files:
     - settings_data.json # Uncomment this line to avoid resetting theme settings

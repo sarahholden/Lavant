@@ -23,7 +23,7 @@ Typography
 -----------------------------------------------------------------------------*/
 html {
   font-size: $baseSize;
-  font-size: 0.76923076vw;
+  font-size: 0.69444444vw;
 }
 
 body {
@@ -67,16 +67,24 @@ h4 {
   font-style: normal;
 }
 
-h1 {
-  font-size: $largeHeadingFontSize;
+.heading--serif {
+  font-family: $canela;
+  font-size: 4.5rem;
+  color: $black;
+  letter-spacing: 0.146rem;
+  line-height: (55 / 45);
 }
+/* --------------------------------------------------------------------------
+  TEXT STYLES
+-----------------------------------------------------------------------------*/
+.desc {
+  font-family: $proxima;
+  font-size: 1.8rem;
+  color: #000000;
+  letter-spacing: 0.59px;
+  text-align: center;
+  line-height: 24px;
 
-h2 {
-  font-size: $mediumHeadingFontSize;
-}
-
-h3 {
-  font-size: $smallHeadingFontSize;
 }
 
 /* --------------------------------------------------------------------------

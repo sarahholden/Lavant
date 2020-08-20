@@ -3,18 +3,10 @@ Hosted Fonts
 -----------------------------------------------------------------------------*/
 
 @font-face {
-  font-family: "Eksell";
-  src: url(" {{ "EksellDisplayWebMedium.eot" | asset_url }} ");
-  src: url(" {{ "EksellDisplayWebMedium.eot?#iefix" | asset_url }} ") format("embedded-opentype"), url(" {{ "EksellDisplayWebMedium.woff2" | asset_url }} ") format("woff2"), url(" {{ "EksellDisplayWebMedium.woff" | asset_url }} ") format("woff");
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "Eksell";
-  src: url(" {{ "EksellDisplayWebMedium.eot" | asset_url }} ");
-  src: url(" {{ "EksellDisplayWebMedium.eot?#iefix" | asset_url }} ") format("embedded-opentype"), url(" {{ "EksellDisplayWebMedium.woff2" | asset_url }} ") format("woff2"), url(" {{ "EksellDisplayWebMedium.woff" | asset_url }} ") format("woff");
-  font-weight: normal;
+  font-family: "CanelaLight";
+  src: url(" {{ 'canela.eot' | asset_url }} ");
+  src: url(" {{ 'canela.eot?#iefix' | asset_url }} ") format("embedded-opentype"), url(" {{ 'canela.woff2' | asset_url }} ") format("woff2"), url(" {{ 'canela.woff' | asset_url }} ") format("woff");
+  font-weight: 300;
   font-style: normal;
 }
 
@@ -32,8 +24,8 @@ TEMPLATE:
 /* --------------------------------------------------------------------------
 Fonts
 -----------------------------------------------------------------------------*/
-$markRegular: 'Mark Regular', sans-serif;
-$saolMedium: 'Saol Medium', sans-serif;
+$canela: "CanelaLight", serif;
+$proxima: proxima-nova, sans-serif;
 
-$bodyTextFont: $markRegular;
-$headingFont: $saolMedium;
+$bodyTextFont: $proxima;
+$headingFont: $canela;
