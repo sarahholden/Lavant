@@ -1,0 +1,49 @@
+<div data-section-id="{{ section.id }}" data-section-type="header-section">
+  <div class="nav-wrapper" role="banner">
+
+    <div class="container">
+      <!--   LOGO   -->
+      {%- include 'nav-logo' -%}
+
+      <!--   NAV   -->
+      {%- include 'nav-menu' -%}
+
+      <!-- SEARCH -->
+
+      {%- include 'nav-search' -%}
+
+      <!-- ACCOUNT LINKS -->
+      {% if shop.customer_accounts_enabled %}
+        {%- include 'nav-account-links' -%}
+      {% endif %}
+
+      <!--   CART   -->
+      {%- include 'nav-cart-link' -%}
+    </div>
+
+    <div class="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+  </div>
+</div>
+{% schema %}
+  {
+    "name": "Header",
+    "settings": [
+      {
+        "type": "url",
+        "id": "logo",
+        "label": "Logo image"
+      },
+      {
+        "type": "link_list",
+        "id": "main_linklist",
+        "label": "Menu",
+        "default": "main-menu"
+      }
+    ]
+  }
+{% endschema %}

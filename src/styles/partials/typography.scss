@@ -1,0 +1,129 @@
+/* --------------------------------------------------------------------------
+Font Sizes
+-----------------------------------------------------------------------------*/
+$baseSize: 10px;
+$tabletBaseSize: 9px;
+$mobileBaseSize: 8px;
+$bodyDesktopFontSize: 1.8rem;
+$bodyMobileFontSize: 1.6rem;
+$bodyTextFontSize: 1.8rem;
+
+$largeHeadingFontSize: 2.7rem;
+$mediumHeadingFontSize: 2.4rem;
+$smallHeadingFontSize: 2rem;
+
+/* --------------------------------------------------------------------------
+Font Styles
+-----------------------------------------------------------------------------*/
+$bodyTextLineHeight: 1.6;
+$bodyTextLetterSpacing: 0.05rem;
+
+/* --------------------------------------------------------------------------
+Typography
+-----------------------------------------------------------------------------*/
+html {
+  font-size: $baseSize;
+  font-size: 0.76923076vw;
+}
+
+body {
+  background-color: $primaryBgColor;
+  font-family: $bodyTextFont;
+  font-size: $bodyTextFontSize;
+  color: $primaryTextColor;
+  line-height: $bodyTextLineHeight;
+  letter-spacing: $bodyTextLetterSpacing;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  -webkit-font-smoothing: antialiased;
+  font-size: $bodyDesktopFontSize;
+  @include mobile-only {
+    font-size: $bodyMobileFontSize;
+  }
+}
+
+/* --------------------------------------------------------------------------
+Anchors
+-----------------------------------------------------------------------------*/
+a {
+  color: $primaryAnchorColor;
+  text-decoration: none;
+  transition: all 0.3s ease-in-out;
+}
+
+a:active,
+a:hover {
+  color: darken($primaryAnchorColor, 10%);
+}
+
+/* --------------------------------------------------------------------------
+Headings
+-----------------------------------------------------------------------------*/
+h1,
+h2,
+h3,
+h4 {
+  font-family: $headingFont;
+  font-weight: normal;
+  font-style: normal;
+}
+
+h1 {
+  font-size: $largeHeadingFontSize;
+}
+
+h2 {
+  font-size: $mediumHeadingFontSize;
+}
+
+h3 {
+  font-size: $smallHeadingFontSize;
+}
+
+/* --------------------------------------------------------------------------
+  SMALL CAPS
+-----------------------------------------------------------------------------*/
+%smallCaps {
+  text-transform: uppercase;
+  font-size: $smallHeadingFontSize;
+  line-height: 1.6;
+  letter-spacing: 0.1rem;
+}
+
+/* --------------------------------------------------------------------------
+Rules
+-----------------------------------------------------------------------------*/
+hr {
+  border: 0;
+  border-bottom: $border;
+}
+
+/* --------------------------------------------------------------------------
+Responsive Design
+-----------------------------------------------------------------------------*/
+/* Mobile ================== */
+@include mobile-only {
+  html {
+    font-size: 2.1vw;
+  }
+}
+
+@include mobile-sm-only {
+  html {
+    font-size: 2.666666666vw;
+    // font-size: 10px;
+  }
+}
+
+/* Large Mobile ================== */
+@media only screen and (max-width: 768px) and (min-width: 580px) {
+  html {
+    font-size: 1.8vw;
+  }
+}
+
+/* MONITOR ================== */
+@media only screen and (min-width: 1800px) {
+  html {
+    font-size: 13px;
+  }
+}

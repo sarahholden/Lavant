@@ -1,0 +1,11 @@
+<div class="logo-wrapper" itemscope itemtype="http://schema.org/Organization">
+  <a href="/" itemprop="url" >
+    {% if section.settings.logo != blank %}
+      <img src="{{ section.settings.logo }}"
+           alt="{{ shop.name }}"
+           itemprop="logo">
+    {% else %}
+      {{ shop.name }}
+    {% endif %}
+  </a>
+</div>

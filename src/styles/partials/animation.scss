@@ -1,0 +1,109 @@
+
+/* --------------------------------------------------------------------------
+  ANIMATED LISTS
+-----------------------------------------------------------------------------*/
+.list-animation-wrapper {
+  .animate-item,
+  li {
+    opacity: 0;
+    transform: translateY(3rem);
+    transition: all 1s ease-in-out;
+    &.fade-in {
+      opacity: 1;
+    }
+  }
+}
+
+/* --------------------------------------------------------------------------
+  TEXT ANIMATIONS
+-----------------------------------------------------------------------------*/
+/* --------------------------------------------------------------------------
+  TEXT ANIMATIONS
+-----------------------------------------------------------------------------*/
+[data-reveal="lines-masked"],
+[data-reveal="lines-masked-desc"] {
+  opacity: 0;
+  &.loaded {
+    opacity: 1;
+  }
+  [class^="split-line-"] {
+    overflow: hidden;
+    padding-bottom: 0.5rem;
+    margin-bottom: -.5rem;
+  }
+}
+
+[data-reveal="lines-masked"],
+[data-reveal="lines-masked-desc"] {
+  .split-line-child {
+    transform: translateY(100%);
+    opacity: 0;
+    -webkit-transition: opacity 0.35s #{$easeOutSoft},-webkit-transform 0.5s #{$easeOutCustomFast};
+    transition: opacity 0.35s #{$easeOutSoft},-webkit-transform 0.5s #{$easeOutCustomFast};
+    transition: opacity 0.35s #{$easeOutSoft},transform 0.5s #{$easeOutCustomFast};
+    transition: opacity 0.35s #{$easeOutSoft},transform 0.5s #{$easeOutCustomFast},-webkit-transform 0.8s #{$easeOutCustomFast};
+    // transition-delay: 0.36s!important;
+  }
+}
+
+.js-animate [data-reveal="lines-masked"],
+.js-animate[data-reveal="lines-masked"],
+.js-animate [data-reveal="lines-masked-desc"],
+.js-animate[data-reveal="lines-masked-desc"] {
+  .split-line-child {
+    transform: none;
+    opacity: 1;
+  }
+}
+
+/* --------------------------------------------------------------------------
+  SCALING AND SLIDING
+-----------------------------------------------------------------------------*/
+[data-anim="scale-up"] {
+  opacity: 0;
+  transform: scale(0);
+  transition: all 0.8s $ease;
+}
+
+.js-animate [data-anim="scale-up"] {
+  opacity: 1;
+  transform: none;
+  transition: all 0.8s $ease;
+}
+
+// Regular Slide
+[data-anim="slide"] {
+  opacity: 0;
+  transform: translateY(2rem);
+  transition: all 0.8s $ease;
+}
+
+// Regular Slide
+[data-anim="dyna-slide"] {
+  opacity: 0;
+  transform: translateY(20rem);
+  @include mobile-only {
+    transform: translateY(3rem);
+  }
+  transition: opacity 1.6s #{$easeOutSoft},transform 1.2s #{$easeInSoft},-webkit-transform 1.2s #{$easeInSoft};
+  &.subtle {
+    transform: translateY(5rem);
+
+  }
+}
+
+.js-animate [data-anim="slide"],
+.js-animate[data-anim="slide"],
+.js-animate [data-anim="dyna-slide"],
+.js-animate[data-anim="dyna-slide"] {
+  opacity: 1;
+  transform: none;
+  transition: all 0.8s $ease;
+}
+
+@for $i from 1 through 30 {
+  .js-animate [data-anim-order="#{$i}"],
+  .split-line-#{$i} .split-line-child {
+    transition-delay: ($i - 1) * 0.1s;
+  }
+}

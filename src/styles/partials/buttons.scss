@@ -1,0 +1,26 @@
+/* --------------------------------------------------------------------------
+Buttons
+-----------------------------------------------------------------------------*/
+.btn,
+button {
+  cursor: pointer;
+  border: 0;
+  border-radius: 0;
+  transition: all 0.3s ease-in-out;
+  font-family: inherit;
+  outline: none;
+  display: inline-block;
+  background-color: transparent;
+  &:hover {}
+}
+
+.text-only {
+  font-family: inherit;
+  color: inherit;
+  padding: 0;
+  border: 0;
+  text-transform: none;
+  background-color: transparent;
+  outline: none;
+  border-radius: 0;
+}

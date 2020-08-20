@@ -1,0 +1,159 @@
+/* --------------------------------------------------------------------------
+Colors
+-----------------------------------------------------------------------------*/
+$black: #383938;
+$white: #FFF;
+
+$primaryBgColor: $white;
+$primaryTextColor: $black;
+$primaryAnchorColor: $primaryTextColor;
+
+$secondaryBgColor: $black;
+$secondaryTextColor: $white;
+
+$borderColor: #383938;
+$border: 1px solid $borderColor;
+
+/* --------------------------------------------------------------------------
+  ANIMATION
+-----------------------------------------------------------------------------*/
+$smoothTransition: all 0.3s cubic-bezier(.34,.615,.4,.985);
+$ease: cubic-bezier(.34,.615,.4,.985);
+$easeOutBack: cubic-bezier(0.175, 0.885, 0.320, 1.275);
+$easeIn: cubic-bezier(0.49, 0.025, 0.65, 0.65);
+$easeOut: cubic-bezier(0.280, 0.440, 0.490, 1);
+$easeInOut: cubic-bezier(0.490, 0.025, 0.490, 1);
+$easeInSoft: cubic-bezier(0.490, 0.025, 0.685, 1);
+$easeOutSoft: cubic-bezier(0.280, 0, 0.490, 1);
+$easeInOutSoft: cubic-bezier(0.720, 0, 0.280, 1);
+$easeOutCustom: cubic-bezier(0.420, 0, 0.002, 1);
+$easeOutCustomFast: cubic-bezier(0, 0, 0.002, 1);
+
+$animateOpacityAndTransform: opacity 0.5s #{$easeOutSoft},transform 0.8s #{$easeOutCustomFast},-webkit-transform 0.8s #{$easeOutCustomFast};
+
+
+/* --------------------------------------------------------------------------
+Mixins
+-----------------------------------------------------------------------------*/
+%secondarySection {
+  background-color: $secondaryBgColor;
+  color: $secondaryTextColor;
+}
+
+/* --------------------------------------------------------------------------
+Responsive Mixins
+-----------------------------------------------------------------------------*/
+
+/* Adjust breakpoints below if needed  */
+$tablet-width: 768px;
+$mobile-sm-width: 460px;
+$desktop-width: 1024px;
+$desktop-lg-width: 1250px;
+$monitor-width: 1440px;
+
+@mixin mobile-sm-only {
+  @media (max-width: #{$mobile-sm-width}) {
+    @content;
+  }
+}
+
+@mixin mobile-only {
+  @media (max-width: #{$tablet-width}) {
+    @content;
+  }
+}
+
+@mixin tablet-down {
+  @media (max-width: #{$desktop-width}) {
+    @content;
+  }
+}
+
+@mixin tablet-only {
+  @media (max-width: #{$desktop-width}) and (min-width: #{$tablet-width + 1}) {
+    @content;
+  }
+}
+
+@mixin tablet-up {
+  @media (min-width: #{$tablet-width + 1}) {
+    @content;
+  }
+}
+
+@mixin desktop-up {
+  @media (min-width: #{$desktop-width + 1}) {
+    @content;
+  }
+}
+
+@mixin desktop-sm-down {
+  @media (max-width: #{$desktop-lg-width}) {
+    @content;
+  }
+}
+
+@mixin desktop-sm-only {
+  @media (min-width: #{$desktop-width + 1}) and (max-width: #{$desktop-lg-width}) {
+    @content;
+  }
+}
+
+@mixin desktop-lg-up {
+  @media (min-width: #{$desktop-lg-width + 1}) {
+    @content;
+  }
+}
+
+@mixin monitor-up {
+  @media (min-width: #{$monitor-width + 1}) {
+    @content;
+  }
+}
+
+/* --------------------------------------------------------------------------
+Hide / Show
+-----------------------------------------------------------------------------*/
+.show-tablet-down {
+  display: none;
+  @include tablet-down {
+    display: block;
+  }
+}
+
+.hide-tablet-down {
+  @include tablet-down {
+    display: none !important;
+  }
+}
+
+.show-mobile {
+  display: none;
+  @include mobile-only {
+    display: block;
+  }
+}
+
+.hide-mobile {
+  @include mobile-only {
+    display: none !important;
+  }
+}
+
+.hide {
+  display: none;
+}
+
+/* Text meant only for screen readers. */
+.screen-reader-text {
+  border: 0;
+  clip: rect(1px, 1px, 1px, 1px);
+  clip-path: inset(50%);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+  word-wrap: normal !important;
+}

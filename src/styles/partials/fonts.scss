@@ -1,0 +1,39 @@
+/* --------------------------------------------------------------------------
+Hosted Fonts
+-----------------------------------------------------------------------------*/
+
+@font-face {
+  font-family: "Eksell";
+  src: url(" {{ "EksellDisplayWebMedium.eot" | asset_url }} ");
+  src: url(" {{ "EksellDisplayWebMedium.eot?#iefix" | asset_url }} ") format("embedded-opentype"), url(" {{ "EksellDisplayWebMedium.woff2" | asset_url }} ") format("woff2"), url(" {{ "EksellDisplayWebMedium.woff" | asset_url }} ") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Eksell";
+  src: url(" {{ "EksellDisplayWebMedium.eot" | asset_url }} ");
+  src: url(" {{ "EksellDisplayWebMedium.eot?#iefix" | asset_url }} ") format("embedded-opentype"), url(" {{ "EksellDisplayWebMedium.woff2" | asset_url }} ") format("woff2"), url(" {{ "EksellDisplayWebMedium.woff" | asset_url }} ") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+/*
+TEMPLATE:
+@font-face {
+  font-family: 'Font 1';
+  src: url('../fonts/font1.woff2') format('woff2'),
+       url('../fonts/font1.woff') format('woff'),
+       url('../fonts/font1.ttf') format('truetype'),
+       url('../fonts/font1.eot') format('embedded-opentype');
+}
+*/
+
+/* --------------------------------------------------------------------------
+Fonts
+-----------------------------------------------------------------------------*/
+$markRegular: 'Mark Regular', sans-serif;
+$saolMedium: 'Saol Medium', sans-serif;
+
+$bodyTextFont: $markRegular;
+$headingFont: $saolMedium;

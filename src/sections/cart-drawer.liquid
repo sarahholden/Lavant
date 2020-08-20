@@ -1,0 +1,77 @@
+<section id="cart-drawer" class="cart-drawer">
+  <div class="cart-inner">
+    <div class="top-row">
+      <h2>Your Cart</h2>
+      <button class="text-button js-close-cart close-cart-text text-only" type="button">
+        Close
+      </button>
+    </div>
+    <main data-cart-view="data-cart-view">
+      <div class="cart-product-wrap" rv-each-item="cart.items">
+
+        <div class="cart-image">
+          <a rv-href="item.url">
+            <img rv-src="item.image | productImageSize '220x213_crop_center'" src="">
+          </a>
+        </div>
+        <div class="info-col v-aligner">
+          <div>
+            <div class=" cart-title-price">
+              <h3 class="cart-title split-aligner" >
+                <a rv-href="item.url">
+                  <span rv-text="item.product_title"></span>
+                </a>
+                <a href="#" rv-data-cart-remove="index | plus 1" class="cart-remove">
+                  <img src="{{ 'icon-close.svg' | asset_url }}" alt="Close Cart" width="11">
+                </a>
+              </h3>
+            </div>
+            <div class="desc">
+              <p rv-text="item.product_description"></p>
+            </div>
+            <div class="split-aligner">
+              <div class="cart-quantity">
+                <a href="#" rv-data-cart-quantity="item.quantity | minus 1" rv-data-cart-update="index | plus 1">&ndash;</a>
+                <span rv-text="item.quantity"></span>
+                <a href="#" rv-data-cart-quantity="item.quantity | plus 1" rv-data-cart-update="index | plus 1">+</a>
+              </div>
+              <span class="cart-price" rv-html="item.line_price | money Currency.currentCurrency"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- <div class="order-notes" rv-show="cart.item_count | gt 0">
+        {% if settings.cart_notes_enable %}
+          <textarea id="CartSpecialInstructions" name="note" placeholder="Order Notes">{{ cart.note }}</textarea>
+        {% endif %}
+      </div> -->
+
+      <p class="empty-cart" rv-show="cart.item_count | lt 1">
+        Your cart is empty
+      </p>
+
+    </main>
+    <div class="footer-content" data-cart-view="data-cart-view" rv-show="cart.item_count | gt 0">
+      <div class="cart-total-row split-aligner">
+        <div rv-show="cart.item_count | gt 0">
+          <h6>Subtotal: <span rv-html="cart.total_price | money Currency.currentCurrency"></span></h6>
+        </div>
+
+      </div>
+
+      <div class="shipping-note">Shipping & taxes calculated at checkout</div>
+      <a class="btn" href="/checkout">Checkout</a>
+    </div>
+  </div>
+</section>
+<div class="close-cart-overlay js-close-cart"></div>
+
+
+<script type="text/javascript">
+$('#CartSpecialInstructions').on('blur', function (){
+  // Set a custom cart note.
+  CartJS.setNote($(this).val());
+})
+
+</script>

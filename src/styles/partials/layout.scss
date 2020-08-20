@@ -1,0 +1,101 @@
+/* --------------------------------------------------------------------------
+Layout Helpers
+-----------------------------------------------------------------------------*/
+.hide {
+	display: none;
+}
+
+/* --------------------------------------------------------------------------
+Default Box sizing, Overflow Styles
+-----------------------------------------------------------------------------*/
+* {
+	box-sizing: border-box;
+}
+
+body,
+html {
+	overflow-x: hidden;
+}
+
+/* --------------------------------------------------------------------------
+Vertical & Horizontal Alignment
+-----------------------------------------------------------------------------*/
+/* Center vertically  */
+%v-aligner {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-ms-flex-direction: column;
+	flex-direction: column;
+	-webkit-box-pack: center;
+	-ms-flex-pack: center;
+	justify-content: center;
+}
+
+/* Center vertically and horizontally */
+%v-h-aligner {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-ms-flex-direction: column;
+	flex-direction: column;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	align-items: center;
+	-webkit-box-pack: center;
+	-ms-flex-pack: center;
+	justify-content: center;
+}
+
+/* --------------------------------------------------------------------------
+Centered Layout
+-----------------------------------------------------------------------------*/
+.container {
+	width: 100%;
+	padding-left: 6rem;
+	padding-right: 6rem;
+	@include mobile-only {
+		padding-left: 3rem;
+		padding-right: 3rem;
+	}
+}
+
+/* --------------------------------------------------------------------------
+Sticky Footer
+-----------------------------------------------------------------------------*/
+.cssgrid {
+	/* Add to the body element */
+	.site {
+		display: flex;
+		min-height: 100vh;
+		flex-direction: column;
+	}
+
+	/* Add to the main element (or whichever element includes your site content and not the footer) */
+	.site-content {
+		flex: 1;
+	}
+}
+
+/* --------------------------------------------------------------------------
+Clearfix helpers (for floats)
+-----------------------------------------------------------------------------*/
+.clearfix:after,
+.clearfix:before {
+	display: table;
+	content: " ";
+}
+
+.clearfix:after {
+	clear: both;
+}
+
+.clearer {
+	content: "";
+	display: table;
+	clear: both;
+}

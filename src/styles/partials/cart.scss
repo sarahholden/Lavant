@@ -1,0 +1,384 @@
+/* --------------------------------------------------------------------------
+  CART DRAWER
+-----------------------------------------------------------------------------*/
+.cart-drawer {
+  position: fixed;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  height: 100%;
+  width: 55rem;
+  z-index: 300;
+  background: white;
+  padding: 4.5rem 4rem;
+  font-size: 1.4rem;
+  transform: translateX(100%);
+  transition: all 0.3s ease-in-out 0.3s;
+  overflow: scroll;
+  a {}
+  .cart-inner {
+    opacity: 0;
+    transition: all 0.4s ease-in-out;
+  }
+}
+
+.close-cart-overlay {
+  opacity: 0.9;
+  position: fixed;
+  z-index: 290;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.5s ease-in-out 0.2s;
+}
+
+.open-cart {
+  @include tablet-up {
+    position: fixed;
+    overflow: hidden;
+    width: 100%;
+    .cart-drawer {
+      transform: none;
+      transition: all 0.4s ease-in-out 0.1s;
+    }
+    .cart-inner {
+      transition: all 0.4s ease-in-out 0.4s;
+      opacity: 1;
+    }
+
+    .close-cart-overlay {
+      opacity: 0.7;
+      visibility: visible;
+      transition: all 0.3s ease-in-out;
+    }
+  }
+}
+
+/* --------------------------------------------------------------------------
+    CART DRAWER - EMPTY CART
+-----------------------------------------------------------------------------*/
+.cart-drawer .empty-cart {
+  font-size: 2rem;
+  font-weight: 400;
+  font-style: italic;
+  margin-bottom: 2rem;
+}
+
+/* --------------------------------------------------------------------------
+  CART DRAWER - TOP ROW
+-----------------------------------------------------------------------------*/
+.cart-drawer .cart-inner .top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 4rem;
+  h2 {
+    text-transform: uppercase;
+    font-size: 1.6rem;
+    letter-spacing: 0.36rem;
+    margin-bottom: 0;
+  }
+  .close-cart-text {
+    text-transform: uppercase;
+    font-size: 1.2rem;
+    letter-spacing: 0.3rem;
+    margin-bottom: 0;
+  }
+}
+
+/* --------------------------------------------------------------------------
+    CART DRAWER - PRODUCTS
+-----------------------------------------------------------------------------*/
+.cart-drawer .cart-product-wrap {
+  display: flex;
+  margin-bottom: 3rem;
+  .cart-image {
+    width: 24rem;
+    padding-right: 3.2rem;
+  }
+  .info-col {
+    flex-grow: 1;
+  }
+  .desc {
+    max-width: 18rem;
+    font-size: 1.4rem;
+    margin-bottom: 1.2rem;
+  }
+  h3 {
+    letter-spacing: 0.38rem;
+    font-size: 1.6rem;
+    margin-bottom: 0;
+  }
+  .cart-title-price {
+    margin-bottom: 1.1rem;
+
+  }
+  .cart-quantity {
+    font-size: 1.4rem;
+
+    a {
+      display: inline-block;
+      padding-right: 0.6rem;
+      &:last-of-type {
+        padding-left: 0.6rem;
+      }
+    }
+
+  }
+  .cart-price {
+    font-size: 1.4rem;
+  }
+  .cart-remove {
+    letter-spacing: 0.14rem;
+    text-transform: uppercase;
+    display: flex;
+    width: 1rem;
+
+    img {
+      width: 100%;
+      display: block;
+    }
+  }
+
+}
+
+/* --------------------------------------------------------------------------
+  PRODUCTS
+-----------------------------------------------------------------------------*/
+.cart-drawer .footer-content {
+  margin-top: 4rem;
+  padding: 0;
+  @media only screen and (min-height: 780px) {
+    padding: 4.5rem 4rem;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+  }
+  .btn {
+    width: 100%;
+    text-align: center;
+  }
+  .cart-total-row {
+    margin-bottom: 0.6rem;
+  }
+  h6 {
+    font-size: 1.6rem;
+    letter-spacing: 0.12rem;
+  }
+  .shipping-note {
+    font-size: 1.6rem;
+    font-weight: 400;
+    font-style: italic;
+    margin-bottom: 2rem;
+  }
+}
+
+/* --------------------------------------------------------------------------
+  CART PAGE - GENERAL
+-----------------------------------------------------------------------------*/
+.page-cart {
+  @include mobile-only {
+    padding-top: 9rem;
+  }
+
+  a {}
+  h1 {
+    text-transform: uppercase;
+    font-size: 1.6rem;
+    letter-spacing: 0.36rem;
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 4rem;
+    @include mobile-only {
+      font-size: 1.4rem;
+      margin-bottom: 2.4rem;
+    }
+  }
+  .total-col {
+    @include tablet-up {
+      text-align: right;
+    }
+  }
+  .quantity-col {
+    @include tablet-up {
+      text-align: center;
+    }
+  }
+}
+
+.page-cart .empty-cart {
+  font-size: 2rem;
+  font-weight: 400;
+  font-style: italic;
+  margin-bottom: 2rem;
+  margin-top: 2rem;
+  text-align: center;
+  .continue-shopping {
+    margin-top: 1.2rem;
+
+  }
+}
+
+/* --------------------------------------------------------------------------
+  CART PAGE - TOP ROW
+-----------------------------------------------------------------------------*/
+.page-cart .top-row {
+  padding: 0 1.3rem 1.8rem 1.6rem;
+  h3 {
+    text-transform: uppercase;
+    font-size: 1.3rem;
+    letter-spacing: 0.3rem;
+    margin-bottom: 0;
+    &:last-of-type {
+      text-align: right;
+    }
+  }
+}
+/* --------------------------------------------------------------------------
+  CART PAGE - LINE ITEMS
+-----------------------------------------------------------------------------*/
+.page-cart .line-item-list {
+  @include tablet-up {
+    padding-top: 4.1rem;
+    margin-bottom: 4.2rem;
+  }
+}
+
+.page-cart .line-item {
+  padding: 0 1.3rem 3.6rem 1.6rem;
+  .cart-image {
+    img {
+      width: 100%;
+    }
+    @include mobile-only {
+      margin-bottom: 1.4rem;
+    }
+  }
+  .quantity-col,
+  .total-col {
+    font-size: 2rem;
+    letter-spacing: 0.08rem;
+    a {}
+    .subtract {
+      position: relative;
+      top: -.1rem;
+    }
+    @include mobile-only {
+      font-size: 1.4rem;
+    }
+  }
+  .remove {
+    text-transform: uppercase;
+    font-size: 1.4rem;
+    letter-spacing: 0.18rem;
+    transition: all 0.3s ease-in-out;
+    &:hover {
+      transform: translateY(2px);
+      display: block;
+
+    }
+  }
+}
+
+/* --------------------------------------------------------------------------
+  CART PAGE - LINE ITEM DETAILS
+-----------------------------------------------------------------------------*/
+.page-cart .details {
+  @include tablet-up {
+    display: flex;
+    align-items: center;
+  }
+
+  h2 {
+    text-transform: uppercase;
+    font-size: 2rem;
+    letter-spacing: 0.4rem;
+    margin-bottom: 2rem;
+    @include mobile-only {
+      margin-bottom: 1rem;
+      font-size: 1.4rem;
+    }
+  }
+  .desc {
+    margin-bottom: 1.8rem;
+    max-width: 20rem;
+    font-size: 1.5rem;
+    line-height: 1.4;
+    @include mobile-only {
+      font-size: 1rem;
+      margin-bottom: 1.2rem;
+    }
+  }
+
+}
+/* --------------------------------------------------------------------------
+  CART PAGE - BOTTOM Row
+-----------------------------------------------------------------------------*/
+.page-cart .continue-shopping {
+  // Also used on empty cart state
+  text-transform: uppercase;
+  font-size: 1.3rem;
+  letter-spacing: 0.4rem;
+  margin-bottom: 0;
+  padding-top: 0.6rem;
+  display: block;
+  font-style: normal;
+  @include mobile-only {
+    font-size: 1.1rem;
+    text-align: right;
+    margin-bottom: 1rem;
+  }
+
+  .left-arrow {
+    display: inline-block;
+    width: 3.3rem;
+    position: relative;
+    top: 0.2rem;
+    margin-right: 1.2rem;
+    transition: all 0.3s ease-in-out;
+  }
+  &:hover {
+    .left-arrow {
+      transform: translateX(-4px);
+    }
+  }
+}
+
+.page-cart .bottom-row {
+  padding: 0 1.3rem 0 1.6rem;
+  @include mobile-only {
+    display: block;
+    border-top: $border;
+    padding-top: 2rem;
+  }
+
+  .cart-total {
+    text-align: right;
+    @include mobile-only {
+      text-align: center;
+    }
+    h4 {
+      margin-bottom: 1.2rem;
+      font-size: 2rem;
+      @include mobile-only {
+        font-size: 1.6rem;
+        margin-bottom: 0.8rem;
+      }
+    }
+    .shipping-note {
+      font-size: 2rem;
+      font-weight: 400;
+      font-style: italic;
+      margin-bottom: 2.4rem;
+      @include mobile-only {
+        font-size: 1.6rem;
+        margin-bottom: 1.4rem;
+      }
+    }
+  }
+
+}
