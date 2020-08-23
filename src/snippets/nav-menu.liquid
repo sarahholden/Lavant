@@ -1,6 +1,6 @@
-<nav role="navigation">
+<nav role="navigation" class="{{ class_name }}">
   <ul>
-    {% for link in linklists[section.settings.main_linklist].links %}
+    {% for link in linklists[current_menu].links %}
       {% if link.links != blank %}
         <li>
           <a href="{{ link.url }}">{{ link.title | escape }}</a>

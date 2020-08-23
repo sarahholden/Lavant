@@ -1,30 +1,35 @@
 <div data-section-id="{{ section.id }}" data-section-type="header-section">
-  <div class="nav-wrapper" role="banner">
-
-    <div class="container">
+  <div class="nav-wrapper-placeholder">
+    <div class="nav-wrapper container" role="banner">
       <!--   LOGO   -->
       {%- include 'nav-logo' -%}
 
-      <!--   NAV   -->
-      {%- include 'nav-menu' -%}
+      <div class="inner nav-flyout">
 
-      <!-- SEARCH -->
+        <!--   NAV   -->
+        {%- include 'nav-menu', current_menu: section.settings.main_linklist, class_name: 'left-nav' -%}
 
-      {%- include 'nav-search' -%}
+        <div class="right-nav">
+          <!--   NAV   -->
+          {%- include 'nav-menu', current_menu: section.settings.main_linklist_right -%}
 
-      <!-- ACCOUNT LINKS -->
-      {% if shop.customer_accounts_enabled %}
-        {%- include 'nav-account-links' -%}
-      {% endif %}
+          <div class="hide-mobile">
+            <!--   CART   -->
+            {%- include 'nav-cart-link' -%}
+          </div>
+        </div>
+      </div>
 
-      <!--   CART   -->
-      {%- include 'nav-cart-link' -%}
-    </div>
+      <div class="mobile-cart-link show-mobile">
+        <!--   CART   -->
+        {%- include 'nav-cart-link' -%}
+      </div>
+      <div class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
 
-    <div class="hamburger">
-      <span></span>
-      <span></span>
-      <span></span>
     </div>
 
   </div>
@@ -41,9 +46,15 @@
       {
         "type": "link_list",
         "id": "main_linklist",
-        "label": "Menu",
+        "label": "Right Menu",
         "default": "main-menu"
+      },
+      {
+        "type": "link_list",
+        "id": "main_linklist_right",
+        "label": "Right Menu"
       }
+
     ]
   }
 {% endschema %}

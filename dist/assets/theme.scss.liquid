@@ -614,7 +614,6 @@ h4 {
   letter-spacing: 0.59px;
   text-align: center;
   line-height: 24px;
-
 }
 
 /* --------------------------------------------------------------------------
@@ -1029,18 +1028,69 @@ Body Open Mobile Nav Styles
 -----------------------------------------------------------------------------*/
 .open-mobile-nav {
   /* Prevent the body from scrolling under the mobile navigation */
-  position: fixed;
-  overflow: hidden;
+  // position: fixed;
+  // overflow: hidden;
+}
+
+/* --------------------------------------------------------------------------
+  NAV WRAPPER STYLES
+-----------------------------------------------------------------------------*/
+.nav-wrapper {
+  background: white;
+  padding-top: 4.8rem;
+  padding-bottom: 4.1rem;
+  position: relative;
+  transition: $smoothTransition;
+  &.loaded {
+    position: fixed;
+  }
+  @include tablet-up {
+    .inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+    }
+  }
+}
+
+/* --------------------------------------------------------------------------
+  LOGO WrAPPER
+-----------------------------------------------------------------------------*/
+.nav-wrapper .logo-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 19.3rem;
+  transition: $smoothTransition;
+  @include mobile-only {
+    width: 10rem;
+  }
 }
 
 /* --------------------------------------------------------------------------
 Header Navigation Styles
 -----------------------------------------------------------------------------*/
 .nav-wrapper nav {
-  a,
-  a:visited {
+  ul {
+    @include tablet-up {
+      display: flex;
+      align-items: center;
+    }
+  }
+  li {
+    line-height: 1;
+  }
+  a {
+    font-family: $proxima;
+    font-size: 1.3rem;
+    color: #000000;
+    letter-spacing: 0.2rem;
+    line-height: 1;
     color: $primaryAnchorColor;
-    margin-left: 1.8rem;
+    text-transform: uppercase;
+
   }
   a:hover {
     color: darken($primaryAnchorColor, 20%);
@@ -1049,30 +1099,59 @@ Header Navigation Styles
     /* Styles for the currently active link */
 
   }
+}
 
+/* LEFT NAV ================== */
+.nav-wrapper .left-nav {
+  @include tablet-up {
+    a {
+      padding-right: 3rem;
+    }
+  }
+}
+
+/* RIGHT NAV ================== */
+.nav-wrapper .right-nav {
+  @include tablet-up {
+    a {
+      padding-left: 3rem;
+    }
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    text-align: right;
+  }
+}
+
+.nav-wrapper.scrolled {
+  position: fixed;
+  z-index: 100;
+  padding-top: 2.8rem;
+  padding-bottom: 2.1rem;
+  .logo-wrapper {
+    width: 12rem;
+  }
 }
 
 /* ==============   MOBILE NAV STYLES  ============== */
 @include mobile-only {
-  .nav-wrapper nav {
+  .nav-wrapper .nav-flyout {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(255, 255, 255, .95);
+    background-color: $lightGreyBg;
     opacity: 0;
     visibility: hidden;
     transition: all 0.3s ease-in-out;
     z-index: 200;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    padding-left: 3rem;
+    padding-top: 10rem;
     a {
       display: block;
       margin: 0;
-      font-size: 2rem;
+      font-size: 1.6rem;
       line-height: 2;
     }
   }
@@ -1080,7 +1159,7 @@ Header Navigation Styles
 
 /* ==============   OPEN MOBILE NAV  ============== */
 .open-mobile-nav {
-  .nav-wrapper nav {
+  .nav-flyout {
     /* Styles for when the user clicks the hamburger icon */
     opacity: 1;
     visibility: visible;
@@ -1094,8 +1173,8 @@ Hamburger Icon styles
   width: 3rem;
   height: 1.5rem;
   position: absolute;
-  right: 3rem;
-  top: 1.5rem;
+  left: 2.5rem;
+  top: 3rem;
   display: none;
   z-index: 201;
   cursor: pointer;
@@ -1122,7 +1201,7 @@ Hamburger Icon styles
 @include mobile-only {
   .hamburger {
     display: block;
-    position: fixed;
+    position: absolute;
   }
 }
 
@@ -1148,8 +1227,40 @@ Hamburger Icon styles
 
 /* ==============   CART ICON  ============== */
 .nav-wrapper .cart-icon-wrapper {
-  width: 3rem;
+  width: 3.2rem;
   display: block;
+  font-family: $proxima;
+  font-size: 1.4rem;
+  letter-spacing: 0.283rem;
+  text-align: center;
+  line-height: 1;
+  position: relative;
+  @include tablet-up {
+    margin-left: 3rem;
+    padding: 0 !important;
+  }
+  span {
+    display: inline-block;
+  }
+  &::before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 3.2rem;
+    height: 3.2rem;
+    border-radius: 50%;
+    border: 1px solid #595959;
+    pointer-events: none;
+  }
+}
+
+.mobile-cart-link {
+  position: absolute;
+  right: 2rem;
+  top: 3rem;
 }
 
 /* --------------------------------------------------------------------------
@@ -1178,13 +1289,18 @@ footer nav {
 }
 
 /* --------------------------------------------------------------------------
-LK Site Credit
+Site Credit
 -----------------------------------------------------------------------------*/
 .site-credit {
-  font-size: 1.2rem;
-  text-transform: uppercase;
-  display: block;
-  text-align: right;
+	font-size: 1.2rem;
+	text-transform: uppercase;
+	display: block;
+	text-align: right;
+}
+
+#insta-feed a,
+.instafeed-shopify a {
+	z-index: 10 !important;
 }
 
 

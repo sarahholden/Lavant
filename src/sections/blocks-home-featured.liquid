@@ -1,0 +1,58 @@
+
+
+{% if section.settings.heading != blank %}
+  <h2>{{ section.settings.heading | newline_to_br }}</h2>
+{% endif %}
+
+
+{% schema %}
+  {
+    "name": "Home Featured",
+    "settings": [
+      {
+        "id": "heading",
+        "type": "textarea",
+        "label": "Heading",
+        "default": "Featured in"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "press_logo",
+        "name": "Press Logo",
+        "settings": [
+          {
+            "id": "title",
+            "type": "text",
+            "label": "Publication",
+            "info": "For SEO and ADA"
+          },
+          {
+            "id": "link",
+            "type": "url",
+            "label": "Link"
+          },
+          {
+            "id": "image",
+            "type": "image_picker",
+            "label": "Logo"
+          },
+          {
+            "id": "image_alt",
+            "type": "text",
+            "label": "Logo Alt",
+            "info": "Write a brief description of this image to improve search engine optimization (SEO) and ADA accessibility."
+          }
+
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Home Featured In",
+        "category": "Press"
+      }
+    ]
+  }
+
+{% endschema %}

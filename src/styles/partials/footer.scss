@@ -13,11 +13,16 @@ footer nav {
 }
 
 /* --------------------------------------------------------------------------
-LK Site Credit
+Site Credit
 -----------------------------------------------------------------------------*/
 .site-credit {
-  font-size: 1.2rem;
-  text-transform: uppercase;
-  display: block;
-  text-align: right;
+	font-size: 1.2rem;
+	text-transform: uppercase;
+	display: block;
+	text-align: right;
+}
+
+#insta-feed a,
+.instafeed-shopify a {
+	z-index: 10 !important;
 }

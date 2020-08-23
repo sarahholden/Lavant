@@ -1167,6 +1167,28 @@ $(document).ready(function() {
   /* ---------------------------------------------
     NAV FIXED WHEN SCROLLING UP
   ------------------------------------------------ */
+  var navbarHeight = $('.nav-wrapper').innerHeight();
+  $('.nav-wrapper-placeholder').css('height', navbarHeight + 'px');
+  $('.nav-wrapper').addClass('loaded');
+
+  $(window).on('scroll', function () {
+    if ($(window).scrollTop() > 100) {
+      $('.nav-wrapper').addClass('scrolled');
+    } else {
+      $('.nav-wrapper').removeClass('scrolled');
+
+    }
+
+  });
+
+  $(window).on('resize', function () {
+    navbarHeight = $('.nav-wrapper').innerHeight();
+    $('.nav-wrapper-placeholder').css('height', navbarHeight + 'px');
+
+  });
+
+
+
   // if ($(window).scrollTop() < 30) {
   //   $('.nav-wrapper').addClass('loaded');
   // }
