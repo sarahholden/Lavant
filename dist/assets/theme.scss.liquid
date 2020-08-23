@@ -1511,17 +1511,22 @@ Validation
 -----------------------------------------------------------------------------*/
 .validation-wrapper {
 	position: relative;
-	margin-bottom: 40px;
+	transition: all 0.3s ease;
+	// margin-bottom: 40px;
 	@include mobile-only {
-		margin-bottom: 30px;
+		// margin-bottom: 30px;
+	}
+	&.has-error {
+		padding-bottom: 2rem;
 	}
 }
 .error {
 	font-size: 1.1rem;
 	margin-top: 0;
 	position: absolute;
-	bottom: -16px;
+	bottom: -.6rem;
 	transform: translateY(100%);
+
 }
 
 .thanks {
@@ -1570,6 +1575,7 @@ button {
 }
 
 .btn--black {
+  display: inline-block;
   background: black;
   color: white;
   padding: 1.5rem 3.8rem;
@@ -2366,6 +2372,7 @@ $selectric-font-size: 12px !default; // Font size
     transition: all 1s ease-in-out;
     &.fade-in {
       opacity: 1;
+      transform: none;
     }
   }
 }

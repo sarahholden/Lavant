@@ -1,0 +1,101 @@
+<script type="text/javascript">
+
+  /* ---------------------------------------------
+  Form Submission Data
+  ------------------------------------------------ */
+  function getFormData () {
+    var formData = {};
+
+    // 👋🏻  TODO: Add any additional form fields to the formData object here!
+    // These will be passed to includes/scripts/form_submissions.php
+    formData.full_name = $('#ContactFormName').val();
+    formData.email = $('#ContactFormEmail').val();
+    formData.email = $('#ContactFormPhone').val();
+    formData.message = $('#ContactFormMessage').val();
+
+    return formData;
+  }
+
+
+  /* ---------------------------------------------
+  Form Submissions
+  ------------------------------------------------ */
+  var invalid = 0;
+
+  function checkField (field) {
+    var userInput = field.val();
+    field.siblings('p').remove();
+    if (field.prop('required') && userInput === '') {
+      field.after('<p class="error">Please fill in the field before continuing.</p>');
+      field.closest('.validation-wrapper').addClass('has-error');
+      invalid++;
+      return false;
+    } else if (field.attr('type') === 'email' && !(/(.+)@(.+){2,}\.(.+){2,}/.test(userInput))) {
+      field.after('<p class="error">Please enter a valid email address.</p>');
+      invalid++;
+      return false;
+    } else {
+      field.closest('.validation-wrapper').removeClass('has-error');
+    }
+    return true;
+  }
+
+  function checkAllFields() {
+    invalid = 0;
+    $('.error').remove();
+    $('#contact_form input, #contact_form textarea').each(function () {
+      checkField($(this));
+    });
+
+    if (invalid > 0) {
+      return false;
+    }
+
+    return true;
+  }
+
+  $('#contact_form input, #contact_form textarea').on('blur', function () {
+    checkField($(this));
+  });
+
+  /* ---------------------------------------------
+  Form Submit
+  ------------------------------------------------ */
+  $('#contact_form').on('submit', function (e) {
+    debugger;
+    e.preventDefault();
+
+
+
+    // First check to make sure all required fields are filled out
+    if (checkAllFields()){
+
+      // Get form data
+      var formData = getFormData();
+
+      $('.error').fadeOut();
+
+      var $form = $(this);
+      jQuery.ajax({
+        type: 'POST',
+        async: true,
+        url: '/contact',
+        data: $form.serialize(),
+        beforeSend: function() {
+          $form.addClass('sending');
+        },
+        error: function(t) {
+          console.log(t);
+          $form.addClass('sent');
+        },
+        success: function(response) {
+            event.preventDefault();
+            $form.addClass('sent');
+            $form.find('.form-success').fadeIn();
+        }
+      });
+    }
+  });
+
+
+</script>

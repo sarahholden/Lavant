@@ -46,17 +46,22 @@ Validation
 -----------------------------------------------------------------------------*/
 .validation-wrapper {
 	position: relative;
-	margin-bottom: 40px;
+	transition: all 0.3s ease;
+	// margin-bottom: 40px;
 	@include mobile-only {
-		margin-bottom: 30px;
+		// margin-bottom: 30px;
+	}
+	&.has-error {
+		padding-bottom: 2rem;
 	}
 }
 .error {
 	font-size: 1.1rem;
 	margin-top: 0;
 	position: absolute;
-	bottom: -16px;
+	bottom: -.6rem;
 	transform: translateY(100%);
+
 }
 
 .thanks {

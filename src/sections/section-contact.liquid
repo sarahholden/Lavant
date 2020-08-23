@@ -11,8 +11,8 @@
       {% endif %}
     </header>
 
-    <div class="contact-form list-animation-wrapper" >
-      {% form 'contact' %}
+    <div class="list-animation-wrapper" >
+      <form method="post" action="/contact#contact_form" id="contact_form" accept-charset="UTF-8" class="contact-form" novalidate>
 
         {% if form.posted_successfully? %}
           <p class="form-success">
@@ -22,59 +22,72 @@
 
         {{ form.errors | default_errors }}
 
-        <label class="visually-hidden" for="ContactFormName">{{ 'contact.form.name' | t }}</label>
-        <input type="text"
-          required
-          name="contact[name]"
-          id="ContactFormName"
-          placeholder="{{ 'contact.form.name' | t }}"
-          value="{% if form[name] %}{{ form[name] }}{% elsif customer %}{{ customer.name }}{% endif %}"
-          class="animate-item">
+        <div class="validation-wrapper animate-item">
+          <label class="visually-hidden" for="ContactFormName">{{ 'contact.form.name' | t }}</label>
+          <input type="text"
+            required
+            name="contact[name]"
+            id="ContactFormName"
+            placeholder="{{ 'contact.form.name' | t }}"
+            value="{% if form[name] %}{{ form[name] }}{% elsif customer %}{{ customer.name }}{% endif %}"
+            >
+        </div>
+        <div class="validation-wrapper animate-item">
+          <label class="visually-hidden" for="ContactFormEmail">{{ 'contact.form.email' | t }}</label>
+          <input type="email"
+            required
+            name="contact[email]"
+            id="ContactFormEmail"
+            placeholder="{{ 'contact.form.email' | t }}"
+            value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
+            spellcheck="false"
+            autocomplete="off"
+            autocapitalize="off"
+            >
 
-        <label class="visually-hidden" for="ContactFormEmail">{{ 'contact.form.email' | t }}</label>
-        <input type="email"
-          required
-          name="contact[email]"
-          id="ContactFormEmail"
-          placeholder="{{ 'contact.form.email' | t }}"
-          value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
-          spellcheck="false"
-          autocomplete="off"
-          autocapitalize="off"
-          class="animate-item">
-
-        <label class="visually-hidden" for="ContactFormPhone">{{ 'contact.form.phone' | t }}</label>
-        <input type="tel"
-          name="contact[phone]"
-          id="ContactFormPhone"
-          placeholder="{{ 'contact.form.phone' | t }}"
-          value="{% if form[phone] %}{{ form.phone }}{% elsif customer %}{{ customer.phone }}{% endif %}"
-          pattern="[0-9\-]*"
-          class="animate-item">
-
-        <label class="visually-hidden" for="ContactFormMessage">{{ 'contact.form.message' | t }}</label>
-        <textarea rows="10"
-          required
-          name="contact[body]"
-          id="ContactFormMessage"
-          placeholder="{{ 'contact.form.message' | t }}"
-          class="animate-item">
-          {%- if form.body -%}
-            {{- form.body -}}
-          {%- endif -%}
-        </textarea>
-
+        </div>
+        <div class="validation-wrapper animate-item">
+          <label class="visually-hidden" for="ContactFormPhone">{{ 'contact.form.phone' | t }}</label>
+          <input type="tel"
+            name="contact[phone]"
+            id="ContactFormPhone"
+            placeholder="{{ 'contact.form.phone' | t }}"
+            value="{% if form[phone] %}{{ form.phone }}{% elsif customer %}{{ customer.phone }}{% endif %}"
+            pattern="[0-9\-]*"
+            >
+        </div>
+        <div class="validation-wrapper animate-item">
+          <label class="visually-hidden" for="ContactFormMessage">{{ 'contact.form.message' | t }}</label>
+          <textarea rows="10"
+            required
+            name="contact[body]"
+            id="ContactFormMessage"
+            placeholder="{{ 'contact.form.message' | t }}"
+            >
+            {%- if form.body -%}
+              {{- form.body -}}
+            {%- endif -%}
+          </textarea>
+        </div>
         <div class="btn-row animate-item">
           <button type="submit" class="btn btn--black">Send</button>
         </div>
 
-      {% endform %}
+      </form>
     </div>
 
   </div>
 </section>
 
-<script type="text/javascript">
+<div class="thanks">
+  <h1>Thank you for reaching out!</h1>
+  <p>We will get in touch soon.</p>
+
+</div>
+
+{%- include 'form-submission' -%}
+
+<!-- <script type="text/javascript">
 $(function() {
 
   $('.contact-form form').submit(function(e) {
@@ -104,7 +117,7 @@ $(function() {
   });
 
 });
-</script>
+</script> -->
 
 {% schema %}
 {
