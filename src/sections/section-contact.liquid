@@ -1,0 +1,126 @@
+<section class="container padded">
+  <div class="inner">
+    <header data-trigger="scroll">
+      {% if section.settings.heading != blank %}
+        <h1 data-reveal="lines-masked">{{ section.settings.heading | newline_to_br }}</h1>
+      {% endif %}
+      {% if section.settings.desc != blank %}
+        <div class="desc" data-anim="slide" data-anim-order="3">
+          {{ section.settings.desc }}
+        </div>
+      {% endif %}
+    </header>
+
+    <div class="contact-form list-animation-wrapper" >
+      {% form 'contact' %}
+
+        {% if form.posted_successfully? %}
+          <p class="form-success">
+            {{ 'contact.form.post_success' | t }}
+          </p>
+        {% endif %}
+
+        {{ form.errors | default_errors }}
+
+        <label class="visually-hidden" for="ContactFormName">{{ 'contact.form.name' | t }}</label>
+        <input type="text"
+          required
+          name="contact[name]"
+          id="ContactFormName"
+          placeholder="{{ 'contact.form.name' | t }}"
+          value="{% if form[name] %}{{ form[name] }}{% elsif customer %}{{ customer.name }}{% endif %}"
+          class="animate-item">
+
+        <label class="visually-hidden" for="ContactFormEmail">{{ 'contact.form.email' | t }}</label>
+        <input type="email"
+          required
+          name="contact[email]"
+          id="ContactFormEmail"
+          placeholder="{{ 'contact.form.email' | t }}"
+          value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
+          spellcheck="false"
+          autocomplete="off"
+          autocapitalize="off"
+          class="animate-item">
+
+        <label class="visually-hidden" for="ContactFormPhone">{{ 'contact.form.phone' | t }}</label>
+        <input type="tel"
+          name="contact[phone]"
+          id="ContactFormPhone"
+          placeholder="{{ 'contact.form.phone' | t }}"
+          value="{% if form[phone] %}{{ form.phone }}{% elsif customer %}{{ customer.phone }}{% endif %}"
+          pattern="[0-9\-]*"
+          class="animate-item">
+
+        <label class="visually-hidden" for="ContactFormMessage">{{ 'contact.form.message' | t }}</label>
+        <textarea rows="10"
+          required
+          name="contact[body]"
+          id="ContactFormMessage"
+          placeholder="{{ 'contact.form.message' | t }}"
+          class="animate-item">
+          {%- if form.body -%}
+            {{- form.body -}}
+          {%- endif -%}
+        </textarea>
+
+        <div class="btn-row animate-item">
+          <button type="submit" class="btn btn--black">Send</button>
+        </div>
+
+      {% endform %}
+    </div>
+
+  </div>
+</section>
+
+<script type="text/javascript">
+$(function() {
+
+  $('.contact-form form').submit(function(e) {
+    e.preventDefault();
+
+
+    var $form = $(this);
+    jQuery.ajax({
+      type: 'POST',
+      async: true,
+      url: '/contact',
+      data: $form.serialize(),
+      beforeSend: function() {
+        $form.addClass('sending');
+      },
+      error: function(t) {
+        console.log(t);
+        $form.addClass('sent');
+      },
+      success: function(response) {
+          event.preventDefault();
+          $form.addClass('sent');
+          $form.find('.form-success').fadeIn();
+      }
+    });
+
+  });
+
+});
+</script>
+
+{% schema %}
+{
+  "name": "Contact Content",
+  "class": "form-page",
+  "settings": [
+    {
+      "id": "heading",
+      "type": "text",
+      "label": "Heading"
+    },
+    {
+      "id": "desc",
+      "type": "richtext",
+      "label": "Description"
+    }
+  ]
+}
+{% endschema %}

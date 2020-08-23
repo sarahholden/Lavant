@@ -148,3 +148,95 @@ Deploy complete @ Sat Aug 22 2020 22:45:33 GMT-0700 (Pacific Daylight Time). add
 Deploy complete @ Sat Aug 22 2020 22:46:01 GMT-0700 (Pacific Daylight Time). added/changed 1 file(s): assets/theme.scss.liquid.
 Deploy complete @ Sat Aug 22 2020 22:46:31 GMT-0700 (Pacific Daylight Time). added/changed 1 file(s): assets/theme.scss.liquid.
 Deploy complete @ Sat Aug 22 2020 22:47:12 GMT-0700 (Pacific Daylight Time). added/changed 1 file(s): assets/theme.scss.liquid.
+Deploy complete @ Sat Aug 22 2020 22:50:36 GMT-0700 (Pacific Daylight Time). added/changed 1 file(s): templates/page.contact.liquid.
+Deploy complete @ Sat Aug 22 2020 22:50:38 GMT-0700 (Pacific Daylight Time). added/changed 1 file(s): sections/section-contact.liquid.
+Deploy error @ Sat Aug 22 2020 22:51:34 GMT-0700 (Pacific Daylight Time). added/changed 1 file(s): sections/section-contact.liquid.
+22:51:34 [development]Asset Perform Update to sections/section-contact.liquid at host lavant-collective.myshopify.com
+	Status: 422 Unprocessable Entity
+	Errors: Invalid schema: class can't be blank
+		Invalid block '': type can't be blank
+		Invalid block '': name can't be blank
+		Invalid block '': setting with id="title" label can't be blank
+ 
+Deploy error @ Sat Aug 22 2020 22:51:53 GMT-0700 (Pacific Daylight Time). added/changed 1 file(s): sections/section-contact.liquid.
+22:51:53 [development]Asset Perform Update to sections/section-contact.liquid at host lavant-collective.myshopify.com
+	Status: 422 Unprocessable Entity
+	Errors: Invalid block '': type can't be blank
+		Invalid block '': name can't be blank
+		Invalid block '': setting with id="title" label can't be blank
+ 
+Deploy complete @ Sat Aug 22 2020 22:52:05 GMT-0700 (Pacific Daylight Time). added/changed 1 file(s): sections/section-contact.liquid.
+Deploy complete @ Sat Aug 22 2020 22:52:45 GMT-0700 (Pacific Daylight Time). added/changed 1 file(s): templates/page.contact.liquid.
+Deploy complete @ Sat Aug 22 2020 22:53:28 GMT-0700 (Pacific Daylight Time). added/changed 1 file(s): sections/section-contact.liquid.
+Deploy complete @ Sat Aug 22 2020 22:53:38 GMT-0700 (Pacific Daylight Time). added/changed 1 file(s): sections/section-contact.liquid.
+Deploy complete @ Sat Aug 22 2020 22:53:45 GMT-0700 (Pacific Daylight Time). added/changed 1 file(s): sections/section-contact.liquid.
+Deploy complete @ Sat Aug 22 2020 22:54:12 GMT-0700 (Pacific Daylight Time). added/changed 1 file(s): sections/section-contact.liquid.
+Deploy complete @ Sat Aug 22 2020 22:54:25 GMT-0700 (Pacific Daylight Time). added/changed 1 file(s): assets/theme.scss.liquid.
+Deploy complete @ Sat Aug 22 2020 22:54:51 GMT-0700 (Pacific Daylight Time). added/changed 1 file(s): assets/theme.scss.liquid.
+Deploy complete @ Sat Aug 22 2020 22:55:10 GMT-0700 (Pacific Daylight Time). added/changed 1 file(s): assets/theme.scss.liquid.
+Deploy complete @ Sat Aug 22 2020 22:56:12 GMT-0700 (Pacific Daylight Time). added/changed 1 file(s): sections/section-contact.liquid.
+Deploy complete @ Sat Aug 22 2020 22:56:16 GMT-0700 (Pacific Daylight Time). added/changed 1 file(s): sections/section-contact.liquid.
+Deploy complete @ Sat Aug 22 2020 22:56:23 GMT-0700 (Pacific Daylight Time). added/changed 1 file(s): sections/section-contact.liquid.
+Deploy complete @ Sat Aug 22 2020 22:56:44 GMT-0700 (Pacific Daylight Time). added/changed 1 file(s): assets/theme.scss.liquid.
+Deploy complete @ Sat Aug 22 2020 22:57:00 GMT-0700 (Pacific Daylight Time). added/changed 1 file(s): sections/section-contact.liquid.
+Deploy complete @ Sat Aug 22 2020 22:57:02 GMT-0700 (Pacific Daylight Time). added/changed 1 file(s): sections/section-contact.liquid.
+Deploy complete @ Sat Aug 22 2020 22:57:12 GMT-0700 (Pacific Daylight Time). added/changed 1 file(s): assets/theme.scss.liquid.
+Deploy complete @ Sat Aug 22 2020 22:58:12 GMT-0700 (Pacific Daylight Time). added/changed 1 file(s): assets/theme.scss.liquid.
+Deploy complete @ Sat Aug 22 2020 22:58:24 GMT-0700 (Pacific Daylight Time). added/changed 1 file(s): assets/theme.scss.liquid.
+Deploy complete @ Sat Aug 22 2020 22:58:26 GMT-0700 (Pacific Daylight Time). added/changed 1 file(s): assets/theme.scss.liquid.
+Deploy complete @ Sat Aug 22 2020 22:58:43 GMT-0700 (Pacific Daylight Time). added/changed 1 file(s): assets/theme.scss.liquid.
+Deploy complete @ Sat Aug 22 2020 22:58:52 GMT-0700 (Pacific Daylight Time). added/changed 1 file(s): assets/theme.scss.liquid.
+Deploy complete @ Sat Aug 22 2020 22:59:12 GMT-0700 (Pacific Daylight Time). added/changed 1 file(s): sections/section-contact.liquid.
+Deploy complete @ Sat Aug 22 2020 23:00:02 GMT-0700 (Pacific Daylight Time). added/changed 1 file(s): assets/theme.scss.liquid.
+Deploy complete @ Sat Aug 22 2020 23:00:21 GMT-0700 (Pacific Daylight Time). added/changed 1 file(s): assets/theme.scss.liquid.
+Deploy complete @ Sat Aug 22 2020 23:00:29 GMT-0700 (Pacific Daylight Time). added/changed 1 file(s): assets/theme.scss.liquid.
+Deploy complete @ Sat Aug 22 2020 23:00:32 GMT-0700 (Pacific Daylight Time). added/changed 1 file(s): assets/theme.scss.liquid.
+Deploy complete @ Sat Aug 22 2020 23:00:51 GMT-0700 (Pacific Daylight Time). added/changed 1 file(s): assets/theme.scss.liquid.
+Deploy complete @ Sat Aug 22 2020 23:01:01 GMT-0700 (Pacific Daylight Time). added/changed 1 file(s): assets/theme.scss.liquid.
+Deploy complete @ Sat Aug 22 2020 23:01:25 GMT-0700 (Pacific Daylight Time). added/changed 1 file(s): assets/theme.scss.liquid.
+Deploy complete @ Sat Aug 22 2020 23:01:44 GMT-0700 (Pacific Daylight Time). added/changed 1 file(s): assets/theme.scss.liquid.
+Deploy complete @ Sat Aug 22 2020 23:01:56 GMT-0700 (Pacific Daylight Time). added/changed 1 file(s): assets/theme.scss.liquid.
+Deploy complete @ Sat Aug 22 2020 23:02:05 GMT-0700 (Pacific Daylight Time). added/changed 1 file(s): assets/theme.scss.liquid.
+Deploy complete @ Sat Aug 22 2020 23:02:09 GMT-0700 (Pacific Daylight Time). added/changed 1 file(s): assets/theme.scss.liquid.
+Deploy complete @ Sat Aug 22 2020 23:02:15 GMT-0700 (Pacific Daylight Time). added/changed 1 file(s): assets/theme.scss.liquid.
+Deploy complete @ Sat Aug 22 2020 23:02:34 GMT-0700 (Pacific Daylight Time). added/changed 1 file(s): assets/theme.scss.liquid.
+Deploy complete @ Sat Aug 22 2020 23:02:50 GMT-0700 (Pacific Daylight Time). added/changed 1 file(s): assets/theme.scss.liquid.
+Deploy complete @ Sat Aug 22 2020 23:03:04 GMT-0700 (Pacific Daylight Time). added/changed 1 file(s): assets/theme.scss.liquid.
+Deploy complete @ Sat Aug 22 2020 23:03:45 GMT-0700 (Pacific Daylight Time). added/changed 1 file(s): assets/theme.scss.liquid.
+Deploy complete @ Sat Aug 22 2020 23:04:10 GMT-0700 (Pacific Daylight Time). added/changed 1 file(s): assets/theme.scss.liquid.
+Deploy complete @ Sat Aug 22 2020 23:04:16 GMT-0700 (Pacific Daylight Time). added/changed 1 file(s): sections/section-contact.liquid.
+Deploy complete @ Sat Aug 22 2020 23:04:21 GMT-0700 (Pacific Daylight Time). added/changed 1 file(s): sections/section-contact.liquid.
+Deploy complete @ Sat Aug 22 2020 23:04:27 GMT-0700 (Pacific Daylight Time). added/changed 1 file(s): sections/section-contact.liquid.
+Deploy complete @ Sat Aug 22 2020 23:04:29 GMT-0700 (Pacific Daylight Time). added/changed 1 file(s): sections/section-contact.liquid.
+Deploy complete @ Sat Aug 22 2020 23:04:56 GMT-0700 (Pacific Daylight Time). added/changed 1 file(s): assets/theme.scss.liquid.
+Deploy complete @ Sat Aug 22 2020 23:05:12 GMT-0700 (Pacific Daylight Time). added/changed 1 file(s): assets/theme.scss.liquid.
+Deploy complete @ Sat Aug 22 2020 23:05:36 GMT-0700 (Pacific Daylight Time). added/changed 1 file(s): assets/theme.scss.liquid.
+Deploy complete @ Sat Aug 22 2020 23:05:40 GMT-0700 (Pacific Daylight Time). added/changed 1 file(s): assets/theme.scss.liquid.
+Deploy complete @ Sat Aug 22 2020 23:06:16 GMT-0700 (Pacific Daylight Time). added/changed 1 file(s): assets/theme.scss.liquid.
+Deploy complete @ Sat Aug 22 2020 23:06:35 GMT-0700 (Pacific Daylight Time). added/changed 1 file(s): assets/theme.scss.liquid.
+Deploy complete @ Sat Aug 22 2020 23:06:42 GMT-0700 (Pacific Daylight Time). added/changed 1 file(s): assets/theme.scss.liquid.
+Deploy complete @ Sat Aug 22 2020 23:06:55 GMT-0700 (Pacific Daylight Time). added/changed 1 file(s): assets/theme.scss.liquid.
+Deploy complete @ Sat Aug 22 2020 23:07:02 GMT-0700 (Pacific Daylight Time). added/changed 1 file(s): assets/theme.scss.liquid.
+Deploy complete @ Sat Aug 22 2020 23:07:10 GMT-0700 (Pacific Daylight Time). added/changed 1 file(s): assets/theme.scss.liquid.
+Deploy complete @ Sat Aug 22 2020 23:07:29 GMT-0700 (Pacific Daylight Time). added/changed 1 file(s): assets/theme.scss.liquid.
+Deploy complete @ Sat Aug 22 2020 23:08:00 GMT-0700 (Pacific Daylight Time). added/changed 1 file(s): sections/section-contact.liquid.
+Deploy complete @ Sat Aug 22 2020 23:08:16 GMT-0700 (Pacific Daylight Time). added/changed 1 file(s): assets/theme.scss.liquid.
+Deploy complete @ Sat Aug 22 2020 23:08:30 GMT-0700 (Pacific Daylight Time). added/changed 1 file(s): assets/theme.scss.liquid.
+Deploy complete @ Sat Aug 22 2020 23:08:50 GMT-0700 (Pacific Daylight Time). added/changed 1 file(s): sections/section-contact.liquid.
+Deploy complete @ Sat Aug 22 2020 23:09:18 GMT-0700 (Pacific Daylight Time). added/changed 1 file(s): assets/theme.scss.liquid.
+Deploy complete @ Sat Aug 22 2020 23:09:50 GMT-0700 (Pacific Daylight Time). added/changed 1 file(s): assets/theme.scss.liquid.
+Deploy complete @ Sat Aug 22 2020 23:10:18 GMT-0700 (Pacific Daylight Time). added/changed 1 file(s): sections/section-contact.liquid.
+Deploy complete @ Sat Aug 22 2020 23:10:23 GMT-0700 (Pacific Daylight Time). added/changed 1 file(s): sections/section-contact.liquid.
+Deploy complete @ Sat Aug 22 2020 23:10:42 GMT-0700 (Pacific Daylight Time). added/changed 1 file(s): sections/section-contact.liquid.
+Deploy complete @ Sat Aug 22 2020 23:11:06 GMT-0700 (Pacific Daylight Time). added/changed 1 file(s): sections/section-contact.liquid.
+Deploy complete @ Sat Aug 22 2020 23:11:18 GMT-0700 (Pacific Daylight Time). added/changed 1 file(s): sections/section-contact.liquid.
+Deploy complete @ Sat Aug 22 2020 23:12:38 GMT-0700 (Pacific Daylight Time). added/changed 1 file(s): sections/section-contact.liquid.
+Deploy complete @ Sat Aug 22 2020 23:12:50 GMT-0700 (Pacific Daylight Time). added/changed 1 file(s): sections/section-contact.liquid.
+Deploy complete @ Sat Aug 22 2020 23:13:01 GMT-0700 (Pacific Daylight Time). added/changed 1 file(s): sections/section-contact.liquid.
+Deploy complete @ Sat Aug 22 2020 23:13:03 GMT-0700 (Pacific Daylight Time). added/changed 1 file(s): sections/section-contact.liquid.
+Deploy complete @ Sat Aug 22 2020 23:13:05 GMT-0700 (Pacific Daylight Time). added/changed 1 file(s): sections/section-contact.liquid.
+Deploy complete @ Sat Aug 22 2020 23:13:28 GMT-0700 (Pacific Daylight Time). added/changed 1 file(s): sections/section-contact.liquid.
+Deploy complete @ Sat Aug 22 2020 23:13:32 GMT-0700 (Pacific Daylight Time). added/changed 1 file(s): sections/section-contact.liquid.
+Deploy complete @ Sat Aug 22 2020 23:13:38 GMT-0700 (Pacific Daylight Time). added/changed 1 file(s): sections/section-contact.liquid.
+Deploy complete @ Sat Aug 22 2020 23:13:56 GMT-0700 (Pacific Daylight Time). added/changed 1 file(s): sections/section-contact.liquid.
+Deploy complete @ Sat Aug 22 2020 23:14:38 GMT-0700 (Pacific Daylight Time). added/changed 1 file(s): sections/section-contact.liquid.

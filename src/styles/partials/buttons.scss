@@ -11,7 +11,27 @@ button {
   outline: none;
   display: inline-block;
   background-color: transparent;
+  resize: none;
   &:hover {}
+}
+
+.btn--black {
+  background: black;
+  color: white;
+  padding: 1.5rem 3.8rem;
+  border: 2px solid black;
+  text-transform: uppercase;
+  font-family: $proxima;
+  font-size: 1.2rem;
+  letter-spacing: 0.183rem;
+  text-align: center;
+  line-height: 1.2rem;
+  font-weight: 600;
+  &:hover {
+    background: transparent;
+    color: black;
+  }
+
 }
 
 .text-only {
@@ -23,4 +43,8 @@ button {
   background-color: transparent;
   outline: none;
   border-radius: 0;
+}
+
+.btn-row {
+  text-align: right;
 }
