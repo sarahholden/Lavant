@@ -1,0 +1,148 @@
+<!-- ============================
+HEADER
+================================= -->
+<header>
+  <div class="cols-2 no-gutters">
+    <div>
+      {%- if section.settings.image -%}
+        <div class="cropped-image-wrapper">
+          {% assign image = section.settings.image %}
+          {% assign alt_text = section.settings.image_alt | escape %}
+          {% assign img_url = image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' %}
+          <img
+          class="lazyload fade-in"
+          data-src="{{ img_url }}"
+          data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+          data-aspectratio="{{ image.aspect_ratio }}"
+          data-sizes="auto"
+          alt="{{ alt_text }}"
+          data-anim="scale"
+          >
+        </div>
+
+      {%- endif -%}
+    </div>
+    <div class="v-aligner">
+      <div class="container padded">
+        {% if section.settings.heading != blank %}
+          <h1>{{ section.settings.heading | newline_to_br }}</h1>
+        {% endif %}
+        {% if section.settings.desc != blank %}
+          <div class="desc">
+            {{ section.settings.desc }}
+          </div>
+        {% endif %}
+        {% if section.settings.button_text != blank %}
+          <a href="{{ section.settings.button_url }}"
+            class="link--underline"
+            {% if section.settings.button_alt != blank %}alt="{{ section.settings.button_alt }}"{% endif %}>
+            {{ section.settings.button_text }}
+          </a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</header>
+
+
+<!-- ============================
+FAQs
+================================= -->
+<section class="container faq-section padded">
+  <div class="content-wrap">
+    <div>
+      <h2 class="heading--serif">{{ section.settings.list_heading }}</h2>
+    </div>
+    <div class="accordion list-animation-wrapper">
+      {% for block in section.blocks %}
+      {% case block.type %}
+      {% when 'faq_item' %}
+      <div class="accordion-panel animate-item">
+        <h3 class="accordion-toggle"><span class="text">{{ block.settings.title }}</span> <span class="icon"></span></h3>
+        <div class="accordion-text">
+          <div class="inner">
+            {{ block.settings.desc }}
+          </div>
+        </div>
+      </div>
+      {% endcase %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Subscription Content",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Text Content"
+    },
+    {
+      "id": "heading",
+      "type": "textarea",
+      "label": "Heading"
+    },
+    {
+      "id": "desc",
+      "type": "richtext",
+      "label": "Intro Text"
+    },
+    {
+      "id": "button_text",
+      "type": "text",
+      "label": "Link Text"
+    },
+    {
+      "id": "button_url",
+      "type": "url",
+      "label": "Link URL"
+    },
+    {
+      "type": "header",
+      "content": "Image"
+    },
+    {
+      "id": "image",
+      "type": "image_picker",
+      "label": "Image"
+    },
+    {
+      "id": "image_alt",
+      "type": "text",
+      "label": "Image Alt",
+      "info": "Write a brief description of this image to improve search engine optimization (SEO) and ADA accessibility."
+    },
+    {
+      "type": "header",
+      "content": "FAQ List"
+    },
+    {
+      "id": "list_heading",
+      "type": "text",
+      "label": "List Heading"
+    }
+
+  ],
+  "blocks": [
+    {
+      "type": "faq_item",
+      "name": "FAQ Item",
+      "settings": [
+        {
+          "id": "title",
+          "type": "text",
+          "label": "Question"
+        },
+        {
+          "id": "desc",
+          "type": "richtext",
+          "label": "Answer"
+        }
+
+      ]
+    }
+  ]
+}
+{% endschema %}

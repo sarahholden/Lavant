@@ -1,0 +1,65 @@
+/* --------------------------------------------------------------------------
+  SUBSCRIPTION HEADER
+-----------------------------------------------------------------------------*/
+.page-subscription header {
+  text-align: center;
+  background: $lightGreyBg;
+  .cropped-image-wrapper {
+    padding-bottom: 84%;
+  }
+  h1 {
+    margin-bottom: 5rem;
+    @include mobile-only {
+      margin-bottom: 3rem;
+    }
+  }
+  .desc {
+    max-width: 37rem;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 3.7rem;
+    @include mobile-only {
+      margin-bottom: 3rem;
+    }
+  }
+}
+
+/* --------------------------------------------------------------------------
+  SUBSCRIPTION HEADER
+-----------------------------------------------------------------------------*/
+.page-subscription .faq-section {
+  padding-bottom: 15rem;
+  @include mobile-only {
+    padding-bottom: 8rem;
+  }
+  h2 {
+    color: $lightGreyText;
+    text-align: center;
+    @include tablet-up {
+      font-size: 5rem;
+      margin-bottom: 3.4rem;
+    }
+  }
+  .accordion {
+    font-family: $proxima;
+    font-size: 1.4rem;
+    @include tablet-up {
+      font-size: 1.6rem;
+    }
+  }
+  h3 {
+    font-family: $proxima;
+    color: #060606;
+    letter-spacing: 0;
+    font-weight: 600;
+  }
+  .inner {
+    color: $darkGreyText;
+    max-width: 64.7rem;
+  }
+  .content-wrap {
+    max-width: 75.6rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
