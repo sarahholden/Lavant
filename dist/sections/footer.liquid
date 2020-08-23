@@ -1,28 +1,26 @@
 
 
 
-<footer class="site-footer">
-  <div class="container">
+<footer class="site-footer container padded">
 
-    <!--   LOGO   -->
-    {%- include 'nav-logo' -%}
-    <!-- Social Icons -->
-    {%- include 'social-icons' -%}
+  <!--   LOGO   -->
+  {%- include 'nav-logo' -%}
+  <!-- Social Icons -->
+  {%- include 'social-icons' -%}
 
-    <!-- Payment Icons -->
-    {% if section.settings.show_payment_icons %}
-      {% unless shop.enabled_payment_types == empty %}
-        {%- include 'payment-icons' -%}
-      {% endunless %}
-    {% endif %}
+  <!-- Payment Icons -->
+  {% if section.settings.show_payment_icons %}
+    {% unless shop.enabled_payment_types == empty %}
+      {%- include 'payment-icons' -%}
+    {% endunless %}
+  {% endif %}
 
-    <!-- Footer Menu -->
-    {%- include 'menu-footer' -%}
+  <!-- Footer Menu -->
+  {%- include 'menu-footer' -%}
 
-    <!-- Copyright -->
-    <div class="copyright">
-      <p>{{ 'layout.footer.copyright' | t }} &copy; {{ 'now' | date: "%Y" }}, {{ shop.name | link_to: '/' }}.</p>
-    </div>
+  <!-- Copyright -->
+  <div class="copyright">
+    <p>{{ 'layout.footer.copyright' | t }} &copy; {{ 'now' | date: "%Y" }}, {{ shop.name | link_to: '/' }}.</p>
   </div>
 </footer>
 
