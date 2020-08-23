@@ -1,7 +1,22 @@
+<section class="favorites container padded">
 
+  <div class="cols-1-3 no-gutters" data-trigger="scroll">
+    {% if section.settings.heading != blank %}
+      <h2 class="heading--serif v-aligner" data-anim="slide" data-anim-order="1">{{ section.settings.heading | newline_to_br }}</h2>
+    {% endif %}
 
-Home Products
+    <div class="cols-3 no-gutters">
+      {% for block in section.blocks %}
+        {% case block.type %}
+        {% when 'product' %}
+          {% assign product = all_products[block.settings.product] %}
+          {%- include 'product-card', class_name: 'home' -%}
+        {% endcase %}
+      {% endfor %}
+    </div>
+  </div>
 
+</section>
 
 {% schema %}
   {
@@ -11,6 +26,19 @@ Home Products
         "id": "heading",
         "type": "textarea",
         "label": "Heading"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "product",
+        "name": "Product",
+        "settings": [
+          {
+            "id": "product",
+            "type": "product",
+            "label": "Product"
+          }
+        ]
       }
     ],
     "presets": [

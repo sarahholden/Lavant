@@ -36,6 +36,7 @@ img {
   padding-bottom: 60%;
   overflow: hidden;
   object-fit: cover;
+
   img {
     position: absolute;
     top: 50%;
@@ -46,6 +47,15 @@ img {
     object-fit: cover;
     width: auto;
     height: auto;
+  }
+  &.square {
+    padding-bottom: 100%;
+  }
+  &.contain {
+    img {
+      object-fit: contain;
+      object-position: center;
+    }
   }
 }
 

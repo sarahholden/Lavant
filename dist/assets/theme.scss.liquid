@@ -219,6 +219,7 @@ TEMPLATE:
 }
 */
 
+
 /* --------------------------------------------------------------------------
 Fonts
 -----------------------------------------------------------------------------*/
@@ -227,6 +228,8 @@ $proxima: proxima-nova, sans-serif;
 
 $bodyTextFont: $proxima;
 $headingFont: $canela;
+
+
 /* --------------------------------------------------------------------------
 Colors
 -----------------------------------------------------------------------------*/
@@ -431,6 +434,7 @@ img {
   padding-bottom: 60%;
   overflow: hidden;
   object-fit: cover;
+
   img {
     position: absolute;
     top: 50%;
@@ -441,6 +445,15 @@ img {
     object-fit: cover;
     width: auto;
     height: auto;
+  }
+  &.square {
+    padding-bottom: 100%;
+  }
+  &.contain {
+    img {
+      object-fit: contain;
+      object-position: center;
+    }
   }
 }
 
@@ -585,6 +598,38 @@ a:hover {
   color: darken($primaryAnchorColor, 10%);
 }
 
+.link--underline {
+  font-family: $proxima;
+  font-size: 1.4rem;
+  color: #000000;
+  letter-spacing: 0.283rem;
+  line-height: 1;
+  padding-top: 1rem;
+  padding-bottom: 0.5rem;
+  position: relative;
+  display: inline-block;
+  text-transform: uppercase;
+  @include mobile-only {
+    font-size: 1.3rem;
+  }
+  &::before {
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: $borderColor;
+    transition: $smoothTransition;
+  }
+  &:hover {
+    &::before {
+      transform: translateY(-.2rem);
+    }
+  }
+}
+
 /* --------------------------------------------------------------------------
 Headings
 -----------------------------------------------------------------------------*/
@@ -597,13 +642,36 @@ h4 {
   font-style: normal;
 }
 
-.heading--serif {
+.heading--serif,
+h1 {
   font-family: $canela;
   font-size: 4.5rem;
-  color: $black;
   letter-spacing: 0.146rem;
   line-height: (55 / 45);
+  @include mobile-only {
+    font-size: 2.8rem;
+    line-height: (40 / 30);
+  }
 }
+
+.h3 {
+  font-family: $canela;
+  font-size: 1.6rem;
+  letter-spacing: 0.052rem;
+  line-height: 2.2rem;
+}
+
+.heading--serif-xl {
+  font-family: $canela;
+  font-size: 5.8rem;
+  letter-spacing: 0.188rem;
+  line-height: (62 / 58);
+  @include mobile-only {
+    font-size: 2.8rem;
+    line-height: (40 / 30);
+  }
+}
+
 /* --------------------------------------------------------------------------
   TEXT STYLES
 -----------------------------------------------------------------------------*/
@@ -614,6 +682,13 @@ h4 {
   letter-spacing: 0.59px;
   text-align: center;
   line-height: 24px;
+}
+
+.price {
+  font-family: $proxima;
+  font-size: 1rem;
+  letter-spacing: 0.202rem;
+  line-height: 1;
 }
 
 /* --------------------------------------------------------------------------
@@ -688,7 +763,8 @@ html {
 Vertical & Horizontal Alignment
 -----------------------------------------------------------------------------*/
 /* Center vertically  */
-%v-aligner {
+%v-aligner,
+.v-aligner {
 	display: -webkit-box;
 	display: -ms-flexbox;
 	display: flex;
@@ -923,6 +999,21 @@ Grid Styles
 .cols-6-5 {
 	@include tablet-up {
 		grid-template-columns: 6fr 5fr;
+	}
+}
+
+/* --------------------------------------------------------------------------
+  ALTERNATING FLEX COLUMNS
+-----------------------------------------------------------------------------*/
+.flex-columns {
+	@include tablet-up {
+		display: flex;
+		> div {
+			width: 50%;
+		}
+		&.reverse {
+			flex-direction: row-reverse;
+		}
 	}
 }
 
@@ -2162,6 +2253,239 @@ $selectric-font-size: 12px !default; // Font size
   }
 }
 
+
+/* --------------------------------------------------------------------------
+  ANIMATED LISTS
+-----------------------------------------------------------------------------*/
+.list-animation-wrapper {
+  .animate-item,
+  li {
+    opacity: 0;
+    transform: translateY(3rem);
+    transition: all 1s ease-in-out;
+    &.fade-in {
+      opacity: 1;
+    }
+  }
+}
+
+/* --------------------------------------------------------------------------
+  TEXT ANIMATIONS
+-----------------------------------------------------------------------------*/
+/* --------------------------------------------------------------------------
+  TEXT ANIMATIONS
+-----------------------------------------------------------------------------*/
+[data-reveal="lines-masked"],
+[data-reveal="lines-masked-desc"] {
+  opacity: 0;
+  &.loaded {
+    opacity: 1;
+  }
+  [class^="split-line-"] {
+    overflow: hidden;
+    padding-bottom: 0.5rem;
+    margin-bottom: -.5rem;
+  }
+}
+
+[data-reveal="lines-masked"],
+[data-reveal="lines-masked-desc"] {
+  .split-line-child {
+    transform: translateY(100%);
+    opacity: 0;
+    -webkit-transition: opacity 0.35s #{$easeOutSoft},-webkit-transform 0.5s #{$easeOutCustomFast};
+    transition: opacity 0.35s #{$easeOutSoft},-webkit-transform 0.5s #{$easeOutCustomFast};
+    transition: opacity 0.35s #{$easeOutSoft},transform 0.5s #{$easeOutCustomFast};
+    transition: opacity 0.35s #{$easeOutSoft},transform 0.5s #{$easeOutCustomFast},-webkit-transform 0.8s #{$easeOutCustomFast};
+    // transition-delay: 0.36s!important;
+  }
+}
+
+.js-animate [data-reveal="lines-masked"],
+.js-animate[data-reveal="lines-masked"],
+.js-animate [data-reveal="lines-masked-desc"],
+.js-animate[data-reveal="lines-masked-desc"] {
+  .split-line-child {
+    transform: none;
+    opacity: 1;
+  }
+}
+
+/* --------------------------------------------------------------------------
+  SCALING AND SLIDING
+-----------------------------------------------------------------------------*/
+[data-anim="scale-up"] {
+  opacity: 0;
+  transform: scale(0);
+  transition: all 0.8s $ease;
+}
+
+.js-animate [data-anim="scale-up"] {
+  opacity: 1;
+  transform: none;
+  transition: all 0.8s $ease;
+}
+
+// Regular Slide
+[data-anim="slide"] {
+  opacity: 0;
+  transform: translateY(2rem);
+  transition: all 0.8s $ease;
+}
+
+// Regular Slide
+[data-anim="dyna-slide"] {
+  opacity: 0;
+  transform: translateY(20rem);
+  @include mobile-only {
+    transform: translateY(3rem);
+  }
+  transition: opacity 1.6s #{$easeOutSoft},transform 1.2s #{$easeInSoft},-webkit-transform 1.2s #{$easeInSoft};
+  &.subtle {
+    transform: translateY(5rem);
+
+  }
+}
+
+.js-animate [data-anim="slide"],
+.js-animate[data-anim="slide"],
+.js-animate [data-anim="dyna-slide"],
+.js-animate[data-anim="dyna-slide"] {
+  opacity: 1;
+  transform: none;
+  transition: all 0.8s $ease;
+}
+
+@for $i from 1 through 30 {
+  .js-animate [data-anim-order="#{$i}"],
+  .split-line-#{$i} .split-line-child {
+    transition-delay: ($i - 1) * 0.1s;
+  }
+}
+
+/* --------------------------------------------------------------------------
+Accordions
+-----------------------------------------------------------------------------*/
+/* Accordion Panel Styles ---------------- */
+.accordion-panel {
+  border-bottom: 1px solid $borderColor;
+  padding: 2rem 0;
+  &:first-of-type {
+    border-top: 1px solid $borderColor;
+  }
+  h2 {
+    @extend %smallCaps;
+    margin-bottom: 0;
+    .text {
+      transform: translateY(3px);
+      display: block;
+    }
+  }
+}
+
+/* Accordion Text Styles ---------------- */
+.accordion-text {
+  max-height: 0;
+  overflow: hidden;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  .inner,
+  p,
+  ul {
+    transition: all 0.3s ease-in-out;
+    opacity: 0;
+  }
+  a {
+    color: $primaryAnchorColor;
+    &:hover {
+      color: darken($primaryAnchorColor, 3%);
+    }
+  }
+  p:first-of-type {
+    margin-top: 1.4rem;
+  }
+  p:last-of-type {
+    margin-bottom: 1.2rem;
+  }
+}
+
+/* Clickable accordion headings ---------------- */
+.accordion-toggle {
+  cursor: pointer;
+  position: relative;
+  margin-top: 0;
+  padding-right: 4.5rem;
+
+  /* Plus / Minus icon */
+  .icon {
+    cursor: pointer;
+    position: absolute;
+    right: 1.4rem;
+    top: 47%;
+    transform: translateY(-50%);
+    width: 1.1rem;
+    height: 1.1rem;
+  }
+  .icon::after,
+  .icon::before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    border-bottom: 2px solid $borderColor;
+  }
+  .icon::before {
+    transition: all 0.3s ease-in-out;
+    transform: rotate(90deg);
+  }
+
+  /* Accordion arrow (product detail page) */
+  .icon-arrow-down {
+    top: 42%;
+    width: 1.2rem;
+    @include mobile-only {
+      width: 0.8rem;
+      top: 40%;
+    }
+
+  }
+}
+
+/* Expanded accordion styles ---------------- */
+.expanded {
+  .accordion-text {
+    max-height: 200rem;
+    transition: all 0.3s ease-in-out;
+    .inner,
+    p,
+    ul {
+      transition: all 0.3s ease-in-out 0.2s;
+      opacity: 1;
+    }
+  }
+  .accordion-toggle {
+    .icon-arrow-down {
+      transform: translateY(-50%) rotateX(180deg);
+      -webkit-transition: all 0.3s ease-in-out;
+      transition: all 0.3s ease-in-out;
+
+    }
+    span::before {
+      -webkit-transform: rotate(0deg);
+      transform: rotate(0deg);
+      -webkit-transition: all 0.3s ease-in-out;
+      transition: all 0.3s ease-in-out;
+    }
+    span::after {
+      -webkit-transform: rotate(-180deg);
+      transform: rotate(-180deg);
+      -webkit-transition: all 0.3s ease-in-out;
+      transition: all 0.3s ease-in-out;
+    }
+  }
+}
+
 /* --------------------------------------------------------------------------
   SLIDING IMAGE WRAPPERS
 -----------------------------------------------------------------------------*/
@@ -2403,133 +2727,186 @@ $selectric-font-size: 12px !default; // Font size
 
 
 /*================ SECTIONS ================*/
+
+
+
 /* --------------------------------------------------------------------------
-Accordions
+  HOME HEADER
 -----------------------------------------------------------------------------*/
-/* Accordion Panel Styles ---------------- */
-.accordion-panel {
-  border-bottom: 1px solid $borderColor;
-  padding: 2rem 0;
-  &:first-of-type {
-    border-top: 1px solid $borderColor;
+.template-index header {
+  position: relative;
+  @include mobile-only {
+    padding-bottom: 3rem;
+  }
+  h1 {
+    margin-bottom: 3.4rem;
+    @include mobile-only {
+      margin-bottom: 2.6rem;
+    }
+  }
+  .text-content {
+    @include tablet-up {
+      position: absolute;
+      bottom: 16.7rem;
+      left: 0;
+      max-width: 66.5rem;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    @include mobile-only {
+      margin-top: 3rem;
+    }
+
+  }
+}
+
+/* --------------------------------------------------------------------------
+  FAVORITES (Products row)
+-----------------------------------------------------------------------------*/
+.template-index .favorites {
+  h2 {
+    width: 100%;
+  }
+  .product-card {
+    @include tablet-up {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    @include mobile-only {
+      margin-bottom: 2rem;
+    }
+  }
+  .product-info {
+    border-top: $border;
+    padding-top: 1.5rem;
+    max-width: 18rem;
+    margin-left: auto;
+    margin-right: auto;
+    @include tablet-up {
+
+      min-height: 9rem;
+    }
+    @include mobile-only {
+      text-align: center;
+    }
+  }
+  h3 {
+    margin-bottom: 2rem;
+    @include mobile-only {
+      margin-bottom: 1rem;
+      max-width: 18rem;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+
+}
+
+/* --------------------------------------------------------------------------
+  FEATURED IN (PRESS)
+-----------------------------------------------------------------------------*/
+.template-index .featured-in {
+  background: $lightGreyBg;
+  @include tablet-up {
+    padding-bottom: 10rem;
+  }
+  @include mobile-only {
+    padding-bottom: 7rem;
   }
   h2 {
-    @extend %smallCaps;
-    margin-bottom: 0;
-    .text {
-      transform: translateY(3px);
-      display: block;
+    margin-bottom: 4.5rem;
+    text-align: center;
+    @include mobile-only {
+      margin-bottom: 0;
     }
-  }
-}
-
-/* Accordion Text Styles ---------------- */
-.accordion-text {
-  max-height: 0;
-  overflow: hidden;
-  -webkit-transition: all 0.3s ease-in-out;
-  transition: all 0.3s ease-in-out;
-  .inner,
-  p,
-  ul {
-    transition: all 0.3s ease-in-out;
-    opacity: 0;
   }
   a {
-    color: $primaryAnchorColor;
-    &:hover {
-      color: darken($primaryAnchorColor, 3%);
-    }
-  }
-  p:first-of-type {
-    margin-top: 1.4rem;
-  }
-  p:last-of-type {
-    margin-bottom: 1.2rem;
-  }
-}
-
-/* Clickable accordion headings ---------------- */
-.accordion-toggle {
-  cursor: pointer;
-  position: relative;
-  margin-top: 0;
-  padding-right: 4.5rem;
-
-  /* Plus / Minus icon */
-  .icon {
-    cursor: pointer;
-    position: absolute;
-    right: 1.4rem;
-    top: 47%;
-    transform: translateY(-50%);
-    width: 1.1rem;
-    height: 1.1rem;
-  }
-  .icon::after,
-  .icon::before {
-    content: "";
     display: block;
-    position: absolute;
-    top: 50%;
-    width: 100%;
-    border-bottom: 2px solid $borderColor;
-  }
-  .icon::before {
-    transition: all 0.3s ease-in-out;
-    transform: rotate(90deg);
+
   }
 
-  /* Accordion arrow (product detail page) */
-  .icon-arrow-down {
-    top: 42%;
-    width: 1.2rem;
+  /* LAYOUT ================== */
+  .inner {
+    max-width: 106.8rem;
+    margin-left: auto;
+    margin-right: auto;
+
+  }
+  .logos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .logo-item {
+    width: 25%;
     @include mobile-only {
-      width: 0.8rem;
-      top: 40%;
+      width: 50%;
+      margin-bottom: 2rem;
+      padding: 2rem;
     }
-
-  }
-}
-
-/* Expanded accordion styles ---------------- */
-.expanded {
-  .accordion-text {
-    max-height: 200rem;
-    transition: all 0.3s ease-in-out;
-    .inner,
-    p,
-    ul {
-      transition: all 0.3s ease-in-out 0.2s;
-      opacity: 1;
-    }
-  }
-  .accordion-toggle {
-    .icon-arrow-down {
-      transform: translateY(-50%) rotateX(180deg);
-      -webkit-transition: all 0.3s ease-in-out;
-      transition: all 0.3s ease-in-out;
-
-    }
-    span::before {
-      -webkit-transform: rotate(0deg);
-      transform: rotate(0deg);
-      -webkit-transition: all 0.3s ease-in-out;
-      transition: all 0.3s ease-in-out;
-    }
-    span::after {
-      -webkit-transform: rotate(-180deg);
-      transform: rotate(-180deg);
-      -webkit-transition: all 0.3s ease-in-out;
-      transition: all 0.3s ease-in-out;
+    img {
+      width: auto;
+      height: auto;
+      display: block;
+      max-width: 25.7rem;
+      max-height: 5.8rem;
+      margin-left: auto;
+      margin-right: auto;
+      mix-blend-mode: multiply;
+      @include mobile-only {
+        max-width: 100%;
+        max-height: 100%;
+        width: 100%;
+      }
     }
   }
 }
+
+/* --------------------------------------------------------------------------
+  IMAGE AND TEXT BLOCKS
+-----------------------------------------------------------------------------*/
+.template-index .image-text-columns {
+  background: $lightGreyBg;
+  text-align: center;
+  .cropped-image-wrapper {
+    padding-bottom: 84%;
+  }
+  h2 {
+    margin-bottom: 6.4rem;
+    @include mobile-only {
+      margin-bottom: 3rem;
+    }
+  }
+  .desc {
+    max-width: 37.5rem;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 1.6rem;
+    line-height: (22 / 16);
+    margin-bottom: 5.3rem;
+    @include mobile-only {
+      margin-bottom: 3rem;
+    }
+  }
+  .link--underline {
+    @include tablet-up {
+      font-size: 1.4rem;
+      letter-spacing: 0.283rem;
+    }
+  }
+}
+
+
 
 .social-sharing svg {
   display: block;
   width: 2rem;
 }
+
+
+
 
 
 /* --------------------------------------------------------------------------

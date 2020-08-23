@@ -21,7 +21,8 @@ html {
 Vertical & Horizontal Alignment
 -----------------------------------------------------------------------------*/
 /* Center vertically  */
-%v-aligner {
+%v-aligner,
+.v-aligner {
 	display: -webkit-box;
 	display: -ms-flexbox;
 	display: flex;

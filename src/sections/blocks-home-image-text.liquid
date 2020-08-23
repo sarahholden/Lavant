@@ -1,0 +1,111 @@
+
+<section class="flex-columns image-text-columns {% if section.settings.image_side == 'right' %}reverse{% endif %}">
+  <div class="image-col">
+    <div class="cropped-image-wrapper">
+      {% assign image = section.settings.image %}
+      {% assign alt_text = section.settings.image_alt | escape %}
+      {% assign img_url = image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' %}
+      <img
+      class="lazyload fade-in"
+      data-src="{{ img_url }}"
+      data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+      data-aspectratio="{{ image.aspect_ratio }}"
+      data-sizes="auto"
+      alt="{{ alt_text }}"
+      data-anim="scale"
+      >
+    </div>
+  </div>
+  <div class="text-col v-aligner container padded" >
+    <div data-trigger="scroll">
+      {% if section.settings.heading != blank %}
+        <h2 class="heading--serif" data-reveal="lines-masked">{{ section.settings.heading | newline_to_br }}</h2>
+      {% endif %}
+      {% if section.settings.desc != blank %}
+        <div class="desc" data-anim="slide" data-anim-order="2">
+          {{ section.settings.desc }}
+        </div>
+      {% endif %}
+      {% if section.settings.button_text != blank %}
+        <a href="{{ section.settings.button_url }}"
+          class="link--underline"
+           data-anim="slide" data-anim-order="2">
+          {{ section.settings.button_text }}
+        </a>
+      {% endif %}
+
+    </div>
+  </div>
+</section>
+
+
+
+{% schema %}
+  {
+    "name": "Image and Text",
+    "settings": [
+      {
+        "id": "image_side",
+        "type": "select",
+        "label": "Image Side",
+        "default": "right",
+        "options": [
+          {
+            "value": "right",
+            "label": "Right"
+          },
+          {
+            "value": "left",
+            "label": "Left"
+          }
+        ]
+      },
+      {
+        "type": "header",
+        "content": "Text Content"
+      },
+      {
+        "id": "heading",
+        "type": "textarea",
+        "label": "Heading"
+      },
+      {
+        "id": "desc",
+        "type": "richtext",
+        "label": "Desc"
+      },
+      {
+        "id": "button_text",
+        "type": "text",
+        "label": "Button Text"
+      },
+      {
+        "id": "button_url",
+        "type": "url",
+        "label": "Button URL"
+      },
+      {
+        "type": "header",
+        "content": "Image"
+      },
+      {
+        "id": "image",
+        "type": "image_picker",
+        "label": "Image"
+      },
+      {
+        "id": "image_alt",
+        "type": "text",
+        "label": "Image Alt",
+        "info": "Write a brief description of this image to improve search engine optimization (SEO) and ADA accessibility."
+      }
+    ],
+    "presets": [
+      {
+        "name": "Image and Text Row",
+        "category": "Content Rows"
+      }
+    ]
+  }
+
+{% endschema %}

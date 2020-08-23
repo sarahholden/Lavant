@@ -26,6 +26,18 @@
   {% endif %}
 
   <h1>{{ product.title }}</h1>
+  <div class="yotpo bottomLine"
+    data-appkey="gxjEPYqH6A7XNNqgNle58mI1O4pQ66xNFGaEXB0m"
+    data-domain="{{shop.permanent_domain | escape }}"
+    data-product-id="{{ product.id }}"
+    data-product-models="{{ product.id }}"
+    data-name="{{ product.title | escape }}"
+    data-url="{{ shop.url }}{{ product.url }}"
+    data-image-url="{{ product.featured_image | product_img_url: 'large' |replace: '?', '%3F' | replace: '&','%26'}}"
+    data-description="{{ product.description | escape }}"
+    data-bread-crumbs="{% for tag in product.tags %}{{ tag | escape }};{% endfor %}">
+</div>
+
   <p>{{ product.vendor }}</p>
 
   <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
@@ -100,6 +112,37 @@
           </span>
       </button>
     </form>
+
+    {% if product.metafields.custom_fields["description"] != blank %}
+      {{ product.metafields.custom_fields["description"] }}
+    {% endif %}
+    {% if product.metafields.custom_fields["details"] != blank %}
+      {{ product.metafields.custom_fields["details"] }}
+    {% endif %}
+    {% if product.metafields.custom_fields["instructions"] != blank %}
+      {{ product.metafields.custom_fields["instructions"] }}
+    {% endif %}
+    {% if product.metafields.custom_fields["ingredients"] != blank %}
+      {{ product.metafields.custom_fields["ingredients"] }}
+    {% endif %}
+    {% if product.metafields.custom_fields["add_1_header"] != blank %}
+      {{ product.metafields.custom_fields["add_1_header"] }}
+    {% endif %}
+    {% if product.metafields.custom_fields["add_1_desc"] != blank %}
+      {{ product.metafields.custom_fields["add_1_desc"] }}
+    {% endif %}
+    {% if product.metafields.custom_fields["add_2_header"] != blank %}
+      {{ product.metafields.custom_fields["add_2_header"] }}
+    {% endif %}
+    {% if product.metafields.custom_fields["add_2_desc"] != blank %}
+      {{ product.metafields.custom_fields["add_2_desc"] }}
+    {% endif %}
+    {% if product.metafields.custom_fields["add_3_header"] != blank %}
+      {{ product.metafields.custom_fields["add_3_header"] }}
+    {% endif %}
+    {% if product.metafields.custom_fields["add_3_desc"] != blank %}
+      {{ product.metafields.custom_fields["add_3_desc"] }}
+    {% endif %}
 
   </div>
 

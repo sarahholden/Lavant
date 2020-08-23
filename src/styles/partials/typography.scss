@@ -55,6 +55,38 @@ a:hover {
   color: darken($primaryAnchorColor, 10%);
 }
 
+.link--underline {
+  font-family: $proxima;
+  font-size: 1.4rem;
+  color: #000000;
+  letter-spacing: 0.283rem;
+  line-height: 1;
+  padding-top: 1rem;
+  padding-bottom: 0.5rem;
+  position: relative;
+  display: inline-block;
+  text-transform: uppercase;
+  @include mobile-only {
+    font-size: 1.3rem;
+  }
+  &::before {
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: $borderColor;
+    transition: $smoothTransition;
+  }
+  &:hover {
+    &::before {
+      transform: translateY(-.2rem);
+    }
+  }
+}
+
 /* --------------------------------------------------------------------------
 Headings
 -----------------------------------------------------------------------------*/
@@ -67,13 +99,36 @@ h4 {
   font-style: normal;
 }
 
-.heading--serif {
+.heading--serif,
+h1 {
   font-family: $canela;
   font-size: 4.5rem;
-  color: $black;
   letter-spacing: 0.146rem;
   line-height: (55 / 45);
+  @include mobile-only {
+    font-size: 2.8rem;
+    line-height: (40 / 30);
+  }
 }
+
+.h3 {
+  font-family: $canela;
+  font-size: 1.6rem;
+  letter-spacing: 0.052rem;
+  line-height: 2.2rem;
+}
+
+.heading--serif-xl {
+  font-family: $canela;
+  font-size: 5.8rem;
+  letter-spacing: 0.188rem;
+  line-height: (62 / 58);
+  @include mobile-only {
+    font-size: 2.8rem;
+    line-height: (40 / 30);
+  }
+}
+
 /* --------------------------------------------------------------------------
   TEXT STYLES
 -----------------------------------------------------------------------------*/
@@ -84,6 +139,13 @@ h4 {
   letter-spacing: 0.59px;
   text-align: center;
   line-height: 24px;
+}
+
+.price {
+  font-family: $proxima;
+  font-size: 1rem;
+  letter-spacing: 0.202rem;
+  line-height: 1;
 }
 
 /* --------------------------------------------------------------------------
