@@ -1,0 +1,28 @@
+/* --------------------------------------------------------------------------
+  INFO PAGES
+-----------------------------------------------------------------------------*/
+.page-info {
+  padding-top: 3rem;
+  padding-bottom: 10rem;
+  font-size: 1.8rem;
+  @include mobile-only {
+    padding-bottom: 6rem;
+  }
+  h1 {
+    margin-bottom: 3rem;
+    text-align: center;
+    color: $lightGreyText;
+    @include tablet-up {
+      font-size: 5rem;
+      margin-bottom: 5rem;
+    }
+  }
+  .desc {
+    color: $darkGreyText;
+  }
+  .inner {
+    max-width: 87rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}

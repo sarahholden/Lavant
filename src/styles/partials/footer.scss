@@ -38,18 +38,17 @@ Footer General
 .site-footer {
 	background: black;
 	color: white;
+	a {
+		color: white;
+	}
+
 }
 
 /* --------------------------------------------------------------------------
 Footer Navigation Styles
 -----------------------------------------------------------------------------*/
-.site-footer nav {
-	a,
-	a:visited {
-		color: white;
+.site-footer {
 	}
-
-}
 
 /* --------------------------------------------------------------------------
 Site Credit

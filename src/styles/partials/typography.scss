@@ -137,8 +137,39 @@ h1 {
   font-size: 1.8rem;
   color: #000000;
   letter-spacing: 0.59px;
-  text-align: center;
-  line-height: 24px;
+  line-height: (24 / 18);
+  @include mobile-only {
+    font-size: 1.4rem;
+    line-height: (19 / 14);
+  }
+  ol,
+  p,
+  ul {
+    margin-bottom: 2rem;
+  }
+  a {
+    text-decoration: underline;
+  }
+  b,
+  strong {
+    font-weight: 600;
+    color: $darkGreyText;
+  }
+  ul {
+    padding-left: 2.5rem;
+    li {
+      list-style: disc;
+      margin-bottom: 1rem;
+    }
+    > ul > li {
+      list-style: circle;
+    }
+  }
+
+  ol li {
+    list-style-type: decimal;
+  }
+
 }
 
 .price {

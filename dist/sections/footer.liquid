@@ -16,7 +16,13 @@
   {% endif %}
 
   <!-- Footer Menu -->
-  {%- include 'menu-footer' -%}
+  {%- include 'menu-footer', footer_linklist: section.settings.footer_linklist_lavant -%}
+  <!-- Footer Menu -->
+  {%- include 'menu-footer', footer_linklist: section.settings.footer_linklist_support -%}
+  <!-- Footer Menu -->
+  {%- include 'menu-footer', footer_linklist: section.settings.footer_linklist_legal -%}
+  <!-- Footer Menu -->
+  {%- include 'menu-footer', footer_linklist: section.settings.footer_linklist_social -%}
 
   <!-- Copyright -->
   <div class="copyright">
@@ -36,8 +42,26 @@
       },
       {
         "type": "link_list",
-        "id": "footer_linklist",
+        "id": "footer_linklist_lavant",
         "label": "First menu",
+        "default": "footer"
+      },
+      {
+        "type": "link_list",
+        "id": "footer_linklist_support",
+        "label": "Second menu",
+        "default": "footer"
+      },
+      {
+        "type": "link_list",
+        "id": "footer_linklist_legal",
+        "label": "Third menu",
+        "default": "footer"
+      },
+      {
+        "type": "link_list",
+        "id": "footer_linklist_social",
+        "label": "Fourth menu",
         "default": "footer"
       },
       {
