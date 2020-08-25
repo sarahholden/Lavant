@@ -1,0 +1,124 @@
+<section class="container padded">
+  <div class="inner">
+    <header data-trigger="scroll">
+      {% if section.settings.heading != blank %}
+        <h1 data-reveal="lines-masked">{{ section.settings.heading | newline_to_br }}</h1>
+      {% endif %}
+      {% if section.settings.desc != blank %}
+        <div class="desc" data-anim="slide" data-anim-order="3">
+          {{ section.settings.desc }}
+        </div>
+      {% endif %}
+    </header>
+
+    <div class="thanks">
+      <p>{{ section.settings.thanks }}</p>
+    </div>
+
+    <div class="list-animation-wrapper" >
+
+      <form method="post" action="/contact#contact_form" id="contact_form" accept-charset="UTF-8" class="contact-form" novalidate>
+
+        {% if form.posted_successfully? %}
+          <p class="form-success">
+            {{ 'contact.form.post_success' | t }}
+          </p>
+        {% endif %}
+
+        {{ form.errors | default_errors }}
+
+        <div class="validation-wrapper animate-item">
+          <label class="visually-hidden" for="ContactFormName">Name</label>
+          <input type="text"
+            required
+            name="contact[wholesale_form_name]"
+            id="ContactFormName"
+            placeholder="Name"
+            >
+        </div>
+        <div class="validation-wrapper animate-item">
+          <label class="visually-hidden" for="ContactFormStoreName">Store Name</label>
+          <input type="text"
+            name="contact[wholesale_form_store_name]"
+            id="ContactFormStoreName"
+            placeholder="Name"
+            >
+        </div>
+        <div class="validation-wrapper animate-item">
+          <label class="visually-hidden" for="ContactFormStoreWebsite">Store Website</label>
+          <input type="text"
+            website="contact[wholesale_form_store_website]"
+            id="ContactFormStoreWebsite"
+            placeholder="Store Website"
+            >
+        </div>
+        <div class="validation-wrapper animate-item">
+          <label class="visually-hidden" for="ContactFormEmail">Email</label>
+          <input type="email"
+            required
+            name="contact[wholesale_form_email]"
+            id="ContactFormEmail"
+            placeholder="Email"
+            spellcheck="false"
+            autocomplete="off"
+            autocapitalize="off"
+            >
+        </div>
+        <div class="validation-wrapper animate-item">
+          <label class="visually-hidden" for="ContactFormPhone">Phone Number</label>
+          <input type="tel"
+            name="contact[wholesale_form_phone]"
+            id="ContactFormPhone"
+            placeholder="Phone Number"
+            pattern="[0-9\-]*"
+            >
+        </div>
+        <div class="validation-wrapper animate-item">
+          <label class="visually-hidden" for="ContactFormMessage">Message</label>
+          <textarea rows="10"
+            required
+            name="contact[wholesale_form_body]"
+            id="ContactFormMessage"
+            placeholder="Message"
+            >
+            {%- if form.body -%}
+              {{- form.body -}}
+            {%- endif -%}
+          </textarea>
+        </div>
+        <div class="btn-row animate-item">
+          <button type="submit" class="btn btn--black">Send</button>
+        </div>
+
+      </form>
+    </div>
+
+  </div>
+</section>
+
+{%- include 'form-submission' -%}
+
+{% schema %}
+{
+  "name": "Wholesale Content",
+  "class": "form-page",
+  "settings": [
+    {
+      "id": "heading",
+      "type": "text",
+      "label": "Heading"
+    },
+    {
+      "id": "desc",
+      "type": "richtext",
+      "label": "Description"
+    },
+    {
+      "id": "thanks",
+      "type": "text",
+      "label": "Thank You Text",
+      "default": "Thank you for reaching out! We will get in touch soon."
+    }
+  ]
+}
+{% endschema %}

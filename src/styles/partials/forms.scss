@@ -52,42 +52,21 @@ Validation
 		// margin-bottom: 30px;
 	}
 	&.has-error {
-		padding-bottom: 2rem;
+		padding-bottom: 1.2rem;
 	}
 }
 .error {
 	font-size: 1.1rem;
 	margin-top: 0;
 	position: absolute;
-	bottom: -.6rem;
+	bottom: 3rem;
 	transform: translateY(100%);
 
 }
 
 .thanks {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	z-index: 100;
-	background-color: rgba(255, 255, 255, .9);
+	text-align: center;
+	margin-top: 6rem;
+	margin-bottom: 3rem;
 	display: none;
-	-webkit-box-pack: center;
-	-ms-flex-pack: center;
-	justify-content: center;
-	-webkit-box-align: center;
-	-ms-flex-align: center;
-	align-items: center;
-	-webkit-box-orient: vertical;
-	-webkit-box-direction: normal;
-	-ms-flex-direction: column;
-	flex-direction: column;
-	h1 {
-		margin-bottom: 0;
-		margin-top: 0;
-	}
-	p {
-		margin-bottom: 3rem;
-	}
 }

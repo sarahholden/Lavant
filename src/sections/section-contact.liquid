@@ -11,7 +11,12 @@
       {% endif %}
     </header>
 
+    <div class="thanks">
+      <p>{{ section.settings.thanks }}</p>
+    </div>
+
     <div class="list-animation-wrapper" >
+
       <form method="post" action="/contact#contact_form" id="contact_form" accept-charset="UTF-8" class="contact-form" novalidate>
 
         {% if form.posted_successfully? %}
@@ -79,45 +84,7 @@
   </div>
 </section>
 
-<div class="thanks">
-  <h1>Thank you for reaching out!</h1>
-  <p>We will get in touch soon.</p>
-
-</div>
-
 {%- include 'form-submission' -%}
-
-<!-- <script type="text/javascript">
-$(function() {
-
-  $('.contact-form form').submit(function(e) {
-    e.preventDefault();
-
-
-    var $form = $(this);
-    jQuery.ajax({
-      type: 'POST',
-      async: true,
-      url: '/contact',
-      data: $form.serialize(),
-      beforeSend: function() {
-        $form.addClass('sending');
-      },
-      error: function(t) {
-        console.log(t);
-        $form.addClass('sent');
-      },
-      success: function(response) {
-          event.preventDefault();
-          $form.addClass('sent');
-          $form.find('.form-success').fadeIn();
-      }
-    });
-
-  });
-
-});
-</script> -->
 
 {% schema %}
 {
@@ -133,6 +100,12 @@ $(function() {
       "id": "desc",
       "type": "richtext",
       "label": "Description"
+    },
+    {
+      "id": "thanks",
+      "type": "text",
+      "label": "Thank You Text",
+      "default": "Thank you for reaching out! We will get in touch soon."
     }
   ]
 }

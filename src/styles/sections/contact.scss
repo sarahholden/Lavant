@@ -2,6 +2,8 @@
   FORM PAGE HEADER
 -----------------------------------------------------------------------------*/
 .form-page {
+  color: $darkGreyText;
+
   header {
     text-align: center;
     h1 {
@@ -20,7 +22,12 @@
     margin-left: auto;
     margin-right: auto;
   }
+}
 
+.page-wholesale {
+  .inner {
+    max-width: 58rem;
+  }
 }
 
 /* --------------------------------------------------------------------------

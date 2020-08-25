@@ -1,23 +1,6 @@
 <script type="text/javascript">
 
   /* ---------------------------------------------
-  Form Submission Data
-  ------------------------------------------------ */
-  function getFormData () {
-    var formData = {};
-
-    // 👋🏻  TODO: Add any additional form fields to the formData object here!
-    // These will be passed to includes/scripts/form_submissions.php
-    formData.full_name = $('#ContactFormName').val();
-    formData.email = $('#ContactFormEmail').val();
-    formData.email = $('#ContactFormPhone').val();
-    formData.message = $('#ContactFormMessage').val();
-
-    return formData;
-  }
-
-
-  /* ---------------------------------------------
   Form Submissions
   ------------------------------------------------ */
   var invalid = 0;
@@ -62,16 +45,13 @@
   Form Submit
   ------------------------------------------------ */
   $('#contact_form').on('submit', function (e) {
-    debugger;
     e.preventDefault();
-
-
 
     // First check to make sure all required fields are filled out
     if (checkAllFields()){
 
       // Get form data
-      var formData = getFormData();
+      // var formData = getFormData();
 
       $('.error').fadeOut();
 
@@ -89,9 +69,9 @@
           $form.addClass('sent');
         },
         success: function(response) {
-            event.preventDefault();
-            $form.addClass('sent');
-            $form.find('.form-success').fadeIn();
+          event.preventDefault();
+          $form.hide();
+          $('.thanks').fadeIn();
         }
       });
     }
