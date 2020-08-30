@@ -1,0 +1,135 @@
+/* --------------------------------------------------------------------------
+  INGREDIENTS - INTRO
+-----------------------------------------------------------------------------*/
+.page-ingredients {
+  h1 {
+    margin-bottom: 3rem;
+    @include tablet-up {
+      margin-bottom: 4rem;
+    }
+  }
+
+  .inner {
+    max-width: 68.9rem;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 4rem;
+    .desc {
+      color: $darkGreyText;
+      text-align: justify;
+    }
+  }
+}
+
+.page-ingredients .ingredients-chart {
+  padding-bottom: 5rem;
+  max-width: 110rem;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 1.5rem;
+  line-height: (19 / 15);
+  color: $darkGreyText;
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  thead {
+    background: $lightGreyBg;
+  }
+  th {
+    font-family: $proxima;
+    font-size: 1.3rem;
+    color: #000000;
+    letter-spacing: 0.198rem;
+    text-align: center;
+    line-height: 3.6rem;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  td,
+  th {
+    border: 1px solid #D4D4D4;
+    padding: 1.4rem;
+    vertical-align: middle;
+  }
+  tr > td:first-of-type {
+    border-collapse: collapse;
+    font-family: $canela;
+    font-size: 1.7rem;
+    color: #000000;
+    letter-spacing: 0.055rem;
+    @include tablet-up {
+      text-align: center;
+    }
+  }
+
+}
+
+@media only screen and (max-width: 760px), (min-device-width: 768px) and (max-device-width: 1024px) {
+  .page-ingredients .ingredients-chart {
+
+    /* Force table to not be like tables anymore */
+    table,
+    tbody,
+    td,
+    th,
+    thead,
+    tr {
+      display: block;
+    }
+
+    /* Hide table headers (but not display: none;, for accessibility) */
+    thead tr {
+      position: absolute;
+      top: -9999px;
+      left: -9999px;
+    }
+
+    tr {
+      border: $border;
+      border-bottom: none;
+      margin-bottom: 2rem;
+    }
+
+    td {
+      /* Behave  like a "row" */
+      border: none;
+      border-bottom: $border;
+      position: relative;
+      padding-left: 50%;
+      text-align: left;
+    }
+
+    td:before {
+      /* Now like a table header */
+      position: absolute;
+      /* Top/left values mimic padding */
+      top: 50%;
+      transform: translateY(-50%);
+      left: 1.4rem;
+      width: 45%;
+      padding-right: 1rem;
+      white-space: nowrap;
+      text-align: left;
+    }
+
+    /*
+	Label the data
+	*/
+    td:nth-of-type(1):before {
+      content: "Ingredient";
+    }
+    td:nth-of-type(2):before {
+      content: "CAS";
+    }
+    td:nth-of-type(3):before {
+      content: "What is it?";
+    }
+    td:nth-of-type(4):before {
+      content: "Why We Use It";
+    }
+    td:nth-of-type(5):before {
+      content: "L'AVANT Products";
+    }
+  }
+}

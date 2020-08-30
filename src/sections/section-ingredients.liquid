@@ -1,0 +1,49 @@
+
+<!-- ======================================
+INTRO
+=========================================== -->
+<section class="container padded">
+  <div class="inner">
+    {% if section.settings.heading != blank %}
+      <h1 class="heading--serif-grey">{{ section.settings.heading | newline_to_br }}</h1>
+    {% endif %}
+    {% if section.settings.desc != blank %}
+      <div class="desc">
+        {{ section.settings.desc }}
+      </div>
+    {% endif %}
+
+  </div>
+
+  <div class="ingredients-chart">
+    {{ page.content }}
+  </div>
+</section>
+
+
+
+{% schema %}
+{
+  "name": "Ingredients Content",
+  "settings": [
+    {
+      "id": "heading",
+      "type": "text",
+      "label": "Title"
+    },
+    {
+      "id": "desc",
+      "type": "richtext",
+      "label": "Intro Text"
+    },
+    {
+      "type": "header",
+      "content": "Chart"
+    },
+    {
+      "type": "paragraph",
+      "content": "To edit chart, go to Online Store > Pages > Ingredients"
+    }
+  ]
+}
+{% endschema %}

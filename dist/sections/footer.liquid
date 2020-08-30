@@ -1,32 +1,55 @@
 
 
 
-<footer class="site-footer container padded">
+<footer class="site-footer container">
+  <div class="cols-2">
+    <div>
+      <!--   LOGO   -->
+      {%- include 'nav-logo' -%}
+    </div>
+    <div class="cols-3 cols-2-sm nav-columns">
+      <div>
+        <!-- L'avant Menu -->
+        {% if section.settings.list_1_heading != blank %}
+          <h2>{{ section.settings.list_1_heading | newline_to_br }}</h2>
+        {% endif %}
+        {%- include 'menu-footer', footer_linklist: section.settings.footer_linklist_lavant -%}
+        <div class="show-mobile bottom">
+          <!-- Social Menu -->
+          {% if section.settings.list_4_heading != blank %}
+            <h2>{{ section.settings.list_4_heading | newline_to_br }}</h2>
+          {% endif %}
+          {%- include 'menu-footer', footer_linklist: section.settings.footer_linklist_social -%}
+        </div>
+      </div>
 
-  <!--   LOGO   -->
-  {%- include 'nav-logo' -%}
-  <!-- Social Icons -->
-  {%- include 'social-icons' -%}
+      <div>
+        <!-- Support Menu -->
+        {% if section.settings.list_2_heading != blank %}
+          <h2>{{ section.settings.list_2_heading | newline_to_br }}</h2>
+        {% endif %}
+        {%- include 'menu-footer', footer_linklist: section.settings.footer_linklist_support -%}
 
-  <!-- Payment Icons -->
-  {% if section.settings.show_payment_icons %}
-    {% unless shop.enabled_payment_types == empty %}
-      {%- include 'payment-icons' -%}
-    {% endunless %}
-  {% endif %}
+        {% if section.settings.list_3_heading != blank %}
+          <h2>{{ section.settings.list_3_heading | newline_to_br }}</h2>
+        {% endif %}
+        <!-- Legal Menu -->
+        {%- include 'menu-footer', footer_linklist: section.settings.footer_linklist_legal -%}
+      </div>
 
-  <!-- Footer Menu -->
-  {%- include 'menu-footer', footer_linklist: section.settings.footer_linklist_lavant -%}
-  <!-- Footer Menu -->
-  {%- include 'menu-footer', footer_linklist: section.settings.footer_linklist_support -%}
-  <!-- Footer Menu -->
-  {%- include 'menu-footer', footer_linklist: section.settings.footer_linklist_legal -%}
-  <!-- Footer Menu -->
-  {%- include 'menu-footer', footer_linklist: section.settings.footer_linklist_social -%}
+      <div class="hide-mobile">
+        <!-- Social Menu -->
+        {% if section.settings.list_4_heading != blank %}
+          <h2>{{ section.settings.list_4_heading | newline_to_br }}</h2>
+        {% endif %}
+        {%- include 'menu-footer', footer_linklist: section.settings.footer_linklist_social -%}
+      </div>
+    </div>
+  </div>
 
   <!-- Copyright -->
   <div class="copyright">
-    <p>{{ 'layout.footer.copyright' | t }} &copy; {{ 'now' | date: "%Y" }}, {{ shop.name | link_to: '/' }}.</p>
+    <p>&copy; {{ shop.name | link_to: '/' }} {{ 'now' | date: "%Y" }}</p>
   </div>
 </footer>
 
@@ -41,10 +64,22 @@
         "label": "Logo image"
       },
       {
+        "id": "list_1_heading",
+        "type": "text",
+        "label": "List 1 Heading",
+        "default": "L'Avant"
+      },
+      {
         "type": "link_list",
         "id": "footer_linklist_lavant",
         "label": "First menu",
         "default": "footer"
+      },
+      {
+        "id": "list_2_heading",
+        "type": "text",
+        "label": "List 2 Heading",
+        "default": "Support"
       },
       {
         "type": "link_list",
@@ -53,10 +88,22 @@
         "default": "footer"
       },
       {
+        "id": "list_3_heading",
+        "type": "text",
+        "label": "List 3 Heading",
+        "default": "Legal"
+      },
+      {
         "type": "link_list",
         "id": "footer_linklist_legal",
         "label": "Third menu",
         "default": "footer"
+      },
+      {
+        "id": "list_4_heading",
+        "type": "text",
+        "label": "List 4 Heading",
+        "default": "Social"
       },
       {
         "type": "link_list",

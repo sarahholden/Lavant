@@ -1,0 +1,122 @@
+/* --------------------------------------------------------------------------
+  ABOUT
+-----------------------------------------------------------------------------*/
+.page-about {
+  padding-bottom: 10rem;
+  @include mobile-only {
+    padding-bottom: 6rem;
+  }
+  .desc {
+    color: $darkGreyText;
+    strong {
+      color: black;
+    }
+  }
+}
+
+/* --------------------------------------------------------------------------
+  ABOUT HEADER
+-----------------------------------------------------------------------------*/
+.page-about header {
+  text-align: center;
+  padding-bottom: 4.2rem;
+  .cropped-image-wrapper {
+    padding-bottom: 62%;
+    @include mobile-only {
+      padding-bottom: 76%;
+    }
+  }
+  .inner {
+    @include tablet-up {
+      margin-top: -5.5rem;
+    }
+    @include mobile-only {
+      margin-top: -2rem;
+    }
+  }
+  h1 {
+    line-height: (56 / 75);
+    margin-bottom: 5.4rem;
+    position: relative;
+    z-index: 2;
+    @include tablet-up {
+      font-size: 7.5rem;
+    }
+    @include mobile-only {
+      margin-bottom: 3.5rem;
+      font-size: 4rem;
+
+    }
+  }
+
+  .desc {
+    line-height: (25 / 18);
+    max-width: 67.1rem;
+    margin-left: auto;
+    margin-right: auto;
+    letter-spacing: 0;
+  }
+  .cta {
+    max-width: 82rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+/* --------------------------------------------------------------------------
+  IMAGE DIVIDER
+-----------------------------------------------------------------------------*/
+.page-about .image-divider {
+  .cropped-image-wrapper {
+    @include tablet-up {
+      padding-bottom: 51%;
+    }
+    @include mobile-only {
+      padding-bottom: 80%;
+    }
+  }
+}
+
+/* --------------------------------------------------------------------------
+  BIOS
+-----------------------------------------------------------------------------*/
+.page-about .bios {
+  @include tablet-up {
+    padding-top: 12rem;
+  }
+  .cols-2 {
+    @include tablet-up {
+      grid-column-gap: 9.8rem;
+    }
+    > div {
+      @include mobile-only {
+        margin-bottom: 4rem;
+      }
+    }
+  }
+  .cropped-image-wrapper {
+    margin-bottom: 4.8rem;
+    padding-bottom: 129%;
+    @include mobile-only {
+      margin-bottom: 3rem;
+    }
+  }
+  h2 {
+    text-align: center;
+    margin-bottom: 4.8rem;
+    @include mobile-only {
+      margin-bottom: 2.5rem;
+    }
+  }
+  .desc {
+    @include tablet-up {
+      max-width: 90%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    p {
+      margin-bottom: 1rem;
+    }
+  }
+
+}

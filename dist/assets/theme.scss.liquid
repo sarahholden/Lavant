@@ -559,7 +559,7 @@ $smallHeadingFontSize: 2rem;
 Font Styles
 -----------------------------------------------------------------------------*/
 $bodyTextLineHeight: 1.6;
-$bodyTextLetterSpacing: 0.05rem;
+$bodyTextLetterSpacing: 0;
 
 /* --------------------------------------------------------------------------
 Typography
@@ -618,7 +618,7 @@ a:hover {
     position: absolute;
     bottom: 0;
     left: 0;
-    width: 100%;
+    width: 98%;
     height: 1px;
     background: $borderColor;
     transition: $smoothTransition;
@@ -672,6 +672,16 @@ h1 {
   }
 }
 
+.heading--serif-grey {
+  @extend .heading--serif;
+  text-align: center;
+  color: $lightGreyText;
+  @include tablet-up {
+    font-size: 5rem;
+    margin-bottom: 5rem;
+  }
+}
+
 /* --------------------------------------------------------------------------
   TEXT STYLES
 -----------------------------------------------------------------------------*/
@@ -679,7 +689,7 @@ h1 {
   font-family: $proxima;
   font-size: 1.8rem;
   color: #000000;
-  letter-spacing: 0.59px;
+
   line-height: (24 / 18);
   @include mobile-only {
     font-size: 1.4rem;
@@ -725,11 +735,13 @@ h1 {
 /* --------------------------------------------------------------------------
   SMALL CAPS
 -----------------------------------------------------------------------------*/
-%smallCaps {
+%smallCaps,
+.small-caps {
+  font-size: 1.3rem;
+  color: #000000;
+  letter-spacing: 0.166rem;
+  font-weight: 600;
   text-transform: uppercase;
-  font-size: $smallHeadingFontSize;
-  line-height: 1.6;
-  letter-spacing: 0.1rem;
 }
 
 /* --------------------------------------------------------------------------
@@ -825,6 +837,11 @@ Vertical & Horizontal Alignment
 	justify-content: center;
 }
 
+.split-aligner {
+	display: flex;
+	justify-content: space-between;
+}
+
 /* --------------------------------------------------------------------------
 Centered Layout
 -----------------------------------------------------------------------------*/
@@ -904,14 +921,16 @@ $gridRowGutterSize: 1.5rem;
 Grid Styles
 -----------------------------------------------------------------------------*/
 [class*='cols'] {
-	display: -ms-grid;
-	display: grid;
-	-ms-grid-rows: auto;
-	grid-template-rows: auto;
-	grid-column-gap: $gridColumnGutterSize;
-	grid-row-gap: $gridRowGutterSize;
-	-ms-grid-columns: 1fr;
-	grid-template-columns: 1fr;
+	@include tablet-up {
+		display: -ms-grid;
+		display: grid;
+		-ms-grid-rows: auto;
+		grid-template-rows: auto;
+		grid-column-gap: $gridColumnGutterSize;
+		grid-row-gap: $gridRowGutterSize;
+		-ms-grid-columns: 1fr;
+		grid-template-columns: 1fr;
+	}
 }
 
 .no-gutters {
@@ -931,7 +950,17 @@ Grid Styles
 }
 
 .cols-2-sm {
-	grid-template-columns: repeat(2, 1fr);
+	@include mobile-only {
+		display: -ms-grid;
+		display: grid;
+		-ms-grid-rows: auto;
+		grid-template-rows: auto;
+		grid-column-gap: $gridColumnGutterSize;
+		grid-row-gap: $gridRowGutterSize;
+		-ms-grid-columns: 1fr;
+		grid-template-columns: 1fr;
+		grid-template-columns: repeat(2, 1fr);
+	}
 }
 
 .cols-2-lg {
@@ -1163,6 +1192,11 @@ Body Open Mobile Nav Styles
   padding-bottom: 4.1rem;
   position: relative;
   transition: $smoothTransition;
+  z-index: 190;
+  @include mobile-only {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
   &.loaded {
     position: fixed;
   }
@@ -1186,6 +1220,9 @@ Body Open Mobile Nav Styles
   transform: translate(-50%, -50%);
   width: 19.3rem;
   transition: $smoothTransition;
+  img {
+    width: 100%;
+  }
   @include mobile-only {
     width: 10rem;
   }
@@ -1212,14 +1249,30 @@ Header Navigation Styles
     line-height: 1;
     color: $primaryAnchorColor;
     text-transform: uppercase;
-
+    overflow: hidden;
+    display: inline-block;
+    position: relative;
+    /* ANIMATED UNDERLINE */
+    @include tablet-up {
+      &::before {
+        content: '';
+        display: block;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 98%;
+        height: 1px;
+        transform: translateX(-103%);
+        transition: $smoothTransition;
+        background: black;
+      }
+      &:hover::before {
+        transform: none;
+      }
+    }
   }
   a:hover {
     color: darken($primaryAnchorColor, 20%);
-  }
-  .current-page {
-    /* Styles for the currently active link */
-
   }
 }
 
@@ -1227,7 +1280,7 @@ Header Navigation Styles
 .nav-wrapper .left-nav {
   @include tablet-up {
     a {
-      padding-right: 3rem;
+      margin-right: 3rem;
     }
   }
 }
@@ -1236,22 +1289,12 @@ Header Navigation Styles
 .nav-wrapper .right-nav {
   @include tablet-up {
     a {
-      padding-left: 3rem;
+      margin-left: 3rem;
     }
     display: flex;
     justify-content: flex-end;
     align-items: center;
     text-align: right;
-  }
-}
-
-.nav-wrapper.scrolled {
-  position: fixed;
-  z-index: 100;
-  padding-top: 2.8rem;
-  padding-bottom: 2.1rem;
-  .logo-wrapper {
-    width: 12rem;
   }
 }
 
@@ -1264,9 +1307,8 @@ Header Navigation Styles
     width: 100%;
     height: 100%;
     background-color: $lightGreyBg;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease-in-out;
+    transform: translateX(-102%);
+    transition: all 0.8s $easeInSoft;
     z-index: 200;
     padding-left: 3rem;
     padding-top: 10rem;
@@ -1275,6 +1317,9 @@ Header Navigation Styles
       margin: 0;
       font-size: 1.6rem;
       line-height: 2;
+      transform: translateX(-2rem);
+      opacity: 0;
+      transition: all 0.8s $ease;
     }
   }
 }
@@ -1283,8 +1328,23 @@ Header Navigation Styles
 .open-mobile-nav {
   .nav-flyout {
     /* Styles for when the user clicks the hamburger icon */
-    opacity: 1;
-    visibility: visible;
+    transform: none;
+    transition: all 0.6s $ease;
+    a {
+      transform: none;
+      opacity: 1;
+      visibility: visible;
+
+    }
+  }
+}
+
+@for $i from 1 through 10 {
+  .left-nav li:nth-of-type(#{$i}) a {
+    transition-delay: ($i - 1) * 0.1s;
+  }
+  .right-nav li:nth-of-type(#{$i}) a {
+    transition-delay: ($i + 3) * 0.1s;
   }
 }
 
@@ -1292,11 +1352,11 @@ Header Navigation Styles
 Hamburger Icon styles
 -----------------------------------------------------------------------------*/
 .hamburger {
-  width: 3rem;
-  height: 1.5rem;
+  width: 2.4rem;
+  height: 1.6rem;
   position: absolute;
   left: 2.5rem;
-  top: 3rem;
+  top: 2.6rem;
   display: none;
   z-index: 201;
   cursor: pointer;
@@ -1350,19 +1410,31 @@ Hamburger Icon styles
 /* ==============   CART ICON  ============== */
 .nav-wrapper .cart-icon-wrapper {
   width: 3.2rem;
+  height: 3.2rem;
   display: block;
   font-family: $proxima;
   font-size: 1.4rem;
-  letter-spacing: 0.283rem;
+  letter-spacing: 0.1rem;
   text-align: center;
   line-height: 1;
   position: relative;
+  transform: translateY(-.2rem);
+
   @include tablet-up {
     margin-left: 3rem;
     padding: 0 !important;
   }
+  @include mobile-only {
+    width: 2.6rem;
+    height: 2.6rem;
+    font-size: 1.2rem;
+  }
   span {
-    display: inline-block;
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-39%, -48%);
   }
   &::before {
     content: '';
@@ -1382,7 +1454,33 @@ Hamburger Icon styles
 .mobile-cart-link {
   position: absolute;
   right: 2rem;
-  top: 3rem;
+  top: 2.4rem;
+}
+
+/* --------------------------------------------------------------------------
+  SCROLLED NAV WRAPPER
+-----------------------------------------------------------------------------*/
+.nav-wrapper.scrolled {
+  position: fixed;
+  z-index: 100;
+  @include tablet-up {
+    padding-top: 2.8rem;
+    padding-bottom: 2.1rem;
+    .logo-wrapper {
+      width: 12rem;
+    }
+  }
+  @include mobile-only {
+    padding-top: 3.2rem;
+    padding-bottom: 3.2rem;
+    .mobile-cart-link {
+      top: 1.8rem;
+    }
+    .hamburger {
+      top: 2.3rem;
+    }
+  }
+
 }
 
 /* --------------------------------------------------------------------------
@@ -1436,31 +1534,101 @@ Footer General
 .site-footer {
 	background: black;
 	color: white;
+	padding-top: 9.4rem;
+	padding-bottom: 5rem;
+	@include mobile-only {
+		padding-top: 5rem;
+		padding-bottom: 4rem;
+	}
 	a {
 		color: white;
 	}
+}
 
+/* --------------------------------------------------------------------------
+  FOOTER LOGO
+-----------------------------------------------------------------------------*/
+.site-footer .logo-wrapper {
+	max-width: 10.4rem;
+	@include mobile-only {
+		max-width: 8rem;
+		margin-left: auto;
+		margin-right: auto;
+		margin-bottom: 7rem;
+	}
 }
 
 /* --------------------------------------------------------------------------
 Footer Navigation Styles
 -----------------------------------------------------------------------------*/
-.site-footer {
+.site-footer .nav-columns {
+	@include tablet-up {
+		grid-template-columns: 6fr 5fr 4fr;
 	}
+	.bottom,
+	ul + h2 {
+		margin-top: 4rem;
+	}
+	li {
+		margin-bottom: 0;
+	}
+	h2,
+	li {
+		font-family: $proxima;
+		font-size: 1.4rem;
+		letter-spacing: 0.1rem;
+		line-height: 1.3;
+		margin-bottom: 1rem;
+		@include mobile-only {
+			margin-bottom: 0.6rem;
+			font-size: 1.2rem;
+		}
+	}
+	h2 {
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.178rem;
+	}
+	a {
+		overflow: hidden;
+		display: inline-block;
+		position: relative;
+		&::before {
+			content: '';
+			display: block;
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			width: 100%;
+			height: 1px;
+			transform: translateX(-103%);
+			transition: $smoothTransition;
+			background: white;
+		}
+		&:hover::before {
+			transform: none;
+		}
+	}
+}
 
 /* --------------------------------------------------------------------------
-Site Credit
+Copyright
 -----------------------------------------------------------------------------*/
-.site-credit {
-	font-size: 1.2rem;
+.copyright {
+	font-size: 1rem;
+	letter-spacing: 0.207rem;
+	line-height: 3.2rem;
 	text-transform: uppercase;
-	display: block;
-	text-align: right;
+	font-weight: 600;
+	@include mobile-only {
+		margin-top: 4rem;
+	}
 }
 
 #insta-feed a,
 .instafeed-shopify a {
 	z-index: 10 !important;
+
 }
 
 
@@ -2359,9 +2527,6 @@ $selectric-font-size: 12px !default; // Font size
 /* --------------------------------------------------------------------------
   TEXT ANIMATIONS
 -----------------------------------------------------------------------------*/
-/* --------------------------------------------------------------------------
-  TEXT ANIMATIONS
------------------------------------------------------------------------------*/
 [data-reveal="lines-masked"],
 [data-reveal="lines-masked-desc"] {
   opacity: 0;
@@ -2817,7 +2982,303 @@ Accordions
 
 
 /*================ SECTIONS ================*/
+/* --------------------------------------------------------------------------
+  ABOUT
+-----------------------------------------------------------------------------*/
+.page-about {
+  padding-bottom: 10rem;
+  @include mobile-only {
+    padding-bottom: 6rem;
+  }
+  .desc {
+    color: $darkGreyText;
+    strong {
+      color: black;
+    }
+  }
+}
 
+/* --------------------------------------------------------------------------
+  ABOUT HEADER
+-----------------------------------------------------------------------------*/
+.page-about header {
+  text-align: center;
+  padding-bottom: 4.2rem;
+  .cropped-image-wrapper {
+    padding-bottom: 62%;
+    @include mobile-only {
+      padding-bottom: 76%;
+    }
+  }
+  .inner {
+    @include tablet-up {
+      margin-top: -5.5rem;
+    }
+    @include mobile-only {
+      margin-top: -2rem;
+    }
+  }
+  h1 {
+    line-height: (56 / 75);
+    margin-bottom: 5.4rem;
+    position: relative;
+    z-index: 2;
+    @include tablet-up {
+      font-size: 7.5rem;
+    }
+    @include mobile-only {
+      margin-bottom: 3.5rem;
+      font-size: 4rem;
+
+    }
+  }
+
+  .desc {
+    line-height: (25 / 18);
+    max-width: 67.1rem;
+    margin-left: auto;
+    margin-right: auto;
+    letter-spacing: 0;
+  }
+  .cta {
+    max-width: 82rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+/* --------------------------------------------------------------------------
+  IMAGE DIVIDER
+-----------------------------------------------------------------------------*/
+.page-about .image-divider {
+  .cropped-image-wrapper {
+    @include tablet-up {
+      padding-bottom: 51%;
+    }
+    @include mobile-only {
+      padding-bottom: 80%;
+    }
+  }
+}
+
+/* --------------------------------------------------------------------------
+  BIOS
+-----------------------------------------------------------------------------*/
+.page-about .bios {
+  @include tablet-up {
+    padding-top: 12rem;
+  }
+  .cols-2 {
+    @include tablet-up {
+      grid-column-gap: 9.8rem;
+    }
+    > div {
+      @include mobile-only {
+        margin-bottom: 4rem;
+      }
+    }
+  }
+  .cropped-image-wrapper {
+    margin-bottom: 4.8rem;
+    padding-bottom: 129%;
+    @include mobile-only {
+      margin-bottom: 3rem;
+    }
+  }
+  h2 {
+    text-align: center;
+    margin-bottom: 4.8rem;
+    @include mobile-only {
+      margin-bottom: 2.5rem;
+    }
+  }
+  .desc {
+    @include tablet-up {
+      max-width: 90%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    p {
+      margin-bottom: 1rem;
+    }
+  }
+
+}
+
+
+/* --------------------------------------------------------------------------
+  BLOG PAGE
+-----------------------------------------------------------------------------*/
+.page-blog {
+
+  .heading--serif-grey {
+    padding-bottom: 0.6rem;
+    border-bottom: $border;
+    margin-bottom: 0;
+  }
+  .tags-list {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 0 3rem;
+    li {
+      @extend .small-caps;
+      margin-left: 2.5rem;
+      margin-right: 2.5rem;
+      display: block;
+      overflow: hidden;
+      display: inline-block;
+      position: relative;
+      line-height: 1.3;
+      &::before {
+        content: '';
+        display: block;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 99%;
+        height: 1px;
+        transform: translateX(-103%);
+        transition: $smoothTransition;
+        background: black;
+      }
+      &:hover::before {
+        transform: none;
+      }
+    }
+  }
+}
+
+/* --------------------------------------------------------------------------
+  BLOG PAGE ARTICLE
+-----------------------------------------------------------------------------*/
+/* LAYOUT STYLES ================== */
+.page-blog .article-list {
+  @include mobile-only {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  @include tablet-up {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  article {
+    @include tablet-up {
+      width: calc(50% - 5rem);
+    }
+    @include mobile-only {
+      width: 100%;
+    }
+  }
+  .text-content {
+    @include mobile-only {
+      padding-left: 3rem;
+      padding-right: 3rem;
+    }
+  }
+}
+
+/* TEXT STYLES ================== */
+.page-blog .article-list {
+  article {
+    margin-bottom: 9.4rem;
+    @include mobile-only {
+      margin-bottom: 4rem;
+    }
+  }
+
+  .article-tags {
+    width: 70%;
+    li {
+      display: inline-block;
+    }
+  }
+  .metadata-row {
+    margin-bottom: 2.2rem;
+    @include mobile-only {
+      display: block;
+      margin-bottom: 1.8rem;
+    }
+    .small-caps {
+      font-size: 1.4rem;
+    }
+  }
+  .date {
+    font-weight: 400;
+    color: #737373;
+    @include mobile-only {
+      margin-top: 0.5rem;
+    }
+  }
+  .heading--serif {
+    margin-bottom: 3rem;
+    @include tablet-up {
+      font-size: 4rem;
+      margin-bottom: 2rem;
+    }
+  }
+  .desc {
+    @include tablet-up {
+      font-size: 1.6rem;
+    }
+
+  }
+  .cropped-image-wrapper {
+    padding-bottom: 67%;
+    margin-bottom: 2.5rem;
+  }
+  .read-more-row {
+    display: none;
+  }
+}
+
+/* HERO ARTICLE ================== */
+.page-blog .article-list {
+
+  article:nth-of-type(1) {
+    background: $lightGreyBg;
+    width: 100%;
+    @include tablet-up {
+      display: flex;
+      flex-direction: row-reverse;
+    }
+    .heading--serif {
+      @include tablet-up {
+        font-size: 5rem;
+        line-height: (53 / 50);
+        letter-spacing: 0.163rem;
+        margin-bottom: 4rem;
+      }
+    }
+    > a,
+    > div {
+      @include tablet-up {
+        width: 50%;
+      }
+    }
+    .desc {
+      margin-bottom: 4rem;
+    }
+    .text-content {
+      padding-top: 3rem;
+      padding-bottom: 3rem;
+      @include tablet-up {
+        padding-left: 7rem;
+        padding-right: 12rem;
+      }
+    }
+    .cropped-image-wrapper {
+      padding-bottom: 83%;
+    }
+    .metadata-row {
+      margin-bottom: 3rem;
+    }
+    .read-more-row {
+      display: block;
+    }
+  }
+}
 
 /* --------------------------------------------------------------------------
   FORM PAGE HEADER
@@ -2882,6 +3343,9 @@ Accordions
       margin-top: 3rem;
     }
 
+  }
+  .desc {
+    letter-spacing: 0.59px;
   }
 }
 
@@ -3052,6 +3516,141 @@ Accordions
   }
 }
 
+/* --------------------------------------------------------------------------
+  INGREDIENTS - INTRO
+-----------------------------------------------------------------------------*/
+.page-ingredients {
+  h1 {
+    margin-bottom: 3rem;
+    @include tablet-up {
+      margin-bottom: 4rem;
+    }
+  }
+
+  .inner {
+    max-width: 68.9rem;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 4rem;
+    .desc {
+      color: $darkGreyText;
+      text-align: justify;
+    }
+  }
+}
+
+.page-ingredients .ingredients-chart {
+  padding-bottom: 5rem;
+  max-width: 110rem;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 1.5rem;
+  line-height: (19 / 15);
+  color: $darkGreyText;
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  thead {
+    background: $lightGreyBg;
+  }
+  th {
+    font-family: $proxima;
+    font-size: 1.3rem;
+    color: #000000;
+    letter-spacing: 0.198rem;
+    text-align: center;
+    line-height: 3.6rem;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  td,
+  th {
+    border: 1px solid #D4D4D4;
+    padding: 1.4rem;
+    vertical-align: middle;
+  }
+  tr > td:first-of-type {
+    border-collapse: collapse;
+    font-family: $canela;
+    font-size: 1.7rem;
+    color: #000000;
+    letter-spacing: 0.055rem;
+    @include tablet-up {
+      text-align: center;
+    }
+  }
+
+}
+
+@media only screen and (max-width: 760px), (min-device-width: 768px) and (max-device-width: 1024px) {
+  .page-ingredients .ingredients-chart {
+
+    /* Force table to not be like tables anymore */
+    table,
+    tbody,
+    td,
+    th,
+    thead,
+    tr {
+      display: block;
+    }
+
+    /* Hide table headers (but not display: none;, for accessibility) */
+    thead tr {
+      position: absolute;
+      top: -9999px;
+      left: -9999px;
+    }
+
+    tr {
+      border: $border;
+      border-bottom: none;
+      margin-bottom: 2rem;
+    }
+
+    td {
+      /* Behave  like a "row" */
+      border: none;
+      border-bottom: $border;
+      position: relative;
+      padding-left: 50%;
+      text-align: left;
+    }
+
+    td:before {
+      /* Now like a table header */
+      position: absolute;
+      /* Top/left values mimic padding */
+      top: 50%;
+      transform: translateY(-50%);
+      left: 1.4rem;
+      width: 45%;
+      padding-right: 1rem;
+      white-space: nowrap;
+      text-align: left;
+    }
+
+    /*
+	Label the data
+	*/
+    td:nth-of-type(1):before {
+      content: "Ingredient";
+    }
+    td:nth-of-type(2):before {
+      content: "CAS";
+    }
+    td:nth-of-type(3):before {
+      content: "What is it?";
+    }
+    td:nth-of-type(4):before {
+      content: "Why We Use It";
+    }
+    td:nth-of-type(5):before {
+      content: "L'AVANT Products";
+    }
+  }
+}
 
 .social-sharing svg {
   display: block;
@@ -3150,5 +3749,14 @@ Section Comment
   background: white;
   &:focus {
     top: 0;
+  }
+}
+
+/* 404 page ================== */
+.page-404,
+.page-general {
+  text-align: center;
+  h1 {
+    margin-bottom: 2rem;
   }
 }

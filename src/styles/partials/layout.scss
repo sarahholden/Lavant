@@ -52,6 +52,11 @@ Vertical & Horizontal Alignment
 	justify-content: center;
 }
 
+.split-aligner {
+	display: flex;
+	justify-content: space-between;
+}
+
 /* --------------------------------------------------------------------------
 Centered Layout
 -----------------------------------------------------------------------------*/

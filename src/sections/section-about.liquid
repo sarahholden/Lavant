@@ -1,1 +1,185 @@
-About
+
+<!-- ======================================
+HEADER
+=========================================== -->
+<header class="container">
+  <div class="cropped-image-wrapper" data-trigger="scroll">
+    {% assign image = section.settings.image %}
+    {% assign alt_text = section.settings.image_alt | escape %}
+    {% assign img_url = image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' %}
+    <img
+    class="lazyload fade-in"
+    data-src="{{ img_url }}"
+    data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+    data-aspectratio="{{ image.aspect_ratio }}"
+    data-sizes="auto"
+    alt="{{ alt_text }}"
+    data-anim="scale"
+    data-scale-from="1"
+    data-scale-to="1.05"
+    >
+  </div>
+  <div class="inner" data-trigger="scroll">
+    {% if section.settings.title != blank %}
+      <h1 class="heading--serif-xl" data-anim="slide" data-anim-order="1">{{ section.settings.title | newline_to_br }}</h1>
+    {% endif %}
+    {% if section.settings.desc != blank %}
+      <div class="desc" data-anim="slide" data-anim-order="2">
+        {{ section.settings.desc }}
+      </div>
+    {% endif %}
+    {% if section.settings.desc_cta != blank %}
+      <div class="desc cta" data-anim="slide" data-anim-order="3">
+        {{ section.settings.desc_cta }}
+      </div>
+    {% endif %}
+  </div>
+</header>
+
+<section class="image-divider">
+  <div class="cropped-image-wrapper">
+    {% assign image = section.settings.image_divider %}
+    {% assign alt_text = section.settings.image_divider_alt | escape %}
+    {% assign img_url = image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' %}
+    <img
+    class="lazyload fade-in"
+    data-src="{{ img_url }}"
+    data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+    data-aspectratio="{{ image.aspect_ratio }}"
+    data-sizes="auto"
+    alt="{{ alt_text }}"
+    data-anim="scale"
+    >
+  </div>
+</section>
+
+<section class="container bios padded">
+  <div class="cols-2">
+    {% for block in section.blocks %}
+      {% case block.type %}
+      {% when 'team_member' %}
+        <div>
+          <div class="cropped-image-wrapper">
+            {% assign image = block.settings.image %}
+            {% assign alt_text = block.settings.image_alt | escape %}
+            {% assign img_url = image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' %}
+            <img
+            class="lazyload fade-in"
+            data-src="{{ img_url }}"
+            data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+            data-aspectratio="{{ image.aspect_ratio }}"
+            data-sizes="auto"
+            alt="{{ alt_text }}"
+            data-anim="scale"
+            >
+          </div>
+          {% if block.settings.title != blank %}
+            <h2 class="heading--serif">{{ block.settings.title | newline_to_br }}</h2>
+          {% endif %}
+          {% if block.settings.bio != blank %}
+            <div class="desc">
+              {{ block.settings.bio }}
+            </div>
+          {% endif %}
+
+        </div>
+      {% endcase %}
+    {% endfor %}
+  </div>
+
+</section>
+
+
+
+
+{% schema %}
+{
+  "name": "About Page",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Header"
+    },
+    {
+      "id": "title",
+      "type": "textarea",
+      "label": "Title"
+    },
+    {
+      "id": "image",
+      "type": "image_picker",
+      "label": "Image"
+    },
+    {
+      "id": "image_alt",
+      "type": "text",
+      "label": "Image Alt",
+      "info": "Write a brief description of this image to improve search engine optimization (SEO) and ADA accessibility."
+    },
+    {
+      "id": "desc",
+      "type": "richtext",
+      "label": "Intro Text"
+    },
+    {
+      "id": "desc_cta",
+      "type": "richtext",
+      "label": "Intro Text CTA"
+    },
+    {
+      "type": "header",
+      "content": "Image Divider"
+    },
+    {
+      "id": "image_divider",
+      "type": "image_picker",
+      "label": "Image Divider"
+    },
+    {
+      "id": "image_divider_alt",
+      "type": "text",
+      "label": "Image Divider Alt",
+      "info": "Write a brief description of this image to improve search engine optimization (SEO) and ADA accessibility."
+    }
+
+  ],
+  "blocks": [
+    {
+      "type": "team_member",
+      "name": "Team Member",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Images"
+        },
+        {
+          "id": "image",
+          "type": "image_picker",
+          "label": "Image"
+        },
+        {
+          "id": "image_alt",
+          "type": "text",
+          "label": "Image Alt",
+          "info": "Write a brief description of this image to improve search engine optimization (SEO) and ADA accessibility."
+        },
+        {
+          "type": "header",
+          "content": "Text"
+        },
+        {
+          "id": "title",
+          "type": "text",
+          "label": "Name"
+        },
+        {
+          "id": "bio",
+          "type": "richtext",
+          "label": "Bio"
+        }
+
+      ]
+    }
+  ]
+}
+{% endschema %}

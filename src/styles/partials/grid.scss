@@ -8,14 +8,16 @@ $gridRowGutterSize: 1.5rem;
 Grid Styles
 -----------------------------------------------------------------------------*/
 [class*='cols'] {
-	display: -ms-grid;
-	display: grid;
-	-ms-grid-rows: auto;
-	grid-template-rows: auto;
-	grid-column-gap: $gridColumnGutterSize;
-	grid-row-gap: $gridRowGutterSize;
-	-ms-grid-columns: 1fr;
-	grid-template-columns: 1fr;
+	@include tablet-up {
+		display: -ms-grid;
+		display: grid;
+		-ms-grid-rows: auto;
+		grid-template-rows: auto;
+		grid-column-gap: $gridColumnGutterSize;
+		grid-row-gap: $gridRowGutterSize;
+		-ms-grid-columns: 1fr;
+		grid-template-columns: 1fr;
+	}
 }
 
 .no-gutters {
@@ -35,7 +37,17 @@ Grid Styles
 }
 
 .cols-2-sm {
-	grid-template-columns: repeat(2, 1fr);
+	@include mobile-only {
+		display: -ms-grid;
+		display: grid;
+		-ms-grid-rows: auto;
+		grid-template-rows: auto;
+		grid-column-gap: $gridColumnGutterSize;
+		grid-row-gap: $gridRowGutterSize;
+		-ms-grid-columns: 1fr;
+		grid-template-columns: 1fr;
+		grid-template-columns: repeat(2, 1fr);
+	}
 }
 
 .cols-2-lg {

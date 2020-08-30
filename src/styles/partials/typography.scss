@@ -16,7 +16,7 @@ $smallHeadingFontSize: 2rem;
 Font Styles
 -----------------------------------------------------------------------------*/
 $bodyTextLineHeight: 1.6;
-$bodyTextLetterSpacing: 0.05rem;
+$bodyTextLetterSpacing: 0;
 
 /* --------------------------------------------------------------------------
 Typography
@@ -75,7 +75,7 @@ a:hover {
     position: absolute;
     bottom: 0;
     left: 0;
-    width: 100%;
+    width: 98%;
     height: 1px;
     background: $borderColor;
     transition: $smoothTransition;
@@ -129,6 +129,16 @@ h1 {
   }
 }
 
+.heading--serif-grey {
+  @extend .heading--serif;
+  text-align: center;
+  color: $lightGreyText;
+  @include tablet-up {
+    font-size: 5rem;
+    margin-bottom: 5rem;
+  }
+}
+
 /* --------------------------------------------------------------------------
   TEXT STYLES
 -----------------------------------------------------------------------------*/
@@ -136,7 +146,7 @@ h1 {
   font-family: $proxima;
   font-size: 1.8rem;
   color: #000000;
-  letter-spacing: 0.59px;
+
   line-height: (24 / 18);
   @include mobile-only {
     font-size: 1.4rem;
@@ -182,11 +192,13 @@ h1 {
 /* --------------------------------------------------------------------------
   SMALL CAPS
 -----------------------------------------------------------------------------*/
-%smallCaps {
+%smallCaps,
+.small-caps {
+  font-size: 1.3rem;
+  color: #000000;
+  letter-spacing: 0.166rem;
+  font-weight: 600;
   text-transform: uppercase;
-  font-size: $smallHeadingFontSize;
-  line-height: 1.6;
-  letter-spacing: 0.1rem;
 }
 
 /* --------------------------------------------------------------------------
