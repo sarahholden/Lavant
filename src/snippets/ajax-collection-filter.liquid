@@ -1,0 +1,274 @@
+<script type="text/javascript">
+
+(function() {
+
+  var pathname = window.location.hostname;
+  var collectionHandle = '{{ collection.handle }}';
+  var productListRef = '.js-product-list';
+  var requestUrl = '';
+  var baseUrl = '//' + pathname ;
+  var sortOrder = '';
+  var tagString = '';
+  var collectionString = '';
+  var defaultCollectionString = '/collections/' + collectionHandle;
+
+
+  /* ---------------------------------------------
+  HELPER FUNCTIONS
+  ------------------------------------------------ */
+  function clearStr(str) {
+
+    var full = '';
+
+    str.replace(/([^"]+)|("[^"]+")/g, function($0, $1, $2) {
+      if ($1) {
+        full += $1;
+      } else if ($2) {
+        full += $2.replace(/\s/g, '_');
+      } else if ($0) {
+        full +=  $0.replace(/\s/g, '_');
+      }
+    });
+
+    return full;
+  }
+
+
+  // function updateFilterTags (requestUrl) {
+  //
+  //   // ONLY ALLOW ONE CATEGORY TO BE SELECTED AT A TIME
+  //   if ($('.js-category-checkbox-wrap .js-filter-checkbox:checked').length > 0) {
+  //     $('.js-category-checkbox-wrap').hide();
+  //     $('.js-category-checkbox-wrap .js-filter-checkbox:checked').closest('.js-category-checkbox-wrap').show();
+  //   } else {
+  //     $('.js-category-checkbox-wrap').fadeIn();
+  //   }
+  //
+  //   // HIDE TAG COMBINATIONS THAT DO NOT EXIST
+  //   requestUrl = requestUrl.split('?')[0];
+  //
+  //   $.get(requestUrl + '?view=filter-tags-json', function(data) {
+  //     $('.js-tag-checkbox-wrap').hide();
+  //     var html = $.parseHTML(data);
+  //
+  //     for (var i = 0; i < html.length; i += 1) {
+  //
+  //       var node = html[i];
+  //
+  //       if (node.nodeType === 1) {
+  //         if (node.id === 'FilterTagsJSON') {
+  //           var filterData = jQuery.parseJSON(clearStr(node.textContent));
+  //
+  //           $('.js-tag-checkbox-wrap').each(function () {
+  //             var tagName = $(this).find('input:checkbox').data('filter');
+  //             if (filterData.includes(tagName)) {
+  //               $(this).show();
+  //             }
+  //           });
+  //           break;
+  //         }
+  //       }
+  //     }
+  //
+  //   })
+  //   .fail(function() {
+  //     console.log('error');
+  //   });
+  //
+  // }
+
+  // UPDATE ENDLESS SCROLL
+  // function updatePagination (requestUrl) {
+  //   ShCustom.currentPage = 1;
+  //   ShCustom.paginationBaseUrl = requestUrl;
+  //
+  //
+  //   // GET TOTAL NUMBER OF POSTS WITH REQUEST URL
+  //   requestUrl = requestUrl.split('?')[0];
+  //
+  //   ShCustom.sortUrl = requestUrl.split('?')[1] ? requestUrl.split('?')[1] : '';
+  //
+  //   $.get(requestUrl + '?view=paginate-count', function(data) {
+  //     var html = $.parseHTML(data);
+  //
+  //     for (var i = 0; i < html.length; i += 1) {
+  //
+  //       var node = html[i];
+  //
+  //       if (node.nodeType === 1) {
+  //         if (node.id === 'PaginationCountJSON') {
+  //           var filterData = jQuery.parseJSON(clearStr(node.textContent));
+  //           ShCustom.totalPosts = filterData;
+  //           break;
+  //         }
+  //       }
+  //     }
+  //
+  //     // console.log(ShCustom.totalPosts);
+  //     // console.log(ShCustom.paginationBaseUrl);
+  //     // console.log(ShCustom.currentPage);
+  //   })
+  //   .fail(function() {
+  //     console.log('error');
+  //   });
+  // }
+
+
+
+  function ajaxUpdateResults (requestUrl) {
+    // ADD LOADING STYLES
+    addLoadingStyles();
+
+    $.get({
+      url: requestUrl,
+      success: function (data) {
+        $('.js-loading-icon-row').hide();
+
+        var filteredResults = $(data).find(productListRef).html();
+        $(productListRef).html(filteredResults);
+        $(productListRef).fadeIn(400);
+
+        // updateFilterTags(requestUrl);
+        // updatePagination(requestUrl);
+
+      },
+      error: function () {
+
+        var message = "<div class='no-product-results'><h2 >No products match your filter criteria.</h2><p>Clear all and try again.</p></div>";
+        $(productListRef).html(message);
+        $('.js-loading-icon-row').hide();
+        $(productListRef).fadeIn(400);
+
+      }
+    });
+  }
+
+  function hideDropdowns () {
+    $('.js-filter-group-wrapper').attr('data-visible', 'false');
+  }
+
+  function addLoadingStyles () {
+    $(productListRef).hide();
+    $('.js-loading-icon-products').addClass('loading').fadeIn();
+    $('.js-loading-icon-row').fadeIn();
+  }
+
+  function undoSort () {
+    sortOrder = '';
+    $('.js-sort-group-wrapper').attr('data-active', 'false');
+  }
+
+  /* ---------------------------------------------
+  EVENTS
+  ------------------------------------------------ */
+
+  /*=========================
+  SORT
+  ===========================*/
+  $('.js-sort-group-wrapper').on('click', function () {
+    var sortCategory = $(this).data('sort-category');
+    var isAlreadyActive = $(this).attr('data-active') == 'true';
+
+    collectionString = collectionString == '' ? defaultCollectionString : collectionString;
+
+    // Reset sort order
+    var requestUrl = baseUrl + collectionString + tagString;
+    undoSort();
+
+    if (! isAlreadyActive) {
+      $(this).attr('data-active', 'true');
+      sortOrder = '?sort_by=' + sortCategory;
+      requestUrl += sortOrder;
+    }
+
+    ajaxUpdateResults(requestUrl);
+
+  });
+
+  /*=========================
+  TOGGLE FILTER GROUP DROPDOWN
+  ===========================*/
+  $('.js-expand-filter-dropdown').on('click', function () {
+    var isVisible = $(this).closest('.js-filter-group-wrapper').attr('data-visible');
+
+    // CLOSE OTHER FILTERS
+    hideDropdowns();
+
+    if (isVisible == "false") {
+      $(this).closest('.js-filter-group-wrapper').attr('data-visible', 'true');
+      $(this).closest('.js-filter-group-wrapper').focus();
+    }
+
+    $('body').on('click.closeDropdown', function (e) {
+      if ($(e.target).closest('.js-filter-group-wrapper').length == 0 ) {
+        hideDropdowns();
+        $('body').off('click.closeDropdown');
+      }
+    });
+  });
+
+
+
+  /*=========================
+  FILTER LINK CLICK
+  ===========================*/
+  $('.js-category-filter').on('click', 'a', function (e) {
+    e.preventDefault();
+    tagString = '';
+    collectionString = '';
+
+    undoSort();
+
+    hideDropdowns();
+
+    collectionString = $(this).attr('href');
+
+    tagString = tagString != '' ? '/' + tagString : tagString;
+    collectionString = collectionString != '' ? collectionString : defaultCollectionString;
+
+    // End goal example: ......collections/all/white+small
+    var requestUrl = baseUrl + collectionString + tagString + sortOrder;
+
+    ajaxUpdateResults(requestUrl);
+
+  });
+
+  /*=========================
+  CLEAR ALL FILTERS
+  ===========================*/
+  $('.js-clear-all-filters').on('click', function () {
+    collectionString = defaultCollectionString;
+    sortOrder = '';
+    tagString = '';
+
+    // Remove tags from URL
+    var requestUrl = baseUrl + collectionString;
+
+    // Uncheck all checkboxes
+    $('input:checkbox').prop('checked', false);
+    // REMOVE UNDERLINED SORT Styles
+    $('[data-active="true"]').attr('data-active', 'false');
+
+    // UPDATE PRODUCT LIST
+    ajaxUpdateResults(requestUrl);
+
+    // HIDE BUTTON AFTER CLICKED
+    $('.js-clear-all-filters').hide();
+
+    // CLOSE OTHER FILTERS
+    hideDropdowns();
+
+    $('.js-loading-icon-row').hide();
+  });
+
+
+
+
+
+
+
+
+})();
+
+
+</script>

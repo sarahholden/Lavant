@@ -22,7 +22,7 @@
                   <span rv-text="item.product_title"></span>
                 </a>
                 <a href="#" rv-data-cart-remove="index | plus 1" class="cart-remove">
-                  <img src="{{ 'icon-close.svg' | asset_url }}" alt="Close Cart" width="11">
+                  {%- include 'icon-close' -%}
                 </a>
               </h3>
             </div>

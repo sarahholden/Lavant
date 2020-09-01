@@ -1,0 +1,78 @@
+<!-- If the user has filtered by colleciton, save that in a variable -->
+{% assign filter = collection.handle %}
+
+{%- if section.settings.ordered_collection and collection.handle == 'all' -%}
+  {% assign collection = collections[section.settings.ordered_collection] %}
+{%- endif -%}
+
+
+<div class="collection-container">
+  <div class="inner">
+    {% paginate collection.products by 20 %}
+      <header role="banner" data-trigger="scroll">
+        <h1 class="heading--serif-grey" data-reveal="lines-masked">All Products</h1>
+        {% if collection.description != blank %}
+          <div class="rte">
+            {{ collection.description }}
+          </div>
+        {% endif %}
+
+
+      </header>
+
+      <section class="collection-filter">
+        {%- include 'collection-filter-bar' -%}
+      </section>
+
+      <!-- ====== LOADING ICON ======== -->
+      <div class="js-loading-icon-row loading-icon-row container padded">
+        <div class="js-loading-icon-products loading-icon hide"  aria-hidden="true" tabindex="-1">
+          {%- include 'icon-loading' -%}
+        </div>
+      </div>
+
+      <section class="js-product-list collection-grid cols-3 cols-2-sm">
+        {% for product in collection.products %}
+          {%- include 'product-card' -%}
+        {% endfor %}
+      </section>
+
+      {% if paginate.pages > 1 %}
+        {% include 'pagination' %}
+      {% endif %}
+    {% endpaginate %}
+
+  </div>
+</div>
+
+{%- include 'ajax-collection-filter' -%}
+
+{% schema %}
+{
+  "name": "Collection Page Settings",
+  "settings": [
+    {
+      "id": "ordered_collection",
+      "type": "collection",
+      "label": "Ordered Collection"
+    },
+    {
+      "type": "header",
+      "content": "Filter Lists"
+    },
+    {
+      "id": "link_list_1",
+      "type": "link_list",
+      "label": "Filter List 1",
+      "info": "Edit list itmes under Online Store > Navigation"
+    },
+    {
+      "id": "link_list_2",
+      "type": "link_list",
+      "label": "Filter List 2",
+      "info": "Edit list itmes under Online Store > Navigation"
+    }
+
+  ]
+}
+{% endschema %}

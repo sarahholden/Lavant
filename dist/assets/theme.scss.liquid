@@ -2742,6 +2742,31 @@ Accordions
 }
 
 /* --------------------------------------------------------------------------
+  PAGINATION ICON
+-----------------------------------------------------------------------------*/
+.loading-icon {
+  max-width: 3.6rem;
+  margin-left: auto;
+  margin-right: auto;
+  transform-origin: center;
+  &.loading {
+    animation: rotate 8s linear forwards infinite;
+  }
+  svg {
+    display: block;
+  }
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(3600deg);
+  }
+}
+
+/* --------------------------------------------------------------------------
   SLIDING IMAGE WRAPPERS
 -----------------------------------------------------------------------------*/
 // .sliding-img-wrapper {
@@ -3657,6 +3682,66 @@ Accordions
   width: 2rem;
 }
 
+
+/* --------------------------------------------------------------------------
+  COLLECTION LAYOUT
+-----------------------------------------------------------------------------*/
+.collection-container {
+  @extend .collection;
+  padding-top: 5rem;
+  @include mobile-only {
+    padding-top: 3.5rem;
+  }
+  .inner {
+    max-width: 102.5rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+/* --------------------------------------------------------------------------
+  COLLECTION HEADER
+-----------------------------------------------------------------------------*/
+
+/* --------------------------------------------------------------------------
+  COLLECTION FILTER
+-----------------------------------------------------------------------------*/
+.collection-filter {
+  border-top: $border;
+}
+/* --------------------------------------------------------------------------
+  PRODUCT GRID
+-----------------------------------------------------------------------------*/
+.collection-grid {
+  padding-bottom: 6.8rem;
+
+  .product-card {
+    text-align: center;
+  }
+  img {
+    height: 42rem;
+    object-fit: contain;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    @include mobile-only {
+      height: 23rem;
+    }
+  }
+  h3 {
+    font-size: 1.7rem;
+    letter-spacing: 0.055rem;
+    line-height: (23 / 17);
+    max-width: 17.2rem;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 2rem;
+  }
+  .price {
+    font-size: 1.2rem;
+    letter-spacing: 0.243rem;
+  }
+}
 
 /* --------------------------------------------------------------------------
   SUBSCRIPTION HEADER

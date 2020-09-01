@@ -125,6 +125,31 @@ Accordions
 }
 
 /* --------------------------------------------------------------------------
+  PAGINATION ICON
+-----------------------------------------------------------------------------*/
+.loading-icon {
+  max-width: 3.6rem;
+  margin-left: auto;
+  margin-right: auto;
+  transform-origin: center;
+  &.loading {
+    animation: rotate 8s linear forwards infinite;
+  }
+  svg {
+    display: block;
+  }
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(3600deg);
+  }
+}
+
+/* --------------------------------------------------------------------------
   SLIDING IMAGE WRAPPERS
 -----------------------------------------------------------------------------*/
 // .sliding-img-wrapper {

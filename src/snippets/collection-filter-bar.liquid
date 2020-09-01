@@ -1,0 +1,30 @@
+<div class="js-filter-group-wrapper">
+  <div class="cols-2">
+    {%- include 'collection-filter-list', filter_list: section.settings.link_list_1 -%}
+    {%- include 'collection-filter-list', filter_list: section.settings.link_list_2 -%}
+
+  </div>
+</div>
+
+
+
+<!-- NEWEST -->
+<div class="js-sort-group-wrapper filter-group-wrapper" data-sort-category="created-descending" data-active="false">
+  <h5 aria-label="Sort by newest to oldest" class="js-expand-filter-dropdown small-bold-caps" tabindex="0">
+    <span class="text-wrapper">Newest</span>
+  </h5>
+</div>
+
+<!-- BESTSELLERS -->
+<div class="js-sort-group-wrapper filter-group-wrapper" data-sort-category="best-selling" data-active="false">
+  <h5 aria-label="Sort by best selling" class="js-expand-filter-dropdown small-bold-caps" tabindex="0">
+    <span class="text-wrapper">Bestsellers</span>
+  </h5>
+</div>
+
+<!-- PRICE -->
+<div class="js-sort-group-wrapper filter-group-wrapper" data-sort-category="price-descending" data-active="false">
+  <h5 aria-label="Sort by price descending" class="js-expand-filter-dropdown small-bold-caps" tabindex="0">
+    <span class="text-wrapper">Price &mdash; High to Low</span>
+  </h5>
+</div>

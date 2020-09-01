@@ -1,0 +1,7 @@
+<ul class="js-category-filter">
+  {% for link in linklists[filter_list].links %}
+    <li>
+      <a href="{{ link.url }}" data-collection-handle="{{ link.object.handle }}">{{ link.title | escape }}</a>
+    </li>
+  {% endfor %}
+</ul>
