@@ -1,30 +1,55 @@
+<script type="text/javascript">
+  // FILTER #1
+  // WHEN CREATING LINK LISTS, CREATE LIST OF FILTER TAGS
+  // IMPORTANT - COMPILE LIST FOR JS TAG COMBINATIONS
+  var filterTags = [];
+</script>
+
 <div class="js-filter-group-wrapper">
   <div class="cols-2">
     {%- include 'collection-filter-list', filter_list: section.settings.link_list_1 -%}
     {%- include 'collection-filter-list', filter_list: section.settings.link_list_2 -%}
-
   </div>
 </div>
-
+<button type="button" class="js-clear-all-filters clear-all text-only">Clear All</button>
 
 
 <!-- NEWEST -->
-<div class="js-sort-group-wrapper filter-group-wrapper" data-sort-category="created-descending" data-active="false">
-  <h5 aria-label="Sort by newest to oldest" class="js-expand-filter-dropdown small-bold-caps" tabindex="0">
-    <span class="text-wrapper">Newest</span>
-  </h5>
-</div>
-
-<!-- BESTSELLERS -->
-<div class="js-sort-group-wrapper filter-group-wrapper" data-sort-category="best-selling" data-active="false">
-  <h5 aria-label="Sort by best selling" class="js-expand-filter-dropdown small-bold-caps" tabindex="0">
-    <span class="text-wrapper">Bestsellers</span>
-  </h5>
-</div>
-
-<!-- PRICE -->
-<div class="js-sort-group-wrapper filter-group-wrapper" data-sort-category="price-descending" data-active="false">
-  <h5 aria-label="Sort by price descending" class="js-expand-filter-dropdown small-bold-caps" tabindex="0">
-    <span class="text-wrapper">Price &mdash; High to Low</span>
-  </h5>
+<div class="js-sort-group-wrapper filter-group-wrapper"  data-active="false">
+  <button type="button" class="js-filter-trigger filter-trigger" aria-label="Open Sort Options Dropdown">
+    Sort By:
+    <span class="js-current-sort">Featured</span>
+  </button>
+  <ul tabindex="-1">
+    <li>
+      <button
+        type="button"
+        aria-label="Sort by featured products"
+        data-sort-category="manual"
+        class="js-sort-list">
+        Featured
+      </button>
+      <button
+        type="button"
+        aria-label="Sort by Best Selling"
+        data-sort-category="best-selling"
+        class="js-sort-list">
+        Best Sellers
+      </button>
+      <button
+        type="button"
+        aria-label="Sort by Price Descending"
+        data-sort-category="price-descending"
+        class="js-sort-list">
+        Price (High-Low)
+      </button>
+      <button
+        type="button"
+        aria-label="Sort by Price Ascending"
+        data-sort-category="price-ascending"
+        class="js-sort-list">
+        Price (Low-High)
+      </button>
+    </li>
+  </ul>
 </div>

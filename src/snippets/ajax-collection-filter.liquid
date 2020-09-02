@@ -4,6 +4,7 @@
 
   var pathname = window.location.hostname;
   var collectionHandle = '{{ collection.handle }}';
+  var urlHandle = '{{ urlFilter }}'; // CREATED ON COLLECTION PAGE
   var productListRef = '.js-product-list';
   var requestUrl = '';
   var baseUrl = '//' + pathname ;
@@ -34,48 +35,46 @@
   }
 
 
-  // function updateFilterTags (requestUrl) {
-  //
-  //   // ONLY ALLOW ONE CATEGORY TO BE SELECTED AT A TIME
-  //   if ($('.js-category-checkbox-wrap .js-filter-checkbox:checked').length > 0) {
-  //     $('.js-category-checkbox-wrap').hide();
-  //     $('.js-category-checkbox-wrap .js-filter-checkbox:checked').closest('.js-category-checkbox-wrap').show();
-  //   } else {
-  //     $('.js-category-checkbox-wrap').fadeIn();
-  //   }
-  //
-  //   // HIDE TAG COMBINATIONS THAT DO NOT EXIST
-  //   requestUrl = requestUrl.split('?')[0];
-  //
-  //   $.get(requestUrl + '?view=filter-tags-json', function(data) {
-  //     $('.js-tag-checkbox-wrap').hide();
-  //     var html = $.parseHTML(data);
-  //
-  //     for (var i = 0; i < html.length; i += 1) {
-  //
-  //       var node = html[i];
-  //
-  //       if (node.nodeType === 1) {
-  //         if (node.id === 'FilterTagsJSON') {
-  //           var filterData = jQuery.parseJSON(clearStr(node.textContent));
-  //
-  //           $('.js-tag-checkbox-wrap').each(function () {
-  //             var tagName = $(this).find('input:checkbox').data('filter');
-  //             if (filterData.includes(tagName)) {
-  //               $(this).show();
-  //             }
-  //           });
-  //           break;
-  //         }
-  //       }
-  //     }
-  //
-  //   })
-  //   .fail(function() {
-  //     console.log('error');
-  //   });
-  //
-  // }
+  function updateFilterTags () {
+    var tags = tagString.replace('/','');
+    tags = tags.split('+');
+
+    var matches = [];
+
+    // HIDE ALL FILTERS
+    $('.js-category-filter li').hide();
+
+    // LOOP THROUGH TAG COMBINATION LISTS
+    for (var i = 0; i < productCombinations.length; i++) {
+      var currentFilterCombo = productCombinations[i];
+      // debugger;
+
+      // var match = currentFilterCombo.every(i => tags.includes(i));
+
+      var allTagsExistInCombo = true;
+
+      for (var j = 0; j < tags.length; j++) {
+        var currentTag = tags[j];
+        if (!currentFilterCombo.includes(currentTag)) {
+          allTagsExistInCombo = false;
+        }
+      }
+
+      if (allTagsExistInCombo) {
+        matches.push(currentFilterCombo);
+
+      }
+      // IF THE COMBINATION LIST CONTAINS THE SELECTED TAG, SHOW THAT FILTER
+    }
+
+    matches = matches.flat();
+    console.log(matches);
+
+    for (var k = 0; k < matches.length; k++) {
+      $('.js-category-filter [data-tag="' + matches[k] + '"]').closest('li').show();
+    }
+
+  }
 
   // UPDATE ENDLESS SCROLL
   // function updatePagination (requestUrl) {
@@ -128,6 +127,10 @@
         $(productListRef).html(filteredResults);
         $(productListRef).fadeIn(400);
 
+        if (tagString != '') {
+          updateFilterTags();
+        }
+
         // updateFilterTags(requestUrl);
         // updatePagination(requestUrl);
 
@@ -153,10 +156,6 @@
     $('.js-loading-icon-row').fadeIn();
   }
 
-  function undoSort () {
-    sortOrder = '';
-    $('.js-sort-group-wrapper').attr('data-active', 'false');
-  }
 
   /* ---------------------------------------------
   EVENTS
@@ -165,21 +164,20 @@
   /*=========================
   SORT
   ===========================*/
-  $('.js-sort-group-wrapper').on('click', function () {
-    var sortCategory = $(this).data('sort-category');
-    var isAlreadyActive = $(this).attr('data-active') == 'true';
+  $('.js-sort-list').on('click', function () {
+    var $selectedSortOption = $(this);
+    var sortCategory = $selectedSortOption.data('sort-category');
 
+    // SET THE DEFAULT COLLECTION TO THE CURRENT COLLECTION PAGE, IF NOT ALREADY SELECTED
     collectionString = collectionString == '' ? defaultCollectionString : collectionString;
 
     // Reset sort order
     var requestUrl = baseUrl + collectionString + tagString;
-    undoSort();
 
-    if (! isAlreadyActive) {
-      $(this).attr('data-active', 'true');
-      sortOrder = '?sort_by=' + sortCategory;
-      requestUrl += sortOrder;
-    }
+    $selectedSortOption.attr('data-active', 'true');
+    $('.js-current-sort').text($selectedSortOption.text());
+    sortOrder = '?sort_by=' + sortCategory;
+    requestUrl += sortOrder;
 
     ajaxUpdateResults(requestUrl);
 
@@ -214,16 +212,21 @@
   ===========================*/
   $('.js-category-filter').on('click', 'a', function (e) {
     e.preventDefault();
-    tagString = '';
     collectionString = '';
-
-    undoSort();
 
     hideDropdowns();
 
-    collectionString = $(this).attr('href');
+    selectedTag = $(this).data('tag');
 
-    tagString = tagString != '' ? '/' + tagString : tagString;
+    // If a tag has already been selected, add this one on
+    if (selectedTag != '' && tagString != '') {
+      tagString += '+' + selectedTag;
+    } else if (selectedTag != '') {
+      tagString += '/' + selectedTag;
+    }
+
+
+
     collectionString = collectionString != '' ? collectionString : defaultCollectionString;
 
     // End goal example: ......collections/all/white+small
@@ -238,25 +241,22 @@
   ===========================*/
   $('.js-clear-all-filters').on('click', function () {
     collectionString = defaultCollectionString;
-    sortOrder = '';
     tagString = '';
 
     // Remove tags from URL
     var requestUrl = baseUrl + collectionString;
 
-    // Uncheck all checkboxes
-    $('input:checkbox').prop('checked', false);
-    // REMOVE UNDERLINED SORT Styles
-    $('[data-active="true"]').attr('data-active', 'false');
-
     // UPDATE PRODUCT LIST
     ajaxUpdateResults(requestUrl);
+
+    $('.js-category-filter li').show();
 
     // HIDE BUTTON AFTER CLICKED
     $('.js-clear-all-filters').hide();
 
     // CLOSE OTHER FILTERS
     hideDropdowns();
+
 
     $('.js-loading-icon-row').hide();
   });

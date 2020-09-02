@@ -1,5 +1,5 @@
 <!-- If the user has filtered by colleciton, save that in a variable -->
-{% assign filter = collection.handle %}
+{% assign urlFilter = collection.handle %}
 
 {%- if section.settings.ordered_collection and collection.handle == 'all' -%}
   {% assign collection = collections[section.settings.ordered_collection] %}
@@ -9,6 +9,7 @@
 <div class="collection-container">
   <div class="inner">
     {% paginate collection.products by 20 %}
+      <!-- ====== HEADER ======== -->
       <header role="banner" data-trigger="scroll">
         <h1 class="heading--serif-grey" data-reveal="lines-masked">All Products</h1>
         {% if collection.description != blank %}
@@ -16,10 +17,9 @@
             {{ collection.description }}
           </div>
         {% endif %}
-
-
       </header>
 
+      <!-- ====== FILTER ======== -->
       <section class="collection-filter">
         {%- include 'collection-filter-bar' -%}
       </section>
@@ -31,12 +31,14 @@
         </div>
       </div>
 
+      <!-- ====== PRODUCT LISTS ======== -->
       <section class="js-product-list collection-grid cols-3 cols-2-sm">
         {% for product in collection.products %}
           {%- include 'product-card' -%}
         {% endfor %}
       </section>
 
+      <!-- ====== PAGINATION ======== -->
       {% if paginate.pages > 1 %}
         {% include 'pagination' %}
       {% endif %}
@@ -44,6 +46,17 @@
 
   </div>
 </div>
+
+<script type="text/javascript">
+  // FILTER #3
+  var products = {{ collection.products | json }};
+  var productCombinations = [];
+  for (var i = 0; i < products.length; i++) {
+    productCombinations.push(products[i].tags);
+  }
+
+
+</script>
 
 {%- include 'ajax-collection-filter' -%}
 

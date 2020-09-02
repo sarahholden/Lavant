@@ -1,7 +1,12 @@
 <ul class="js-category-filter">
   {% for link in linklists[filter_list].links %}
+    {% assign link_tag = link.url | split: "/" | last %}
     <li>
-      <a href="{{ link.url }}" data-collection-handle="{{ link.object.handle }}">{{ link.title | escape }}</a>
+      <a href="{{ link.url }}" data-tag="{{ link_tag }}" data-collection-handle="{{ link.object.handle }}">{{ link.title | escape }}</a>
     </li>
+    <script type="text/javascript">
+      // FILTER #2
+      filterTags.push('{{ link_tag }}');
+    </script>
   {% endfor %}
 </ul>
