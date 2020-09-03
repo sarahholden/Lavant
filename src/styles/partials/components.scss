@@ -127,6 +127,11 @@ Accordions
 /* --------------------------------------------------------------------------
   PAGINATION ICON
 -----------------------------------------------------------------------------*/
+.loading-icon-row {
+  display: none;
+  min-height: 64rem;
+}
+
 .loading-icon {
   max-width: 3.6rem;
   margin-left: auto;

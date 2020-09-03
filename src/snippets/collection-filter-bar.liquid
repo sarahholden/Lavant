@@ -5,51 +5,85 @@
   var filterTags = [];
 </script>
 
-<div class="js-filter-group-wrapper">
-  <div class="cols-2">
-    {%- include 'collection-filter-list', filter_list: section.settings.link_list_1 -%}
-    {%- include 'collection-filter-list', filter_list: section.settings.link_list_2 -%}
+<section class="filters-row">
+
+  <div class="js-filter-outer-wrapper filter-outer-wrapper" data-visible="false">
+    <!-- ====== FILTER TRIGGER ======== -->
+    <button class="text-only js-expand-filter-dropdown filter-trigger" aria-label="Open Filter Options Dropdown">
+      <span class="js-filter-trigger-text">
+        Apply Filter
+      </span>
+      <span class="js-trigger-icon">{%- include 'icon-caret-down' -%}</span>
+    </button>
+    <div class="js-active-filters active-filters"></div>
+
+
+    <!-- ====== FILTER DROPDOWN ======== -->
+    <div class="js-filter-dropdown filter-dropdown"  tabindex="-1">
+      <div class="cols-2">
+        <div>
+          {% if section.settings.link_list_1_heading != blank %}
+            <h2>{{ section.settings.link_list_1_heading }}</h2>
+          {% endif %}
+          {%- include 'collection-filter-list', filter_list: section.settings.link_list_1 -%}
+        </div>
+        <div>
+          {% if section.settings.link_list_2_heading != blank %}
+            <h2>{{ section.settings.link_list_2_heading }}</h2>
+          {% endif %}
+          {%- include 'collection-filter-list', filter_list: section.settings.link_list_2 -%}
+        </div>
+      </div>
+    </div>
+
   </div>
-</div>
-<button type="button" class="js-clear-all-filters clear-all text-only">Clear All</button>
 
 
-<!-- NEWEST -->
-<div class="js-sort-group-wrapper filter-group-wrapper"  data-active="false">
-  <button type="button" class="js-filter-trigger filter-trigger" aria-label="Open Sort Options Dropdown">
-    Sort By:
-    <span class="js-current-sort">Featured</span>
-  </button>
-  <ul tabindex="-1">
-    <li>
-      <button
-        type="button"
-        aria-label="Sort by featured products"
-        data-sort-category="manual"
-        class="js-sort-list">
-        Featured
-      </button>
-      <button
-        type="button"
-        aria-label="Sort by Best Selling"
-        data-sort-category="best-selling"
-        class="js-sort-list">
-        Best Sellers
-      </button>
-      <button
-        type="button"
-        aria-label="Sort by Price Descending"
-        data-sort-category="price-descending"
-        class="js-sort-list">
-        Price (High-Low)
-      </button>
-      <button
-        type="button"
-        aria-label="Sort by Price Ascending"
-        data-sort-category="price-ascending"
-        class="js-sort-list">
-        Price (Low-High)
-      </button>
-    </li>
-  </ul>
-</div>
+
+  <!-- NEWEST -->
+  <div class="js-filter-outer-wrapper filter-outer-wrapper sort-wrapper" data-visible="false">
+    <button type="button" class="js-expand-filter-dropdown filter-trigger" aria-label="Open Sort Options Dropdown">
+      {% if section.settings.sort_trigger_text != blank %}
+        {{ section.settings.sort_trigger_text }}
+      {% endif %}
+      <span class="js-current-sort">Featured</span>
+      <span>{%- include 'icon-caret-down' -%}</span>
+    </button>
+    <div class="js-filter-dropdown filter-dropdown"  tabindex="-1">
+      <ul >
+        <li>
+          <button
+            type="button"
+            aria-label="Sort by featured products"
+            data-sort-category="manual"
+            class="js-sort-list">
+            Featured
+          </button>
+          <button
+            type="button"
+            aria-label="Sort by Best Selling"
+            data-sort-category="best-selling"
+            class="js-sort-list">
+            Best Sellers
+          </button>
+          <button
+            type="button"
+            aria-label="Sort by Price Descending"
+            data-sort-category="price-descending"
+            class="js-sort-list">
+            Price (High-Low)
+          </button>
+          <button
+            type="button"
+            aria-label="Sort by Price Ascending"
+            data-sort-category="price-ascending"
+            class="js-sort-list">
+            Price (Low-High)
+          </button>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+
+</section>

@@ -1463,6 +1463,9 @@ Hamburger Icon styles
 .nav-wrapper.scrolled {
   position: fixed;
   z-index: 100;
+  -webkit-box-shadow: 2px 10px 19px -22px rgba(0,0,0,0.18);
+  -moz-box-shadow: 2px 10px 19px -22px rgba(0,0,0,0.18);
+  box-shadow: 2px 10px 19px -22px rgba(0,0,0,0.18);
   @include tablet-up {
     padding-top: 2.8rem;
     padding-bottom: 2.1rem;
@@ -2744,6 +2747,11 @@ Accordions
 /* --------------------------------------------------------------------------
   PAGINATION ICON
 -----------------------------------------------------------------------------*/
+.loading-icon-row {
+  display: none;
+  min-height: 64rem;
+}
+
 .loading-icon {
   max-width: 3.6rem;
   margin-left: auto;
@@ -3390,6 +3398,15 @@ Accordions
     @include mobile-only {
       margin-bottom: 2rem;
     }
+    img {
+      transition: all 2s $ease;
+      width: 100%;
+    }
+    &:hover {
+      img {
+        transform: scale(1.035);
+      }
+    }
   }
   .product-info {
     border-top: $border;
@@ -3397,6 +3414,8 @@ Accordions
     max-width: 18rem;
     margin-left: auto;
     margin-right: auto;
+    position: relative;
+    z-index: 2;
     @include tablet-up {
 
       min-height: 9rem;
@@ -3706,9 +3725,194 @@ Accordions
 /* --------------------------------------------------------------------------
   COLLECTION FILTER
 -----------------------------------------------------------------------------*/
+.filters-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .collection-filter {
   border-top: $border;
+  .filter-trigger {
+    padding-top: 1.6rem;
+    padding-bottom: 1.8rem;
+    text-transform: uppercase;
+    font-family: $proxima;
+    font-size: 1.3rem;
+    letter-spacing: 0.166rem;
+    line-height: 1;
+    font-weight: 600;
+    display: inline-block;
+    white-space: nowrap;
+  }
+  .icon-caret-down {
+    width: 1.2rem;
+    display: inline-block;
+    position: relative;
+    top: -.1rem;
+    transition: all 0.4s $ease;
+  }
+
 }
+
+/* ACTIVE FILTERS / CLEAR ================== */
+.collection-filter {
+  .active-filters {
+    display: inline-block;
+  }
+  .current-filter {
+    font-size: 1.5rem;
+    color: #5F5F5F;
+    letter-spacing: 0.094rem;
+    text-transform: none;
+    font-weight: 400;
+    margin-left: 0.3rem;
+  }
+  .clear {
+    border: 1px solid #ddd;
+    width: 17px;
+    height: 17px;
+    display: inline-block;
+    border-radius: 50%;
+    margin-left: 0.2rem;
+    position: relative;
+    top: 0.2rem;
+    margin-right: 1rem;
+    &::before {
+      transform: rotate(45deg);
+    }
+    &::after {
+      transform: rotate(-45deg);
+    }
+    &::after,
+    &::before {
+      content: "";
+      width: 1px;
+      height: 9px;
+      background-color: #333;
+      position: absolute;
+      top: 3px;
+      left: 7px;
+      transition: all 0.3s $ease;
+    }
+    &:hover {
+      &::after,
+      &::before {
+        background: black;
+      }
+    }
+  }
+}
+
+/* COLLECTION DROPDOWN ================== */
+.filter-outer-wrapper {
+  position: relative;
+
+  @include tablet-up {
+    min-width: 30rem;
+  }
+  .filter-dropdown {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    transform: translateY(99%);
+    backface-visibility: hidden;
+    width: 65.5rem;
+    border: 1px solid #B3B3B3;
+    background: white;
+    z-index: 4;
+    padding: 4.5rem 4rem 6rem 7rem;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(97%);
+    transition: all 0.5s $easeIn;
+  }
+}
+
+/* FILTER TYPOGRAPHY ================== */
+.filter-dropdown {
+  h2 {
+    font-size: 2.4rem;
+    letter-spacing: 0;
+    line-height: 1;
+    margin-bottom: 2.4rem;
+  }
+  li {
+    opacity: 0;
+    transition: all 0.3s $easeOutSoft;
+  }
+  a,
+  button {
+    font-size: 1.5rem;
+    color: #5F5F5F;
+    letter-spacing: 0.094rem;
+    line-height: 1.2;
+    margin-bottom: 0.8rem;
+    overflow: hidden;
+    display: inline-block;
+    position: relative;
+    backface-visibility: hidden;
+    border-bottom: 1px solid transparent;
+    &:hover {
+      color: black;
+      border-bottom: 1px solid black;
+    }
+
+  }
+  .active-filter {
+    display: none !important;
+  }
+
+}
+
+.sort-wrapper {
+  text-align: right;
+  @include tablet-up {
+    width: 22rem;
+  }
+  .filter-dropdown {
+    width: 22rem;
+    padding: 2.7rem 2.4rem;
+    left: auto;
+    right: 0;
+    text-align: left;
+    .active-filter {
+      display: block;
+    }
+  }
+  button {
+    color: #3D3D3D;
+    letter-spacing: 0.094;
+    text-transform: uppercase;
+    text-align: left;
+    padding: 0;
+  }
+}
+
+/* ACTIVE MENU STYLES ================== */
+@for $i from 1 through 30 {
+  .js-filter-outer-wrapper:hover .filter-dropdown li:nth-of-type(#{$i}) {
+    transition-delay: ($i - 1) * 0.05s;
+  }
+}
+
+.js-filter-outer-wrapper[data-visible="true"] {
+  .filter-dropdown {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(99%);
+    li {
+      opacity: 1;
+      transition: all 0.6s $easeOutSoft;
+    }
+  }
+  .icon-caret-down {
+    transform: scale(-1);
+  }
+}
+
 /* --------------------------------------------------------------------------
   PRODUCT GRID
 -----------------------------------------------------------------------------*/
@@ -3717,16 +3921,27 @@ Accordions
 
   .product-card {
     text-align: center;
+    &:hover {
+      img {
+        transform: scale(1.04);
+      }
+    }
   }
   img {
     height: 42rem;
     object-fit: contain;
+    object-position: center bottom;
     width: 90%;
     margin-left: auto;
     margin-right: auto;
+    transition: all 1.5s $ease;
     @include mobile-only {
       height: 23rem;
     }
+  }
+  .product-info {
+    position: relative;
+    z-index: 3;
   }
   h3 {
     font-size: 1.7rem;

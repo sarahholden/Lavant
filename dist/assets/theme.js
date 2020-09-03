@@ -1172,7 +1172,7 @@ $(document).ready(function() {
   $('.nav-wrapper').addClass('loaded');
 
   $(window).on('scroll', function () {
-    if ($(window).scrollTop() > 100) {
+    if ($(window).scrollTop() > 20) {
       $('.nav-wrapper').addClass('scrolled');
     } else {
       $('.nav-wrapper').removeClass('scrolled');

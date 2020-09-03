@@ -147,7 +147,7 @@
   }
 
   function hideDropdowns () {
-    $('.js-filter-group-wrapper').attr('data-visible', 'false');
+    $('.js-filter-dropdown').attr('data-visible', 'false');
   }
 
   function addLoadingStyles () {
@@ -184,27 +184,38 @@
   });
 
   /*=========================
-  TOGGLE FILTER GROUP DROPDOWN
+  TOGGLE FILTER DROPDOWN
   ===========================*/
-  $('.js-expand-filter-dropdown').on('click', function () {
-    var isVisible = $(this).closest('.js-filter-group-wrapper').attr('data-visible');
 
-    // CLOSE OTHER FILTERS
-    hideDropdowns();
+  // $('.js-filter-outer-wrapper').on('mouseenter', function () {
+  //   $(this).closest('.js-filter-outer-wrapper').attr('data-visible', 'true');
+  //   $(this).closest('.js-filter-dropdown').focus();
+  //
+  // });
+  //
+  // $('.js-filter-outer-wrapper').on('mouseleave', function () {
+  //   $(this).closest('.js-filter-outer-wrapper').attr('data-visible', 'false');
+  // });
+
+  $('.js-expand-filter-dropdown').on('click', function () {
+    var $outerFilterWrapper = $(this).closest('.js-filter-outer-wrapper');
+    var isVisible = $outerFilterWrapper.attr('data-visible');
 
     if (isVisible == "false") {
-      $(this).closest('.js-filter-group-wrapper').attr('data-visible', 'true');
-      $(this).closest('.js-filter-group-wrapper').focus();
+      $outerFilterWrapper.attr('data-visible', 'true');
+      $(this).closest('.js-filter-dropdown').focus();
+    } else {
+      $outerFilterWrapper.attr('data-visible', 'false');
     }
 
     $('body').on('click.closeDropdown', function (e) {
-      if ($(e.target).closest('.js-filter-group-wrapper').length == 0 ) {
-        hideDropdowns();
+      if ($(e.target).closest('.js-expand-filter-dropdown').length == 0 ) {
+        $outerFilterWrapper.attr('data-visible', 'false');
         $('body').off('click.closeDropdown');
       }
     });
-  });
 
+  });
 
 
   /*=========================
@@ -214,9 +225,12 @@
     e.preventDefault();
     collectionString = '';
 
-    hideDropdowns();
+    $(this).closest('li').addClass('active-filter');
+
+    $(this).closest('.js-filter-outer-wrapper').attr('data-visible', 'false');
 
     selectedTag = $(this).data('tag');
+    var filterText = $(this).text();
 
     // If a tag has already been selected, add this one on
     if (selectedTag != '' && tagString != '') {
@@ -225,7 +239,13 @@
       tagString += '/' + selectedTag;
     }
 
+    var currentFilterTemplate = `<span class="js-filter-item"><span class="current-filter">${filterText}</span><button class="text-only clear" data-tag="${selectedTag}" aria-label="Clear All Filters"></button></span>`;
+    $('.js-active-filters').append(currentFilterTemplate);
 
+    // HIDE DOWN / UP CARET
+    $('.js-trigger-icon').hide();
+
+    $('.js-filter-trigger-text').text('Filter Selected:');
 
     collectionString = collectionString != '' ? collectionString : defaultCollectionString;
 
@@ -239,7 +259,43 @@
   /*=========================
   CLEAR ALL FILTERS
   ===========================*/
-  $('.js-clear-all-filters').on('click', function () {
+  $('.js-active-filters').on('click', '.clear', function () {
+    if ($('.js-active-filters .js-filter-item').length == 1) {
+      clearAll();
+    } else {
+      // find tag to remove
+      debugger;
+      var tagToRemove = $(this).attr('data-tag');
+      collectionString = collectionString == '' ? defaultCollectionString : collectionString;
+
+      // remove tag from tag string
+      tagString = tagString.replace(`+${tagToRemove}`, '');
+      tagString = tagString.replace(`${tagToRemove}`, '');
+
+
+      var requestUrl = baseUrl + collectionString + tagString + sortOrder;
+      console.log(requestUrl);
+
+      // UPDATE PRODUCT LIST
+      ajaxUpdateResults(requestUrl);
+
+      // SHOW THAT FILTER ITEM AGAIN IN DROPDOWN
+      $('.js-category-filter').find(`[data-tag="${tagToRemove}"]`).removeClass('active-filter');
+
+      // Hide that active filter + clear button
+      $(this).closest('.js-filter-item').remove();
+
+    }
+
+
+
+
+  });
+
+  /*=========================
+  CLEAR ALL FILTERS
+  ===========================*/
+  function clearAll () {
     collectionString = defaultCollectionString;
     tagString = '';
 
@@ -249,18 +305,20 @@
     // UPDATE PRODUCT LIST
     ajaxUpdateResults(requestUrl);
 
+
+    // SHOW ANY FILTERS THAT WERE UNAVAILABLE AS COMBOS
     $('.js-category-filter li').show();
+    $('.active-filter').removeClass('active-filter');
+
+    // SHOW DOWN / UP CARET
+    $('.js-trigger-icon').fadeIn(300);
 
     // HIDE BUTTON AFTER CLICKED
     $('.js-clear-all-filters').hide();
-
-    // CLOSE OTHER FILTERS
-    hideDropdowns();
-
-
+    $('.js-active-filters').html('');
+    $('.js-filter-trigger-text').text('Apply Filter');
     $('.js-loading-icon-row').hide();
-  });
-
+  }
 
 
 

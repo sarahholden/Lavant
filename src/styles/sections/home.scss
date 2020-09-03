@@ -47,6 +47,15 @@
     @include mobile-only {
       margin-bottom: 2rem;
     }
+    img {
+      transition: all 2s $ease;
+      width: 100%;
+    }
+    &:hover {
+      img {
+        transform: scale(1.035);
+      }
+    }
   }
   .product-info {
     border-top: $border;
@@ -54,6 +63,8 @@
     max-width: 18rem;
     margin-left: auto;
     margin-right: auto;
+    position: relative;
+    z-index: 2;
     @include tablet-up {
 
       min-height: 9rem;
