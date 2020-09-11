@@ -102,9 +102,13 @@ theme.Product = (function() {
       var variant = evt.variant;
       var $comparePrice = $(selectors.comparePrice, this.$container);
       var $compareEls = $comparePrice.add(selectors.comparePriceText, this.$container);
+      var quantity = parseInt($('#quantity').val(), 10);
+      var variantPriceTimesQuantity = variant.price * quantity;
 
       $(selectors.productPrice, this.$container)
-        .html(slate.Currency.formatMoney(variant.price, theme.moneyFormat));
+        .html(slate.Currency.formatMoney(variantPriceTimesQuantity, theme.moneyFormat));
+
+      $('.js-price').attr('data-raw-price', variantPriceTimesQuantity);
 
       if (variant.compare_at_price > variant.price) {
         $comparePrice.html(slate.Currency.formatMoney(variant.compare_at_price, theme.moneyFormat));

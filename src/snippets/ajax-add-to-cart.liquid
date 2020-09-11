@@ -1,0 +1,18 @@
+<script type="text/javascript">
+  $('#add-to-cart-form').on('submit', function (e) {
+    e.preventDefault();
+    let variantId = $('#variant-id').val();
+    let quantity = $('#quantity').val();
+
+    CartJS.addItem(variantId, quantity);
+    $('.js-flyout[data-flyout-name="confirmation-screen"]').addClass('active');
+  });
+
+  $('#quantity').on('change', function () {
+    var selectedQuantity = parseInt($(this).val(), 10);
+    var variantPrice = $('.js-price').data('raw-price');
+    var variantPriceTimesQuantity = selectedQuantity * variantPrice;
+    $('.js-price').html(slate.Currency.formatMoney(variantPriceTimesQuantity, theme.moneyFormat));
+  });
+
+</script>

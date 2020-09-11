@@ -1,5 +1,11 @@
+{%- if collection.handle == 'collection-page-ordered' -%}
+  {% assign link_collection = collections['all'] %}
+{%- else -%}
+  {% assign link_collection = collection %}
+{%- endif -%}
+
 <div class="product-card {{ class_name }}">
-  <a href="{{ product.url | within: collection }}">
+  <a href="{{ product.url | within: link_collection }}">
     <div>
       {%- assign lazy_image = product.featured_image -%}
       {% assign alt_text = product.featured_image.alt | escape %}
