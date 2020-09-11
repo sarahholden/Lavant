@@ -1,27 +1,29 @@
 
-<section class="container padded">
-  <h3 class="heading--serif">{{ section.settings.related_heading }}</h3>
-  <div class="cols-3">
-    <!-- RELATED PRODUCTS -->
-    {% if product.metafields.custom_fields["products"] != blank %}
-      {% assign product_refs = product.metafields.custom_fields["products"] | split: "|" %}
-      {% for product_handle in product_refs %}
-        {% assign product_ref = all_products[product_handle] %}
-        {%- include 'product-card', product: product_ref -%}
-      {% endfor %}
+<section class="related-products container padded">
+  <div class="inner">
+    <h2 class="heading--serif">{{ section.settings.related_heading }}</h2>
+    <div class="cols-3">
+      <!-- RELATED PRODUCTS -->
+      {% if product.metafields.custom_fields["products"] != blank %}
+        {% assign product_refs = product.metafields.custom_fields["products"] | split: "|" %}
+        {% for product_handle in product_refs %}
+          {% assign product_ref = all_products[product_handle] %}
+          {%- include 'product-card', product: product_ref -%}
+        {% endfor %}
 
-    <!-- BACKUP: CURRENT COLLECTION -->
-    {% elsif collection != blank %}
-      {% for product in collection.products limit: 3 %}
-        {%- include 'product-card' -%}
-      {% endfor %}
+      <!-- BACKUP: CURRENT COLLECTION -->
+      {% elsif collection != blank %}
+        {% for product in collection.products limit: 3 %}
+          {%- include 'product-card' -%}
+        {% endfor %}
 
-    <!-- BACKUP: ALL PRODUCTS -->
-    {% else %}
-      {% assign collection = collections['all'] %}
-      {% for product in collection.products limit: 3 %}
-        {%- include 'product-card' -%}
-      {% endfor %}
-    {% endif %}
+      <!-- BACKUP: ALL PRODUCTS -->
+      {% else %}
+        {% assign collection = collections['all'] %}
+        {% for product in collection.products limit: 3 %}
+          {%- include 'product-card' -%}
+        {% endfor %}
+      {% endif %}
+    </div>
   </div>
 </section>

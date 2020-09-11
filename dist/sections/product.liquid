@@ -11,167 +11,185 @@
 
 
   <header class="container">
-    <div class="cols-2">
+    <div class="header-inner">
+      <div class="cols-2">
 
-      <!-- ======================================
-      IMAGE COLUMN
-      =========================================== -->
-      <div>
-        {%- include 'component-breadcrumbs' -%}
+        <!-- ======================================
+        IMAGE COLUMN
+        =========================================== -->
+        <div>
+          {%- include 'component-breadcrumbs' -%}
 
-        {% if product.metafields.custom_fields["pdp_image"] != blank %}
-          {% assign product_img = product.metafields.custom_fields["pdp_image"] %}
-          {% assign product_img_alt = product.metafields.custom_fields["pdp_image_alt"] %}
-        {% elsif product.featured_image != blank %}
-          {% assign product_img = product.featured_image.src %}
-          {% assign product_img = product_img | img_url: '1x1' | replace: '_1x1.', '_{width}x.' %}
-          {% assign product_img_alt = product.featured_image.alt %}
-        {% endif %}
-
-        <div class="cropped-image-wrapper">
-          <img
-          class="lazyload fade-in"
-          data-src="{{ product_img }}"
-          data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
-          data-aspectratio="{{ product_img.aspect_ratio }}"
-          data-sizes="auto"
-          alt="{{ product_img_alt }}"
-          data-anim="scale"
-          >
-        </div>
-      </div>
-
-      <!-- ======================================
-      PRODUCT INFO COLUMN
-      =========================================== -->
-      <div>
-
-        <!-- ====== LEAD INFO ======== -->
-        <h1>{{ product.title }}</h1>
-
-        <!-- SCENT -->
-        {%- if product.metafields.custom_fields["product_scent"] != blank -%}
-          {{ product.metafields.custom_fields["product_scent"] }}
-        {%- endif -%}
-
-        <!-- WEIGHT -->
-        {%- if product.metafields.custom_fields["product_display_weight"] != blank -%}
-          {{ product.metafields.custom_fields["product_display_weight"] }}
-        {%- endif -%}
-
-
-        <!-- ====== YOTPO WIDGET ======== -->
-        <div class="yotpo bottomLine"
-          data-appkey="gxjEPYqH6A7XNNqgNle58mI1O4pQ66xNFGaEXB0m"
-          data-domain="{{shop.permanent_domain | escape }}"
-          data-product-id="{{ product.id }}"
-          data-product-models="{{ product.id }}"
-          data-name="{{ product.title | escape }}"
-          data-url="{{ shop.url }}{{ product.url }}"
-          data-image-url="{{ product.featured_image | product_img_url: 'large' |replace: '?', '%3F' | replace: '&','%26'}}"
-          data-description="{{ product.description | escape }}"
-          data-bread-crumbs="{% for tag in product.tags %}{{ tag | escape }};{% endfor %}">
-        </div>
-
-        <div class="rte desc">
-          {{ product.description }}
-        </div>
-
-        <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-          <meta itemprop="priceCurrency" content="{{ shop.currency }}">
-          <meta itemprop="price" content="{{ current_variant.price | divided_by: 100.00 }}">
-          <link itemprop="availability" href="http://schema.org/{% if current_variant.available %}InStock{% else %}OutOfStock{% endif %}">
-
-          <form action="/cart/add" method="post" enctype="multipart/form-data">
-            {% unless product.has_only_default_variant %}
-              {% for option in product.options_with_values %}
-                <div class="selector-wrapper js">
-                  <label for="SingleOptionSelector-{{ forloop.index0 }}">
-                    {{ option.name }}
-                  </label>
-
-                  <select
-                    id="SingleOptionSelector-{{ forloop.index0 }}"
-                    data-single-option-selector
-                    data-index="option{{ option.position }}">
-                    {% for value in option.values %}
-                      <option
-                        value="{{ value | escape }}"
-                        {% if option.selected_value == value %}selected="selected"{% endif %}>
-                          {{ value }}
-                      </option>
-                    {% endfor %}
-                  </select>
-                </div>
-              {% endfor %}
-            {% endunless %}
-
-            <select name="id" class="no-js visually-hidden" data-product-select>
-              {% for variant in product.variants %}
-                <option
-                  {% if variant == current_variant %}selected="selected"{% endif %}
-                  {% unless variant.available %}disabled="disabled"{% endunless %}
-                  value="{{ variant.id }}">
-                    {{ variant.title }}
-                </option>
-              {% endfor %}
-            </select>
-
-            <label for="quantity" arai-label="Quantity">QTY</label>
-            <select id="quantity" class="styled-select" name="quantity">
-              {%- for i in (1..6) -%}
-                <option value="{{ i }}">{{ i }}</option>
-              {%- endfor -%}
-            </select>
-
-            <button
-              type="submit"
-              name="add"
-              data-add-to-cart
-              {% unless current_variant.available %}disabled="disabled"{% endunless %}>
-                <span data-add-to-cart-text>
-                  {% if current_variant.available %}
-                    {{ 'products.product.add_to_cart' | t }}
-                  {% else %}
-                    {{ 'products.product.sold_out' | t }}
-                  {% endif %}
-                </span>
-                &mdash;
-                <span data-price-wrapper class="price-wrapper">
-                  <span class="js-price" data-raw-price="{{ current_variant.price }}" data-product-price>
-                    {{ current_variant.price | money }}
-                  </span>
-
-                  {% if product.compare_at_price_max > product.price %}
-                  <span class="visually-hidden" data-compare-text>{{ 'products.product.regular_price' | t }}</span>
-                  <s data-compare-price>
-                    {% if current_variant.compare_at_price > current_variant.price %}
-                    {{ current_variant.compare_at_price | money }}
-                    {% endif %}
-                  </s>
-                  {% endif %}
-                </span>
-            </button>
-          </form>
-
-          {% if product.metafields.custom_fields["accordion_panels"] != blank %}
-            {% assign separator = "|###|" %}
-            {% assign panel_heading_array = product.metafields.custom_fields["panel_heading"] | split: separator %}
-            {% assign panel_body_array = product.metafields.custom_fields["panel_body"] | split: separator %}
-            {% assign panel_button_text_array = product.metafields.custom_fields["panel_button_text"] | split: separator %}
-            {% assign panel_button_link_array = product.metafields.custom_fields["panel_button_link"] | split: separator %}
-            {% assign fc_keys = product.metafields.custom_fields["accordion_panels"] | split: "," %}
-            {% for i in fc_keys %}
-              {% assign index = i | plus: 0 %}
-
-              {{ panel_heading_array[index] }}
-              {{ panel_body_array[index] }}
-              {{ panel_button_text_array[index] }}
-              {{ panel_button_link_array[index] }}
-
-            {% endfor %}
-
+          {% if product.metafields.custom_fields["pdp_image"] != blank %}
+            {% assign product_img = product.metafields.custom_fields["pdp_image"] %}
+            {% assign product_img_alt = product.metafields.custom_fields["pdp_image_alt"] %}
+          {% elsif product.featured_image != blank %}
+            {% assign product_img = product.featured_image.src %}
+            {% assign product_img = product_img | img_url: '1x1' | replace: '_1x1.', '_{width}x.' %}
+            {% assign product_img_alt = product.featured_image.alt %}
           {% endif %}
+
+          <div class="cropped-image-wrapper">
+            <img
+            class="lazyload fade-in"
+            data-src="{{ product_img }}"
+            data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+            data-aspectratio="{{ product_img.aspect_ratio }}"
+            data-sizes="auto"
+            alt="{{ product_img_alt }}"
+            data-anim="scale"
+            >
+          </div>
+        </div>
+
+        <!-- ======================================
+        PRODUCT INFO COLUMN
+        =========================================== -->
+        <div class="product-info-col">
+
+          <!-- ====== LEAD INFO ======== -->
+          <h1>{{ product.title }}</h1>
+
+          <!-- SCENT -->
+          {%- if product.metafields.custom_fields["product_scent"] != blank -%}
+            <h2>{{ product.metafields.custom_fields["product_scent"] }}</h2>
+          {%- endif -%}
+
+          <!-- WEIGHT -->
+          {%- if product.metafields.custom_fields["product_display_weight"] != blank -%}
+            <p class="weight">
+              {{ product.metafields.custom_fields["product_display_weight"] }}
+            </p>
+          {%- endif -%}
+
+
+          <!-- ====== YOTPO WIDGET ======== -->
+          <div class="sh-yotpo-stars">
+            <div class="yotpo bottomLine"
+              data-appkey="gxjEPYqH6A7XNNqgNle58mI1O4pQ66xNFGaEXB0m"
+              data-domain="{{shop.permanent_domain | escape }}"
+              data-product-id="{{ product.id }}"
+              data-product-models="{{ product.id }}"
+              data-name="{{ product.title | escape }}"
+              data-url="{{ shop.url }}{{ product.url }}"
+              data-image-url="{{ product.featured_image | product_img_url: 'large' |replace: '?', '%3F' | replace: '&','%26'}}"
+              data-description="{{ product.description | escape }}"
+              data-bread-crumbs="{% for tag in product.tags %}{{ tag | escape }};{% endfor %}">
+            </div>
+          </div>
+
+          <div class="rte desc">
+            {{ product.description }}
+          </div>
+
+          <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+            <meta itemprop="priceCurrency" content="{{ shop.currency }}">
+            <meta itemprop="price" content="{{ current_variant.price | divided_by: 100.00 }}">
+            <link itemprop="availability" href="http://schema.org/{% if current_variant.available %}InStock{% else %}OutOfStock{% endif %}">
+
+            <form action="/cart/add" method="post" enctype="multipart/form-data">
+              {% unless product.has_only_default_variant %}
+                {% for option in product.options_with_values %}
+                  <div class="selector-wrapper js">
+                    <label for="SingleOptionSelector-{{ forloop.index0 }}">
+                      {{ option.name }}
+                    </label>
+
+                    <select
+                      id="SingleOptionSelector-{{ forloop.index0 }}"
+                      data-single-option-selector
+                      data-index="option{{ option.position }}">
+                      {% for value in option.values %}
+                        <option
+                          value="{{ value | escape }}"
+                          {% if option.selected_value == value %}selected="selected"{% endif %}>
+                            {{ value }}
+                        </option>
+                      {% endfor %}
+                    </select>
+                  </div>
+                {% endfor %}
+              {% endunless %}
+
+              <select name="id" class="no-js visually-hidden" data-product-select>
+                {% for variant in product.variants %}
+                  <option
+                    {% if variant == current_variant %}selected="selected"{% endif %}
+                    {% unless variant.available %}disabled="disabled"{% endunless %}
+                    value="{{ variant.id }}">
+                      {{ variant.title }}
+                  </option>
+                {% endfor %}
+              </select>
+
+              <div class="quantity-select">
+                <label for="quantity" arai-label="Quantity">QTY</label>
+                <select id="quantity" class="styled-select" name="quantity">
+                  {%- for i in (1..6) -%}
+                    <option value="{{ i }}">{{ i }}</option>
+                  {%- endfor -%}
+                </select>
+              </div>
+
+              <button
+                type="submit"
+                name="add"
+                class="btn btn--black"
+                data-add-to-cart
+                {% unless current_variant.available %}disabled="disabled"{% endunless %}>
+                  <span data-add-to-cart-text>
+                    {% if current_variant.available %}
+                      {{ 'products.product.add_to_cart' | t }}
+                    {% else %}
+                      {{ 'products.product.sold_out' | t }}
+                    {% endif %}
+                  </span>
+                  &mdash;
+                  <span data-price-wrapper class="price-wrapper">
+                    <span class="js-price" data-raw-price="{{ current_variant.price }}" data-product-price>
+                      {{ current_variant.price | money }}
+                    </span>
+
+                    {% if product.compare_at_price_max > product.price %}
+                    <span class="visually-hidden" data-compare-text>{{ 'products.product.regular_price' | t }}</span>
+                    <s data-compare-price>
+                      {% if current_variant.compare_at_price > current_variant.price %}
+                      {{ current_variant.compare_at_price | money }}
+                      {% endif %}
+                    </s>
+                    {% endif %}
+                  </span>
+              </button>
+            </form>
+
+            {% if product.metafields.custom_fields["accordion_panels"] != blank %}
+              {% assign separator = "|###|" %}
+              {% assign panel_heading_array = product.metafields.custom_fields["panel_heading"] | split: separator %}
+              {% assign panel_body_array = product.metafields.custom_fields["panel_body"] | split: separator %}
+              {% assign panel_button_text_array = product.metafields.custom_fields["panel_button_text"] | split: separator %}
+              {% assign panel_button_link_array = product.metafields.custom_fields["panel_button_link"] | split: separator %}
+              {% assign fc_keys = product.metafields.custom_fields["accordion_panels"] | split: "," %}
+              <div class="accordion list-animation-wrapper">
+                {% for i in fc_keys %}
+                  {% assign index = i | plus: 0 %}
+                    <div class="accordion-panel animate-item">
+                      <h3 class="accordion-toggle"><span class="text">{{ panel_heading_array[index] }}</span> <span class="icon"></span></h3>
+                      <div class="accordion-text">
+                        <div class="inner desc">
+                          {{ panel_body_array[index] }}
+
+                          {%- if panel_button_link_array[index] != blank or panel_button_text_array[index] != blank -%}
+                            <a href="{{ panel_button_link_array[index] }}" class="btn btn--grey" target="_blank">{{ panel_button_text_array[index] }}</a>
+                          {%- endif -%}
+
+                        </div>
+                      </div>
+                    </div>
+                {% endfor %}
+              </div>
+
+            {% endif %}
+          </div>
         </div>
       </div>
     </div>
@@ -180,17 +198,22 @@
 
   <section class="elevated-performance">
     <div class="cols-2 no-gutters">
-      <div class="container">
-        {%- if product.metafields.custom_fields["elevated_performance_heading"] -%}
-          {{ product.metafields.custom_fields["elevated_performance_heading"] }}
-        {%- else -%}
-          {{ section.settings.elevated_heading }}
-        {%- endif -%}
-        {%- if product.metafields.custom_fields["elevated_performance_body"] -%}
-          {{ product.metafields.custom_fields["elevated_performance_body"] }}
-        {%- else -%}
-          {{ section.settings.elevated_body }}
-        {%- endif -%}
+      <div class="container text-content v-aligner">
+        <div>
+          <h5 class="small-caps">
+            {%- if product.metafields.custom_fields["elevated_performance_heading"] -%}
+              {{ product.metafields.custom_fields["elevated_performance_heading"] }}
+            {%- else -%}
+              {{ section.settings.elevated_heading }}
+            {%- endif -%}
+          </h5>
+          
+          {%- if product.metafields.custom_fields["elevated_performance_body"] -%}
+            {{ product.metafields.custom_fields["elevated_performance_body"] }}
+          {%- else -%}
+            {{ section.settings.elevated_body }}
+          {%- endif -%}
+        </div>
       </div>
       <div>
         {%- if product.metafields.custom_fields["elevated_performance_img"] != blank -%}

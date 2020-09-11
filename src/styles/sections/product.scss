@@ -1,4 +1,286 @@
-.social-sharing svg {
-  display: block;
-  width: 2rem;
+/* --------------------------------------------------------------------------
+  BREADCRUMBS
+-----------------------------------------------------------------------------*/
+.breadcrumbs {
+  font-size: 1.2rem;
+  letter-spacing: 0.2rem;
+  line-height: 1.2;
+  text-transform: uppercase;
+  margin-bottom: 4rem;
+  @include mobile-only {
+    font-size: 0.9rem;
+    letter-spacing: 0.13rem;
+    line-height: 1.6;
+    display: none;
+  }
+  ol {
+    display: flex;
+    margin: 0;
+    flex-wrap: wrap;
+  }
+  li:not(:last-of-type) {
+    position: relative;
+    padding-right: 2rem;
+    &::before {
+      content: '>';
+      display: block;
+      position: absolute;
+      top: 0;
+      right: 1rem;
+      width: 0.4rem;
+      font-size: 1.2rem;
+      @include mobile-only {
+        line-height: 1;
+      }
+    }
+  }
+  a {
+    overflow: hidden;
+    display: inline-block;
+    position: relative;
+    &::before {
+      content: '';
+      display: block;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      transform: translateX(-103%);
+      transition: $smoothTransition;
+      background: black;
+    }
+    &:hover::before {
+      transform: none;
+    }
+  }
+}
+
+/* --------------------------------------------------------------------------
+  PRODUCT HEADER
+-----------------------------------------------------------------------------*/
+.template-product header {
+  padding-top: 4rem;
+  .cols-2 {
+    @include tablet-up {
+      grid-gap: 7rem;
+    }
+  }
+  .header-inner {
+    @include tablet-up {
+      max-width: calc(100% - 16rem);
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+  .cropped-image-wrapper {
+    padding-bottom: 131%;
+    img {
+      object-fit: contain;
+      object-position: center;
+    }
+  }
+}
+
+/* PRODUCT INFO ================== */
+.template-product .product-info-col {
+  padding-top: 3rem;
+  @include tablet-up {
+    padding-left: 4rem;
+    padding-top: 6rem;
+  }
+  h1 {
+    margin-bottom: 2rem;
+    @include tablet-up {
+      line-height: (50 / 45);
+    }
+  }
+  h2 {
+    font-family: $garamond;
+    font-style: italic;
+    font-size: 2.2rem;
+    letter-spacing: 0.071rem;
+    line-height: 2.2rem;
+    margin-bottom: 1.2rem;
+    @include mobile-only {
+      font-size: 1.9rem;
+    }
+  }
+  .weight {
+    font-family: $proxima;
+    font-size: 1rem;
+    letter-spacing: 0.202rem;
+    line-height: 1;
+    margin-bottom: 2.4rem;
+  }
+  .desc {
+    font-size: 1.6rem;
+    color: $darkGreyText;
+    line-height: (22 / 16);
+    max-width: 45.5;
+  }
+}
+
+/* YOTPO STARS ================== */
+.sh-yotpo-stars {
+  margin-bottom: 2rem;
+  .yotpo .text-m {
+    font-family: $proxima;
+    font-size: 1.3rem;
+    letter-spacing: 0.263rem;
+    line-height: 1.4;
+    margin-left: 1.4rem;
+    text-transform: uppercase;
+    @include mobile-only {
+      font-size: 1.1rem;
+      position: relative;
+      top: 0.2rem;
+    }
+  }
+}
+
+/* FORM STYLES ================== */
+.template-product {
+  label {
+    font-size: 1.2rem;
+    letter-spacing: 0.183rem;
+    margin-bottom: 1.2rem;
+    display: block;
+    text-transform: uppercase;
+  }
+  .quantity-select {
+    max-width: 7.2rem;
+  }
+  .btn {
+    width: 100%;
+    margin-top: 3.4rem;
+    margin-bottom: 2.9rem;
+  }
+}
+
+/* ACCORDION  ================== */
+.template-product .accordion {
+  margin-bottom: 5.3rem;
+  .accordion-panel {
+    padding-left: 0;
+    padding-top: 1.5rem;
+    padding-bottom: 1.4rem;
+  }
+  .accordion-toggle {
+    font-family: $proxima;
+    text-transform: uppercase;
+    font-size: 1.2rem;
+    letter-spacing: 0.183rem;
+    line-height: 1.2rem;
+  }
+  .accordion-text .inner {
+    width: 90%;
+    font-family: $proxima;
+    color: $darkGreyText;
+    font-size: 1.3rem;
+    letter-spacing: 0;
+    line-height: 1.7rem;
+    padding-top: 2rem;
+    li {
+      margin-bottom: 0.4rem;
+    }
+  }
+  .accordion-toggle .icon {
+    right: 0.5rem;
+    width: 0.8rem;
+    height: 0.8rem;
+  }
+  .accordion-text p:first-of-type {
+    margin-top: 0;
+  }
+  .btn {
+    margin-top: 3rem;
+    width: 100%;
+    display: block;
+  }
+}
+
+/* --------------------------------------------------------------------------
+  ELEVATED PERFORMANCE
+-----------------------------------------------------------------------------*/
+.elevated-performance {
+  .text-content {
+    background: $lightGreyBg;
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+    h5 {
+      margin-bottom: 2.5rem;
+      font-weight: 400;
+      @include mobile-only {
+        margin-bottom: 1.5rem;
+      }
+    }
+    p {
+      font-family: $canela;
+      font-size: 3.3rem;
+      line-height: (45 / 33);
+      letter-spacing: 0;
+      @include mobile-only {
+        font-size: 2.5rem;
+      }
+    }
+  }
+  .cropped-image-wrapper {
+    padding-bottom: 83%;
+    img {}
+  }
+}
+
+/* --------------------------------------------------------------------------
+  REVIEWS
+-----------------------------------------------------------------------------*/
+.reviews-section {
+  padding-top: 7.6rem;
+}
+
+/* --------------------------------------------------------------------------
+  RELATED PRODUCTS
+-----------------------------------------------------------------------------*/
+.related-products {
+  text-align: center;
+  @include mobile-only {
+    padding-top: 5rem;
+  }
+  img {
+    max-width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 2rem;
+    @include mobile-only {
+      margin-bottom: 1rem;
+    }
+
+  }
+  .inner {
+    max-width: 106.2rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  h2 {
+    margin-bottom: 6.6rem;
+    @include mobile-only {
+      margin-bottom: 1rem;
+    }
+  }
+  h3 {
+    font-family: Canela-Light;
+    font-size: 1.7rem;
+    line-height: (23 / 17);
+    letter-spacing: 0.055rem;
+    margin-bottom: 1.2rem;
+    max-width: 17.2rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .price {
+    font-size: 1.2rem;
+    @include mobile-only {
+      margin-bottom: 3rem;
+    }
+  }
 }

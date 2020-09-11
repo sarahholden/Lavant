@@ -3,8 +3,7 @@
   ANIMATED LISTS
 -----------------------------------------------------------------------------*/
 .list-animation-wrapper {
-  .animate-item,
-  li {
+  .animate-item {
     opacity: 0;
     transform: translateY(3rem);
     transition: all 1s ease-in-out;

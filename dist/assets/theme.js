@@ -1068,16 +1068,16 @@ $(document).ready(function() {
         .on("enter", function (e) {
           if ($thisWrapper.find('.animate-item').length > 0) {
             $listItems = $thisWrapper.find('.animate-item');
-          } else {
-            $listItems = $thisWrapper.find('li');
           }
-          $listItems.each(function(i) {
-            var delay = i * 100;
-            var self = this;
-            setTimeout(function() {
-              $(self).addClass('fade-in');
-            }, delay);
-          });
+          if ($listItems) {
+            $listItems.each(function(i) {
+              var delay = i * 100;
+              var self = this;
+              setTimeout(function() {
+                $(self).addClass('fade-in');
+              }, delay);
+            });
+          }
         });
     });
 

@@ -32,7 +32,29 @@ button {
     background: transparent;
     color: black;
   }
+}
 
+.btn--grey {
+  display: inline-block;
+  background: black;
+  color: black;
+  padding: 1.5rem 3.8rem;
+  border: none;
+  text-transform: none;
+  font-family: $proxima;
+  font-size: 1.2rem;
+  letter-spacing: 0.113rem;
+  text-align: center;
+  line-height: 1.2rem;
+  font-weight: 600;
+  background: #EAEAEA;
+  text-decoration: none !important;
+  @include mobile-only {
+    font-size: 1rem;
+  }
+  &:hover {
+    background: darken(#EAEAEA, 5%);
+  }
 }
 
 .text-only {

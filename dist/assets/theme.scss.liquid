@@ -225,6 +225,7 @@ Fonts
 -----------------------------------------------------------------------------*/
 $canela: "CanelaLight", serif;
 $proxima: proxima-nova, sans-serif;
+$garamond: adobe-garamond-pro, serif;
 
 $bodyTextFont: $proxima;
 $headingFont: $canela;
@@ -1741,7 +1742,29 @@ button {
     background: transparent;
     color: black;
   }
+}
 
+.btn--grey {
+  display: inline-block;
+  background: black;
+  color: black;
+  padding: 1.5rem 3.8rem;
+  border: none;
+  text-transform: none;
+  font-family: $proxima;
+  font-size: 1.2rem;
+  letter-spacing: 0.113rem;
+  text-align: center;
+  line-height: 1.2rem;
+  font-weight: 600;
+  background: #EAEAEA;
+  text-decoration: none !important;
+  @include mobile-only {
+    font-size: 1rem;
+  }
+  &:hover {
+    background: darken(#EAEAEA, 5%);
+  }
 }
 
 .text-only {
@@ -2515,8 +2538,7 @@ $selectric-font-size: 12px !default; // Font size
   ANIMATED LISTS
 -----------------------------------------------------------------------------*/
 .list-animation-wrapper {
-  .animate-item,
-  li {
+  .animate-item {
     opacity: 0;
     transform: translateY(3rem);
     transition: all 1s ease-in-out;
@@ -3012,6 +3034,224 @@ Accordions
 //     box-shadow: none;
 //   }
 // }
+
+
+#sh-yotpo .yotpo-small-box {
+  border-top: 0;
+  border-bottom: 0;
+}
+
+.reviews-section {
+  overflow: hidden;
+}
+/* --------------------------------------------------------------------------
+  TYPE STYLES
+-----------------------------------------------------------------------------*/
+#sh-yotpo,
+#sh-yotpo div,
+#sh-yotpo p {
+  font-family: proxima-nova, sans-serif;
+  color: black;
+  line-height: 1.2;
+  letter-spacing: 0;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  -webkit-font-smoothing: antialiased;
+  font-size: 1.2rem;
+}
+
+@media only screen and (max-width: 768px) {
+  #sh-yotpo {
+    font-size: 1.6rem;
+  }
+}
+
+/* --------------------------------------------------------------------------
+  BUTTON STYLES
+-----------------------------------------------------------------------------*/
+#sh-yotpo .yotpo-default-button,
+#sh-yotpo input[type="button"].yotpo-default-button {
+  cursor: pointer;
+  border-radius: 0;
+  transition: all 0.3s ease-in-out;
+  outline: none;
+  background-color: transparent;
+  display: inline-block;
+  background: black;
+  color: white;
+  padding: 1.5rem 3.8rem;
+  border: 2px solid black;
+  text-transform: uppercase;
+  font-family: proxima-nova;
+  font-size: 1.2rem;
+  letter-spacing: 0.183rem;
+  text-align: center;
+  line-height: 1.2rem;
+  font-weight: 600 !important;
+}
+
+#sh-yotpo .yotpo-default-button:hover,
+#sh-yotpo input[type="button"].yotpo-default-button:hover,
+#sh-yotpo.yotpo-main-widget .yotpo-icon-btn:hover .yotpo-icon-button-text {
+  background: transparent !important;
+  color: black !important;
+}
+
+#sh-yotpo .yotpo-default-button:hover,
+#sh-yotpo input[type="button"].yotpo-default-button:hover {
+  border: 2px solid black !important;
+}
+
+// HIDE ICON
+#sh-yotpo .yotpo-default-button .yotpo-icon-write,
+#sh-yotpo .yotpo-default-button .yotpo-icon-write:after,
+#sh-yotpo .yotpo-default-button .yotpo-icon-write:before {
+  display: none;
+}
+
+// Hide bottomline review button
+#sh-yotpo.yotpo-main-widget .yotpo-bottomline.yotpo-bottomline-2-boxes .yotpo-bottomline-box-1 .write-review-button {
+  display: none;
+}
+
+/* --------------------------------------------------------------------------
+  TOP BAR
+-----------------------------------------------------------------------------*/
+#sh-yotpo.yotpo-main-widget .yotpo-bottomline.yotpo-bottomline-2-boxes {
+  padding: 3.6rem 0;
+  border-top: 1px solid #979797;
+  border-bottom: 1px solid #979797;
+}
+
+#sh-yotpo.yotpo-main-widget .yotpo-bottomline.yotpo-bottomline-2-boxes .yotpo-default-button {
+  top: 50% !important;
+  transform: translateY(-50%);
+}
+
+/* --------------------------------------------------------------------------
+  YOTPO STARS
+-----------------------------------------------------------------------------*/
+#sh-yotpo .yotpo-first-review .yotpo-first-review-stars .yotpo-icon-star {
+  color: black;
+}
+
+/* --------------------------------------------------------------------------
+  WRITE REVIEW WRAPPER
+-----------------------------------------------------------------------------*/
+#sh-yotpo .write-review-wrapper .yotpo-header-title,
+#sh-yotpo.yotpo-main-widget .yotpo-thank-you .yotpo-thankyou-header span {
+  font-family: proxima-nova;
+  font-size: 1.7rem;
+  color: #000000;
+  letter-spacing: 0.344rem;
+  margin-bottom: 2rem;
+  margin-top: 2rem;
+  font-weight: 400;
+}
+
+// LABELS
+#sh-yotpo .y-label {
+  font-family: proxima-nova;
+  font-size: 1.2rem;
+  color: #000000;
+  letter-spacing: 0.183rem;
+  margin-bottom: 1.2rem;
+  text-transform: uppercase;
+  padding: 0;
+  margin-top: 2rem;
+}
+
+// INPUTs / TEXTAREAS
+#sh-yotpo .y-input,
+#sh-yotpo .yotpo-text-box {
+  border: 0;
+  border-bottom: 1px solid #979797;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-left: 0;
+  color: black;
+}
+
+#sh-yotpo .yotpo-text-box {
+  padding-top: 0;
+}
+
+#sh-yotpo .write-review .connect-wrapper {
+  padding-left: 0;
+}
+
+/* --------------------------------------------------------------------------
+  YOTPO RESETS
+-----------------------------------------------------------------------------*/
+#sh-yotpo .socialize-wrapper,
+#sh-yotpo .yotpo-label,
+#sh-yotpo .yotpo-nav {
+  display: none !important;
+}
+
+/* --------------------------------------------------------------------------
+  THANK YOU
+-----------------------------------------------------------------------------*/
+#sh-yotpo.yotpo-main-widget .yotpo-thank-you {
+  border: none !important;
+}
+#sh-yotpo.yotpo-main-widget .yotpo-thank-you .yotpo-icon-heart {
+  display: none !important;
+}
+#sh-yotpo.yotpo-main-widget .yotpo-thank-you .yotpo-thankyou-footer .social-link {
+  background: transparent !important;
+}
+#sh-yotpo.yotpo-main-widget .yotpo-thank-you .yotpo-icon-btn:hover .social-link .yotpo-icon {
+  color: black !important;
+}
+
+/* --------------------------------------------------------------------------
+  REVIEWS LIST
+-----------------------------------------------------------------------------*/
+#sh-yotpo .yotpo-review .yotpo-header .yotpo-icon-profile {
+  display: none;
+}
+
+#sh-yotpo .yotpo-user-name {
+  font-family: ProximaNova-Regular;
+  font-size: 1.2rem;
+  color: #000000;
+  letter-spacing: 0.05rem;
+  margin-bottom: 0;
+  font-weight: 400;
+  text-transform: none;
+}
+
+#sh-yotpo .yotpo-review .yotpo-main {
+  margin-left: 0;
+  max-width: 33.7rem;
+}
+
+#sh-yotpo .yotpo-review .yotpo-main .content-title {
+  font-family: Canela-Light;
+  font-size: 1.5rem;
+  color: #000000;
+  letter-spacing: 0.049rem;
+  font-weight: 400;
+  margin-bottom: 2rem;
+  margin-top: 1.2rem;
+}
+
+#sh-yotpo .yotpo-review .yotpo-main .content-review,
+#sh-yotpo .yotpo-review .yotpo-main .yotpo-read-more {
+  font-family: ProximaNova-Regular;
+  font-size: 1.2rem;
+  color: #505050;
+  letter-spacing: 0;
+  line-height: 1.5rem;
+}
+
+#sh-yotpo .yotpo-review .yotpo-main .yotpo-read-more {
+  color: black;
+}
+
+#sh-yotpo .yotpo-review .yotpo-footer {
+  margin-left: 0;
+}
 
 
 /*================ SECTIONS ================*/
@@ -3696,9 +3936,291 @@ Accordions
   }
 }
 
-.social-sharing svg {
-  display: block;
-  width: 2rem;
+/* --------------------------------------------------------------------------
+  BREADCRUMBS
+-----------------------------------------------------------------------------*/
+.breadcrumbs {
+  font-size: 1.2rem;
+  letter-spacing: 0.2rem;
+  line-height: 1.2;
+  text-transform: uppercase;
+  margin-bottom: 4rem;
+  @include mobile-only {
+    font-size: 0.9rem;
+    letter-spacing: 0.13rem;
+    line-height: 1.6;
+    display: none;
+  }
+  ol {
+    display: flex;
+    margin: 0;
+    flex-wrap: wrap;
+  }
+  li:not(:last-of-type) {
+    position: relative;
+    padding-right: 2rem;
+    &::before {
+      content: '>';
+      display: block;
+      position: absolute;
+      top: 0;
+      right: 1rem;
+      width: 0.4rem;
+      font-size: 1.2rem;
+      @include mobile-only {
+        line-height: 1;
+      }
+    }
+  }
+  a {
+    overflow: hidden;
+    display: inline-block;
+    position: relative;
+    &::before {
+      content: '';
+      display: block;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      transform: translateX(-103%);
+      transition: $smoothTransition;
+      background: black;
+    }
+    &:hover::before {
+      transform: none;
+    }
+  }
+}
+
+/* --------------------------------------------------------------------------
+  PRODUCT HEADER
+-----------------------------------------------------------------------------*/
+.template-product header {
+  padding-top: 4rem;
+  .cols-2 {
+    @include tablet-up {
+      grid-gap: 7rem;
+    }
+  }
+  .header-inner {
+    @include tablet-up {
+      max-width: calc(100% - 16rem);
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+  .cropped-image-wrapper {
+    padding-bottom: 131%;
+    img {
+      object-fit: contain;
+      object-position: center;
+    }
+  }
+}
+
+/* PRODUCT INFO ================== */
+.template-product .product-info-col {
+  padding-top: 3rem;
+  @include tablet-up {
+    padding-left: 4rem;
+    padding-top: 6rem;
+  }
+  h1 {
+    margin-bottom: 2rem;
+    @include tablet-up {
+      line-height: (50 / 45);
+    }
+  }
+  h2 {
+    font-family: $garamond;
+    font-style: italic;
+    font-size: 2.2rem;
+    letter-spacing: 0.071rem;
+    line-height: 2.2rem;
+    margin-bottom: 1.2rem;
+    @include mobile-only {
+      font-size: 1.9rem;
+    }
+  }
+  .weight {
+    font-family: $proxima;
+    font-size: 1rem;
+    letter-spacing: 0.202rem;
+    line-height: 1;
+    margin-bottom: 2.4rem;
+  }
+  .desc {
+    font-size: 1.6rem;
+    color: $darkGreyText;
+    line-height: (22 / 16);
+    max-width: 45.5;
+  }
+}
+
+/* YOTPO STARS ================== */
+.sh-yotpo-stars {
+  margin-bottom: 2rem;
+  .yotpo .text-m {
+    font-family: $proxima;
+    font-size: 1.3rem;
+    letter-spacing: 0.263rem;
+    line-height: 1.4;
+    margin-left: 1.4rem;
+    text-transform: uppercase;
+    @include mobile-only {
+      font-size: 1.1rem;
+      position: relative;
+      top: 0.2rem;
+    }
+  }
+}
+
+/* FORM STYLES ================== */
+.template-product {
+  label {
+    font-size: 1.2rem;
+    letter-spacing: 0.183rem;
+    margin-bottom: 1.2rem;
+    display: block;
+    text-transform: uppercase;
+  }
+  .quantity-select {
+    max-width: 7.2rem;
+  }
+  .btn {
+    width: 100%;
+    margin-top: 3.4rem;
+    margin-bottom: 2.9rem;
+  }
+}
+
+/* ACCORDION  ================== */
+.template-product .accordion {
+  margin-bottom: 5.3rem;
+  .accordion-panel {
+    padding-left: 0;
+    padding-top: 1.5rem;
+    padding-bottom: 1.4rem;
+  }
+  .accordion-toggle {
+    font-family: $proxima;
+    text-transform: uppercase;
+    font-size: 1.2rem;
+    letter-spacing: 0.183rem;
+    line-height: 1.2rem;
+  }
+  .accordion-text .inner {
+    width: 90%;
+    font-family: $proxima;
+    color: $darkGreyText;
+    font-size: 1.3rem;
+    letter-spacing: 0;
+    line-height: 1.7rem;
+    padding-top: 2rem;
+    li {
+      margin-bottom: 0.4rem;
+    }
+  }
+  .accordion-toggle .icon {
+    right: 0.5rem;
+    width: 0.8rem;
+    height: 0.8rem;
+  }
+  .accordion-text p:first-of-type {
+    margin-top: 0;
+  }
+  .btn {
+    margin-top: 3rem;
+    width: 100%;
+    display: block;
+  }
+}
+
+/* --------------------------------------------------------------------------
+  ELEVATED PERFORMANCE
+-----------------------------------------------------------------------------*/
+.elevated-performance {
+  .text-content {
+    background: $lightGreyBg;
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+    h5 {
+      margin-bottom: 2.5rem;
+      font-weight: 400;
+      @include mobile-only {
+        margin-bottom: 1.5rem;
+      }
+    }
+    p {
+      font-family: $canela;
+      font-size: 3.3rem;
+      line-height: (45 / 33);
+      letter-spacing: 0;
+      @include mobile-only {
+        font-size: 2.5rem;
+      }
+    }
+  }
+  .cropped-image-wrapper {
+    padding-bottom: 83%;
+    img {}
+  }
+}
+
+/* --------------------------------------------------------------------------
+  REVIEWS
+-----------------------------------------------------------------------------*/
+.reviews-section {
+  padding-top: 7.6rem;
+}
+
+/* --------------------------------------------------------------------------
+  RELATED PRODUCTS
+-----------------------------------------------------------------------------*/
+.related-products {
+  text-align: center;
+  @include mobile-only {
+    padding-top: 5rem;
+  }
+  img {
+    max-width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 2rem;
+    @include mobile-only {
+      margin-bottom: 1rem;
+    }
+
+  }
+  .inner {
+    max-width: 106.2rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  h2 {
+    margin-bottom: 6.6rem;
+    @include mobile-only {
+      margin-bottom: 1rem;
+    }
+  }
+  h3 {
+    font-family: Canela-Light;
+    font-size: 1.7rem;
+    line-height: (23 / 17);
+    letter-spacing: 0.055rem;
+    margin-bottom: 1.2rem;
+    max-width: 17.2rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .price {
+    font-size: 1.2rem;
+    @include mobile-only {
+      margin-bottom: 3rem;
+    }
+  }
 }
 
 
