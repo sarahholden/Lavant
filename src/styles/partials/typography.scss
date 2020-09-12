@@ -111,6 +111,17 @@ h1 {
   }
 }
 
+h2 {
+  font-family: $canela;
+  font-size: 3.5rem;
+  letter-spacing: 0;
+  line-height: (38 / 35);
+  @include mobile-only {
+    font-size: 2.8rem;
+    line-height: (40 / 30);
+  }
+}
+
 .h3 {
   font-family: $canela;
   font-size: 1.6rem;
@@ -182,6 +193,17 @@ h1 {
 
 }
 
+.desc--italics {
+  font-family: $garamond;
+  font-size: 2.4rem;
+  color: $darkGreyText;
+  letter-spacing: 0;
+  line-height: (27 / 24);
+  @include mobile-only {
+    font-size: 1.8rem;
+  }
+}
+
 .price {
   font-family: $proxima;
   font-size: 1rem;
@@ -199,6 +221,40 @@ h1 {
   letter-spacing: 0.166rem;
   font-weight: 600;
   text-transform: uppercase;
+}
+
+/* --------------------------------------------------------------------------
+  LISTS
+-----------------------------------------------------------------------------*/
+.styled-counter {
+  counter-increment: list-counter;
+  &::before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0.3rem;
+    left: 0;
+    width: 4rem;
+    height: 4rem;
+    background: black;
+    border-radius: 50%;
+  }
+  &::after {
+    content: counter(list-counter) ".";
+    display: block;
+    position: absolute;
+    top: 0.3rem;
+    left: 0.2rem;
+    width: 4rem;
+    height: 4rem;
+    color: #FFFFFF;
+    text-align: center;
+    font-family: $canela;
+    font-size: 2.2rem;
+    letter-spacing: -.005rem;
+    line-height: 4rem;
+    z-index: 2;
+  }
 }
 
 /* --------------------------------------------------------------------------

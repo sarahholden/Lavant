@@ -1,182 +1,209 @@
+.template-index .newsletter-signup {
+  background: white;
+  @include tablet-up {
+    display: block;
+
+    h2 {
+      margin-bottom: 3rem;
+
+    }
+    .form-outer-wrapper {
+      display: block;
+      margin-left: 0;
+    }
+  }
+}
+
+.newsletter-signup {
+  padding-top: 3.7rem;
+  padding-bottom: 5.2rem;
+  background: $lightGreyBg;
+  @include tablet-up {
+    display: flex;
+    h2 {
+      font-size: 5rem;
+      letter-spacing: 0.163rem;
+      max-width: 31rem;
+      line-height: 1;
+
+    }
+    .form-outer-wrapper {
+      flex-grow: 1;
+      display: flex;
+      align-items: flex-end;
+      margin-left: 4rem;
+    }
+  }
+}
+
 /* --------------------------------------------------------------------------
-  POPUP
+  KLAVIYO FORM RESET
 -----------------------------------------------------------------------------*/
-/* OPEN POPUP ================== */
-.show-email-popup {
-  .close-popup-overlay {
-    opacity: 1;
-    visibility: visible;
-    transition: all 0.4s $ease;
-  }
-  .email-popup-form-wrapper {
-    opacity: 1;
-    visibility: visible;
-    transition: all 0.4s $ease 0.3s;
-  }
-}
-
-// Styles when email is successfully submitted, right before closing
-.email-submitted {
-  .close-popup {
-    display: none;
-  }
-}
-
-/* POPUP FORM STYLES ================== */
-.email-popup-form-wrapper {
-  position: fixed;
-  min-height: 55.2rem;
-  max-height: calc(100vh - 8rem);
-  overflow-y: scroll;
-  width: calc(100vw - 8rem);
-  max-width: 107rem;
-  z-index: 500;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.4s $ease;
-  .flex-columns-2 {
-    @include tablet-up {
-      flex-direction: row-reverse;
-    }
-    > div {
-      @include tablet-up {
-        width: calc(50% - 1.9rem);
-      }
+#sh-klaviyo-form {
+  width: 100%;
+  position: relative;
+  bottom: -.3rem;
+  form {
+    padding-bottom: 0;
+    @include mobile-only {
+      padding: 0 !important;
+      margin-top: 2rem !important;
     }
   }
+  .kgtZbf.kgtZbf {
+    @include mobile-only {
+      display: block !important;
+    }
+  }
+  .dMHKxR.dMHKxR,
+  .iHHjaC.iHHjaC {
+    @include mobile-only {
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+    }
+  }
+  input[type="email"],
+  input[type="text"] {
+    @extend %smallCaps;
+    border: none !important;
+    outline: none !important;
+    display: block !important;
+    width: 100% !important;
+    border-bottom: 1px solid #666666 !important;
+    background-color: transparent !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+
+    letter-spacing: 0.05rem !important;
+    font-family: $garamond !important;
+    text-transform: none !important;
+    font-size: 3rem !important;
+    line-height: 1.2!important;
+    letter-spacing: 0 !important;
+    color: black;
+    font-style: italic !important;
+    padding-bottom: 1.2rem !important;
+    height: auto !important;
+    font-weight: normal !important;
+
+  }
+
+  ::-webkit-input-placeholder {
+    /* Chrome/Opera/Safari */
+    color: #7C7C7C;
+    font-family: $garamond;
+    font-style: italic;
+    font-size: 3rem;
+    transition: all 0.3s $ease;
+  }
+  ::-moz-placeholder {
+    /* Firefox 19+ */
+    color: #7C7C7C;
+    font-family: $garamond;
+    font-style: italic;
+    font-size: 3rem;
+    transition: all 0.3s $ease;
+  }
+  :-ms-input-placeholder {
+    /* IE 10+ */
+    color: #7C7C7C;
+    font-family: $garamond;
+    font-style: italic;
+    font-size: 3rem;
+    transition: all 0.3s $ease;
+  }
+  :-moz-placeholder {
+    /* Firefox 18- */
+    color: #7C7C7C;
+    font-family: $garamond;
+    font-style: italic;
+    font-size: 3rem;
+    transition: all 0.3s $ease;
+  }
+  input:focus::-webkit-input-placeholder {
+    /* Chrome/Opera/Safari */
+    color: rgba(0, 0, 0, .3) !important;
+  }
+  input:focus::-moz-placeholder {
+    /* Firefox 19+ */
+    color: rgba(0, 0, 0, .3) !important;
+  }
+  input:focus:-ms-input-placeholder {
+    /* IE 10+ */
+    color: rgba(0, 0, 0, .3) !important;
+  }
+  input:focus:-moz-placeholder {
+    /* Firefox 18- */
+    color: rgba(0, 0, 0, .3) !important;
+  }
+
+  button {
+    cursor: pointer !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    transition: all 0.3s ease-in-out !important;
+    outline: none !important;
+    display: inline-block !important;
+    padding: 0 !important;
+    line-height: 1 !important;
+    width: auto !important;
+    background: transparent !important;
+    color: white !important;
+    font-family: $proxima !important;
+    font-size: 2rem !important;
+    color: #000000 !important;
+    letter-spacing: 0.305rem !important;
+    line-height: 1.2 !important;
+    font-weight: 400 !important;
+    text-transform: uppercase !important;
+    margin-left: 3rem !important;
+    @include mobile-only {
+      margin-left: 0 !important;
+      display: block !important;
+      text-align: left !important;
+      width: 100% !important;
+      font-size: 1.5rem !important;
+    }
+    &:hover {
+      transform: translateY(.3rem);
+    }
+  }
+
 }
 
-// /* --------------------------------------------------------------------------
-//   KLAVIYO FORM RESET
-// -----------------------------------------------------------------------------*/
-// #sh-klaviyo-form {
-//   input[type="email"],
-//   input[type="text"] {
-//     @extend %smallCaps;
-//     border: none !important;
-//     outline: none !important;
-//     display: block !important;
-//     width: 100% !important;
-//     border-bottom: 1px solid black !important;
-//     background-color: transparent !important;
-//     box-shadow: none !important;
-//     padding: 0 !important;
-//     border-radius: 0 !important;
-//
-//     letter-spacing: 0.05rem !important;
-//     font-family: inherit !important;
-//     text-transform: uppercase !important;
-//     font-size: 1.1rem !important;
-//     line-height: (18 / 11) !important;
-//     letter-spacing: 0.234rem !important;
-//
-//   }
-//
-//   ::-webkit-input-placeholder {
-//     /* Chrome/Opera/Safari */
-//     text-transform: uppercase !important;
-//     font-family: inherit !important;
-//     font-size: 1.1rem !important;
-//     line-height: (18 / 11) !important;
-//     letter-spacing: 0.234rem !important;
-//   }
-//   ::-moz-placeholder {
-//     /* Firefox 19+ */
-//     text-transform: uppercase !important;
-//     font-family: inherit !important;
-//     font-size: 1.1rem !important;
-//     line-height: (18 / 11) !important;
-//     letter-spacing: 0.234rem !important;
-//   }
-//   :-ms-input-placeholder {
-//     /* IE 10+ */
-//     text-transform: uppercase !important;
-//     font-family: inherit !important;
-//     font-size: 1.1rem !important;
-//     line-height: (18 / 11) !important;
-//     letter-spacing: 0.234rem !important;
-//   }
-//   :-moz-placeholder {
-//     /* Firefox 18- */
-//     text-transform: uppercase !important;
-//     font-family: inherit !important;
-//     font-size: 1.1rem !important;
-//     line-height: (18 / 11) !important;
-//     letter-spacing: 0.234rem !important;
-//   }
-// input:focus::-webkit-input-placeholder {
-//   /* Chrome/Opera/Safari */
-//   color: rgba(0, 0, 0, .7) !important;
-// }
-// input:focus::-moz-placeholder {
-//   /* Firefox 19+ */
-//   color: rgba(0, 0, 0, .7) !important;
-// }
-// input:focus:-ms-input-placeholder {
-//   /* IE 10+ */
-//   color: rgba(0, 0, 0, .7) !important;
-// }
-// input:focus:-moz-placeholder {
-//   /* Firefox 18- */
-//   color: rgba(0, 0, 0, .7) !important;
-// }
-//
-//   button {
-//     @extend %smallCaps;
-//     cursor: pointer !important;
-//     border: 0 !important;
-//     border-radius: 0 !important;
-//     transition: all 0.3s ease-in-out !important;
-//     outline: none !important;
-//     display: inline-block !important;
-//     padding: 2.1rem 3.3rem !important;
-//     line-height: 1 !important;
-//     width: auto !important;
-//     background: black !important;
-//     color: white !important;
-//     &:hover {
-//       background: lighten(black, 10%) !important;
-//       color: white !important;
-//     }
-//   }
-//
-// }
-
-// /* THANK YOU CONFIRMATION STYLES ================== */
-// #sh-klaviyo-form .ql-editor {
-//   margin-top: 2rem !important;
-//   p,
-//   strong {
-//     color: white !important;
-//     text-align: left !important;
-//   }
-//   p {
-//     font-family: $bodyTextFont !important;
-//     color: white !important;
-//     line-height: $bodyTextLineHeight !important;
-//     letter-spacing: $bodyTextLetterSpacing !important;
-//     -webkit-tap-highlight-color: rgba(0,0,0,0) !important;
-//     -webkit-font-smoothing: antialiased !important;
-//     font-size: $bodyDesktopFontSize !important;
-//     @include mobile-only {
-//       font-size: $bodyMobileFontSize !important;
-//     }
-//   }
-//   strong {
-//     display: block !important;
-//     margin-bottom: 0.6rem !important;
-//     font-size: 3rem !important;
-//     line-height: (40 / 30) !important;
-//     font-family: $headingFont !important;
-//     font-weight: normal !important;
-//     font-style: normal !important;
-//     letter-spacing: 0 !important;
-//     @include mobile-only {
-//       font-size: 2.5rem !important;
-//       line-height: (35 / 25) !important;
-//     }
-//   }
-// }
+/* THANK YOU CONFIRMATION STYLES ================== */
+#sh-klaviyo-form .ql-editor {
+  margin-top: 2rem !important;
+  text-align: center;
+  p,
+  strong {
+    color: black !important;
+  }
+  p {
+    font-family: $bodyTextFont !important;
+    color: black !important;
+    line-height: $bodyTextLineHeight !important;
+    letter-spacing: $bodyTextLetterSpacing !important;
+    -webkit-tap-highlight-color: rgba(0,0,0,0) !important;
+    -webkit-font-smoothing: antialiased !important;
+    font-size: $bodyDesktopFontSize !important;
+    @include mobile-only {
+      font-size: $bodyMobileFontSize !important;
+    }
+  }
+  strong {
+    display: block !important;
+    margin-bottom: 0.6rem !important;
+    font-size: 3rem !important;
+    line-height: (40 / 30) !important;
+    font-family: $headingFont !important;
+    font-weight: normal !important;
+    font-style: normal !important;
+    letter-spacing: 0 !important;
+    @include mobile-only {
+      font-size: 2.5rem !important;
+      line-height: (35 / 25) !important;
+    }
+  }
+}

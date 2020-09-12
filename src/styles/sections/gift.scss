@@ -1,0 +1,145 @@
+
+.page-gift {
+  h2 {
+    font-family: $canela;
+    font-size: 5rem;
+    letter-spacing: -.011rem;
+    line-height: (56 / 50);
+    @include mobile-only {
+      font-size: 2.8rem;
+      line-height: (40 / 30);
+    }
+  }
+  .desc {
+    color: $darkGreyText;
+  }
+}
+
+/* --------------------------------------------------------------------------
+  GIFTS HEADER
+-----------------------------------------------------------------------------*/
+.page-gift header {
+  padding-bottom: 6rem;
+  @include mobile-only {
+    padding-bottom: 3.5rem;
+  }
+  h1 {
+    margin-bottom: 3rem;
+  }
+  .desc {
+    max-width: 67rem;
+    margin-left: auto;
+    margin-right: auto;
+    color: $darkGreyText;
+    text-align: center;
+  }
+}
+
+/* --------------------------------------------------------------------------
+  GIFTS INFO
+-----------------------------------------------------------------------------*/
+.gifts-info {
+  background: $lightGreyBg;
+  padding-top: 6rem;
+  padding-bottom: 6rem;
+  @include mobile-only {
+    padding-top: 3.5rem;
+    padding-bottom: 3.5rem;
+  }
+  h2 {
+    margin-bottom: 2.2rem;
+
+  }
+  .cols-2 {
+    @include tablet-up {
+      grid-template-columns: 54fr 46fr;
+    }
+  }
+  .desc {
+    margin-bottom: 3rem;
+    max-width: 45.2rem;
+  }
+  .btn {
+    display: block;
+    max-width: 32rem;
+    width: 100%;
+    margin-bottom: 2rem;
+  }
+  .text-content {
+    @include tablet-up {
+      padding-left: 3rem;
+    }
+    @include mobile-only {
+      padding-top: 3.5rem;
+    }
+  }
+  img {
+    width: 100%;
+  }
+}
+
+/* STEPS ================== */
+.gifts-info .steps {
+  margin-bottom: 4rem;
+  max-width: 44rem;
+  counter-reset: list-counter;
+
+  p {
+    margin-bottom: 2rem;
+    position: relative;
+    padding-left: 6rem;
+    @extend .styled-counter;
+  }
+}
+
+/* --------------------------------------------------------------------------
+  GIFTING REASONS
+-----------------------------------------------------------------------------*/
+.gifting-reasons {
+  text-align: center;
+  padding-bottom: 8rem;
+  @include mobile-only {
+    padding-bottom: 4rem;
+  }
+  h2 {
+    margin-bottom: 2rem;
+  }
+  .desc {
+    margin-bottom: 4rem;
+  }
+}
+
+/* REASONS LIST ================== */
+.gifting-reasons .reasons-list {
+  max-width: 93rem;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 1.8rem;
+  color: #060606;
+  letter-spacing: 0;
+  font-weight: 600;
+  @include mobile-only {
+    font-size: 1.4rem;
+  }
+  li {
+    margin-bottom: 5.5rem;
+    max-width: 25.7rem;
+    margin-left: auto;
+    margin-right: auto;
+    @include mobile-only {
+      margin-bottom: 2.5rem;
+    }
+    .counter {
+      color: black;
+      text-align: center;
+      font-family: $canela;
+      font-size: 3.6rem;
+      letter-spacing: -.008rem;
+      font-weight: 400;
+      margin-bottom: 1rem;
+      @include mobile-only {
+        font-size: 2.6rem;
+      }
+    }
+  }
+}

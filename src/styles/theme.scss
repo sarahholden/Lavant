@@ -24,6 +24,7 @@
 @import url('partials/animation.scss');
 @import url('partials/components.scss');
 @import url('partials/yotpo.scss');
+@import url('partials/klaviyo.scss');
 
 /*================ SECTIONS ================*/
 @import url('sections/about.scss');
@@ -36,6 +37,7 @@
 @import url('sections/shop.scss');
 @import url('sections/subscription.scss');
 @import url('sections/wholesale.scss');
+@import url('sections/gift.scss');
 
 /* --------------------------------------------------------------------------
 Section Comment
@@ -64,10 +66,15 @@ Section Comment
 }
 
 /* 404 page ================== */
-.page-404,
-.page-general {
+.page-general,
+.template-404 {
   text-align: center;
   h1 {
     margin-bottom: 2rem;
+  }
+  .inner-wrap {
+    max-width: 80rem;
+    margin-left: auto;
+    margin-right: auto;
   }
 }

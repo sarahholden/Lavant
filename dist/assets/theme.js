@@ -1420,8 +1420,8 @@ $(document).ready(function() {
   // $('.js-close-email-popup').on('click', function() {
   //   $('body').removeClass('show-email-popup');
   // });
-  //
-  // // SUCCESSFULL KLAVIYO SUBMISSION
+
+  // SUCCESSFULL KLAVIYO SUBMISSION
   // window.addEventListener("klaviyoForms", function(e) {
   //   if (e.detail.type == 'submit') {
   //

@@ -1,0 +1,224 @@
+
+<!-- ======================================
+GIFTS HEADER
+=========================================== -->
+<header class="container" data-trigger="scroll">
+  {% if section.settings.heading != blank %}
+    <h1 class="heading--serif-grey" data-reveal="lines-masked">{{ section.settings.heading | newline_to_br }}</h1>
+  {% endif %}
+  {% if section.settings.desc != blank %}
+    <div class="desc" data-anim="slide" data-anim-order="3">
+      {{ section.settings.desc }}
+    </div>
+  {% endif %}
+</header>
+
+<!-- ======================================
+GIFTS REASONS
+=========================================== -->
+<section class="gifts-info">
+  <div class="cols-2">
+    <!-- ====== IMAGE COLUMN ======== -->
+    <div>
+      {% if section.settings.image != blank %}
+        {%- assign lazy_image = section.settings.image -%}
+        {% assign alt_text = section.settings.image_alt | escape %}
+        {%- assign img_url = lazy_image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+        <img class="lazyload"
+            data-src="{{ img_url }}"
+            data-widths="[360, 540, 720, 900, 1080, 1600]"
+            data-aspectratio="{{ lazy_image.aspect_ratio }}"
+            data-sizes="auto"
+            alt="{{ alt_text }}">
+      {% endif %}
+    </div>
+    <!-- ====== TEXT CONTENT ======== -->
+    <div class="v-aligner">
+      <div class="text-content container" data-trigger="scroll">
+        {% if section.settings.info_heading != blank %}
+          <h2 data-reveal="lines-masked">{{ section.settings.info_heading | newline_to_br }}</h2>
+        {% endif %}
+        {% if section.settings.info_desc != blank %}
+          <div class="desc" data-anim="slide" data-anim-order="2">
+            {{ section.settings.info_desc }}
+          </div>
+        {% endif %}
+        {% if section.settings.info_steps != blank %}
+          <div class="steps desc--italics " data-anim="slide" data-anim-order="3">
+            {{ section.settings.info_steps }}
+          </div>
+        {% endif %}
+        {% if section.settings.button_text != blank %}
+          <a href="{{ section.settings.button_url }}"
+            class="btn btn--black"
+            data-anim="slide" data-anim-order="3">
+            {{ section.settings.button_text }}
+          </a>
+        {% endif %}
+        {% if section.settings.button_2_text != blank %}
+          <a href="{{ section.settings.button_2_url }}"
+            class="btn btn--black"
+            data-anim="slide" data-anim-order="4">
+            {{ section.settings.button_2_text }}
+          </a>
+        {% endif %}
+        {% if section.settings.button_3_text != blank %}
+          <a href="{{ section.settings.button_3_url }}"
+            class="btn btn--black"
+            data-anim="slide" data-anim-order="5">
+            {{ section.settings.button_3_text }}
+          </a>
+        {% endif %}
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ======================================
+GIFTING REASONS
+=========================================== -->
+{% if section.settings.reasons_heading != blank or section.settings.reasons_desc != blank or section.settings.reasons != blank %}
+  <section class="gifting-reasons padded container" data-trigger="scroll">
+    {% if section.settings.reasons_heading != blank %}
+      <h2 data-reveal="lines-masked" >{{ section.settings.reasons_heading | newline_to_br }}</h2>
+    {% endif %}
+    {% if section.settings.reasons_desc != blank %}
+      <div class="desc desc--italics " data-anim="slide" data-anim-order="3">
+        {{ section.settings.reasons_desc }}
+      </div>
+    {% endif %}
+    <ul class="cols-3 reasons-list list-animation-wrapper">
+      {% for block in section.blocks %}
+        {% case block.type %}
+        {% when 'reason' %}
+          {% if block.settings.title != blank %}
+            <li class="animate-item">
+              <div class="counter">{{ forloop.index }}.</div>
+              {{ block.settings.title }}
+            </li>
+          {% endif %}
+        {% endcase %}
+      {% endfor %}
+    </ul>
+  </section>
+{% endif %}
+
+
+
+
+{% schema %}
+{
+  "name": "Gift Page - Content",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Intro"
+    },
+    {
+      "id": "heading",
+      "type": "textarea",
+      "label": "Main Heading",
+      "default": "Gift L'AVANT"
+    },
+    {
+      "id": "desc",
+      "type": "richtext",
+      "label": "Intro Text"
+    },
+    {
+      "type": "header",
+      "content": "Gift Sets Info"
+    },
+    {
+      "id": "image",
+      "type": "image_picker",
+      "label": "Image"
+    },
+    {
+      "id": "image_alt",
+      "type": "text",
+      "label": "Image Alt",
+      "info": "Write a brief description of this image to improve search engine optimization (SEO) and ADA accessibility."
+    },
+    {
+      "id": "info_heading",
+      "type": "text",
+      "label": "Info Heading",
+      "default": "L'AVANT Gift Sets"
+    },
+    {
+      "id": "info_desc",
+      "type": "richtext",
+      "label": "Info body"
+    },
+    {
+      "id": "info_steps",
+      "type": "richtext",
+      "label": "Info Steps",
+      "info": "Enter each step on a new line. Number will be added."
+    },
+    {
+      "id": "button_text",
+      "type": "text",
+      "label": "Button Text"
+    },
+    {
+      "id": "button_url",
+      "type": "url",
+      "label": "Button URL"
+    },
+    {
+      "id": "button_2_text",
+      "type": "text",
+      "label": "Button 2 Text"
+    },
+    {
+      "id": "button_2_url",
+      "type": "url",
+      "label": "Button 2 URL"
+    },
+    {
+      "id": "button_3_text",
+      "type": "text",
+      "label": "Button 3 Text (optional)"
+    },
+    {
+      "id": "button_3_url",
+      "type": "url",
+      "label": "Button 3 URL (optional)"
+    },
+    {
+      "type": "header",
+      "content": "Gifting Reasons"
+    },
+    {
+      "id": "reasons_heading",
+      "type": "text",
+      "label": "Reasons Heading",
+      "default": "Why Gift L'AVANT?"
+    },
+    {
+      "id": "reasons_desc",
+      "type": "richtext",
+      "label": "Why Gift Intro"
+    }
+
+  ],
+  "blocks": [
+    {
+      "type": "reason",
+      "name": "Reason to Gift",
+      "settings": [
+        {
+          "id": "title",
+          "type": "textarea",
+          "label": "Reason Text"
+        }
+
+      ]
+    }
+  ]
+}
+{% endschema %}

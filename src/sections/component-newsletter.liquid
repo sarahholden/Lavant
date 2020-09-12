@@ -1,0 +1,24 @@
+<section class="newsletter-signup container" data-trigger="scroll">
+  <h2 class="heading--serif" data-reveal="lines-masked">{{ section.settings.signup_heading }}</h2>
+
+  {%- include 'klaviyo-newsletter' -%}
+</section>
+
+{% schema %}
+
+{
+  "name": "Newsletter Signup",
+  "settings": [
+    {
+      "id": "signup_heading",
+      "type": "text",
+      "label": "Signup Heading"
+    },
+    {
+      "type": "paragraph",
+      "content": "Edit placeholder and button copy in Klaviyo under Signup Forms"
+    }
+  ]
+}
+
+{% endschema %}

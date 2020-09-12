@@ -1,27 +1,3 @@
-<!--
-SETUP INSTRUCTIONS:
-PASS IN form_type variable when including this file - EITHER 'popup' or 'block'
--->
-
-{%- if form_type == 'popup' -%}
-  <div class="js-close-email-popup close-popup-overlay"></div>
-{%- endif -%}
-<div class="newsletter-section email-popup-form-wrapper">
-  <div class="container padded">
-
-      <!-- ======================================
-      TEXT INFO
-      =========================================== -->
-      {% if section.settings.heading != blank %}
-        <h2 class="h1" data-anim="slide" data-anim-order="4">{{ section.settings.heading | newline_to_br }}</h2>
-      {% endif %}
-
-      <!-- ======================================
-      KLAVIYO FORM
-      =========================================== -->
-      <div class="form-outer-wrapper" data-anim="slide" data-anim-order="5">
-        <div id="sh-klaviyo-form" class="klaviyo-form-TLejPQ"></div>
-      </div>
-    </div>
-  </div>
+<div class="form-outer-wrapper" data-anim="slide" data-anim-order="2">
+  <div id="sh-klaviyo-form" class="klaviyo-form-TLejPQ"></div>
 </div>
