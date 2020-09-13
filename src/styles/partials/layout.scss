@@ -68,6 +68,12 @@ Centered Layout
 		padding-left: 3rem;
 		padding-right: 3rem;
 	}
+	&.md-up {
+		@include mobile-only {
+			padding-left: 0;
+			padding-right: 0;
+		}
+	}
 }
 
 .container-md {

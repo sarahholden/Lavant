@@ -1,9 +1,9 @@
-{% paginate blog.articles by 5 %}
+{% paginate blog.articles by 9 %}
 
   {%- assign blog_title = blog.title -%}
 
   {% if current_tags %}
-    {% capture blog_title %}{{ blog.title | link_to: blog.url }} &mdash; {{ current_tags.first }}{% endcapture %}
+    {% capture blog_title %}{{ current_tags.first }}{% endcapture %}
   {% endif %}
 
 
@@ -12,19 +12,33 @@
   <header>
     <h1 class="heading--serif-grey">{{ blog_title }}</h1>
 
+
     <!-- ====== TAGS LIST NAV ======== -->
     {% if blog.all_tags.size > 0 %}
-      <ul class="tags-list">
-        {% for tag in blog.all_tags %}
+      <div class="tags-row">
+        <!-- Mobile dropdown trigger -->
+        <button class="show-mobile js-dropdown-trigger dropdown-trigger" aria-label="View Categories on mobile">
+          Select a category
+          <span class="icon">{%- include 'icon-caret-down' -%}</span>
+        </button>
 
-        {% if current_tags contains tag %}
-        <li>{{ tag }}</li>
-        {% else %}
-        <li>{{ tag | link_to_tag: tag }}</li>
-        {% endif %}
+        <ul class="tags-list">
+          {% if current_tags %}
+            <li>
+              <a href="/blogs/blog/">All Posts</a>
+            </li>
+          {% endif %}
+          {% for tag in blog.all_tags %}
 
-        {% endfor %}
-      </ul>
+          {% if current_tags contains tag %}
+          <li>{{ tag }}</li>
+          {% else %}
+          <li>{{ tag | link_to_tag: tag }}</li>
+          {% endif %}
+
+          {% endfor %}
+        </ul>
+      </div>
     {% endif %}
   </header>
 
@@ -35,63 +49,7 @@
   <div class="article-list container">
 
       {% for article in blog.articles %}
-        <article data-trigger="scroll">
-          {% if article.image %}
-            <a href="{{ article.url }}">
-              <div class="cropped-image-wrapper">
-                {% assign image = article.image %}
-                {% assign img_url = image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' %}
-                <img
-                class="lazyload fade-in"
-                data-src="{{ img_url }}"
-                data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
-                data-aspectratio="{{ image.aspect_ratio }}"
-                data-sizes="auto"
-                alt="{{ article.title }}"
-
-                >
-              </div>
-            </a>
-          {% endif %}
-          <div class="v-aligner text-content">
-            <div>
-              <div class="split-aligner small-caps metadata-row" data-anim="slide" data-anim-order="1">
-                {% capture date %}{{ article.published_at | time_tag: format: 'month_day_year' }}{% endcapture %}
-                {% if article.tags.size > 0 %}
-                  <ul class="article-tags">
-                    {% if article.tags.size > 0 %}
-                      {% for tag in article.tags %}
-                        <li>
-                          <a href="{{ blog.url }}/tagged/{{ tag | handle }}">{{ tag }}</a>{% unless forloop.last %}, {% endunless %}
-
-                        </li>
-                      {% endfor %}
-                    {% endif %}
-                  </ul>
-                {% endif %}
-                <p class="date">
-                  {{ date }}
-                </p>
-              </div>
-              <h3 class="heading--serif" data-reveal="lines-masked"><a href="{{ article.url }}">{{ article.title }}</a></h3>
-
-              <div class="rte desc" data-anim="slide" data-anim-order="2">
-                {% if article.excerpt.size > 0 %}
-                  {{ article.excerpt }}
-                {% else %}
-                  <p>
-                    {{ article.content | strip_html | truncatewords: 100 }}
-                  </p>
-                {% endif %}
-              </div>
-
-              <p class="read-more-row" data-anim="slide" data-anim-order="3">
-                <a href="{{ article.url }}" class="link--underline">{{ 'blogs.article.read_more' | t }}</a>
-              </p>
-            </div>
-          </div>
-
-        </article>
+        {%- include 'blog-card' -%}
       {% endfor %}
   </div>
 

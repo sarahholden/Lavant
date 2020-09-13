@@ -342,6 +342,17 @@ $(document).ready(function() {
   SELECTRIC
   ------------------------------------------------ */
   $('.styled-select').selectric();
+
+
+  /* ---------------------------------------------
+  BLOG CATEGORIES
+  ------------------------------------------------ */
+  $('.js-dropdown-trigger').on('click', function () {
+    $(this).closest('.tags-row').toggleClass('active-tags');
+    $(this).closest('.tags-row').find('.tags-list').slideToggle(350);
+  });
+
+
   /* ---------------------------------------------
   TEXT EFFECT WRAPPER
   ------------------------------------------------ */

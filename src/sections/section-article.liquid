@@ -1,0 +1,155 @@
+{% comment %}
+  When a comment is submitted, the browser is redirected to a page that includes
+  the new comment id in its URL.
+  #comments is a required ID and is used as an anchor link by Shopify.
+{% endcomment %}
+
+{%- assign number_of_comments = article.comments_count -%}
+
+{% comment %}
+  If a comment was just submitted but requires moderation, we have an extra comment to count.
+{% endcomment %}
+{% if comment and comment.status != 'published' %}
+  {% assign number_of_comments = article.comments_count | plus: 1 %}
+{% endif %}
+
+<article role="article" itemscope itemtype="http://schema.org/Article" class="main-article">
+
+  <section data-trigger="scroll">
+    <!-- ======================================
+    HEADER
+    =========================================== -->
+    <h1 class="heading--serif-grey">Blog</h1>
+
+
+    <!-- ======================================
+    CATEGORIES
+    =========================================== -->
+    {% if blog.all_tags.size > 0 %}
+      <div class="tags-row">
+        <!-- Mobile dropdown trigger -->
+        <button class="show-mobile js-dropdown-trigger dropdown-trigger" aria-label="View Categories on mobile">
+          Select a category
+          <span class="icon">{%- include 'icon-caret-down' -%}</span>
+        </button>
+
+        <ul class="tags-list">
+          {% for tag in blog.all_tags %}
+            {% if current_tags contains tag %}
+              <li>{{ tag }}</li>
+            {% else %}
+              <li>{{ tag | link_to_tag: tag }}</li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+  </section>
+
+  <!-- ======================================
+  LEAD CARD
+  =========================================== -->
+  {%- include 'blog-lead-card' -%}
+
+
+  <!-- ======================================
+  BODY
+  =========================================== -->
+  <div class="rte desc container article-content" itemprop="articleBody">
+    {{ article.content }}
+  </div>
+
+
+  <!-- ====== NOT IN DESIGN, BUT MIGHT BE USED SOMEDAY ======== -->
+  {% if settings.social_sharing_blog %}
+    {% include 'social-sharing', share_title: article.title, share_permalink: article.url, share_image: article.image %}
+  {% endif %}
+
+  {% if blog.comments_enabled? %}
+    {%- include 'block-comments' -%}
+  {% endif %}
+
+</article>
+
+{% if article.metafields.custom_fields["shop_this_post"] != blank %}
+  <section class="shop-this-post related-products padded container">
+    <div class="inner">
+      {% if section.settings.shop_post_heading != blank %}
+        <h2>{{ section.settings.shop_post_heading }}</h2>
+      {% endif %}
+      <div class=" cols-3">
+        {% assign product_refs = article.metafields.custom_fields["shop_this_post"] | split: "|" %}
+        {% for product_handle in product_refs %}
+          {% assign product_ref = all_products[product_handle] %}
+          {%- include 'product-card', product: product_ref -%}
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+{% endif %}
+
+
+<section class="up-next padded">
+  <h2>{{ section.settings.up_next_heading }}</h2>
+  <div class="article-list container">
+
+    {% assign current_article_index = 0 %}
+    {% for article_item in blog.articles %}
+      {%- if article_item.handle == article.handle -%}
+        {% assign current_article_index = forloop.index0 %}
+      {%- endif -%}
+    {% endfor %}
+
+    {% assign next_1_index = current_article_index | plus: 1 %}
+    {% assign next_2_index = next_1_index | plus: 1 %}
+    {% assign prev_1_index = current_article_index | minus: 1 %}
+    {% assign prev_2_index = prev_1_index | minus: 1 %}
+
+    {%- if blog.articles[next_1_index] != blank -%}
+      {%- include 'blog-card', article: blog.articles[next_1_index] -%}
+      {%- if blog.articles[next_2_index] != blank-%}
+        {%- include 'blog-card', article: blog.articles[next_2_index] -%}
+      {%- endif -%}
+
+    {%- else -%}
+      {%- include 'blog-card', article: blog.articles[prev_1_index] -%}
+      {%- if blog.articles[prev_2_index] != blank-%}
+        {%- include 'blog-card', article: blog.articles[prev_2_index] -%}
+      {%- endif -%}
+
+    {%- endif -%}
+
+
+    {% for article in blog.articles %}
+
+    {% endfor %}
+  </div>
+</section>
+
+
+<script type="text/javascript">
+  $('.article-content img').closest('p').addClass('blog-image-wrapper');
+</script>
+
+
+
+{% schema %}
+{
+  "name": "Article Page Content",
+  "class": "page-article",
+  "settings": [
+    {
+      "id": "shop_post_heading",
+      "type": "text",
+      "label": "Shop Post Heading",
+      "default": "Shop this post"
+    },
+    {
+      "id": "up_next_heading",
+      "type": "text",
+      "label": "Up Next Heading",
+      "default": "Up Next"
+    }
+  ]
+}
+{% endschema %}

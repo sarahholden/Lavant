@@ -1,0 +1,46 @@
+<div class="container md-up">
+  <header role="banner" class="article-card lead-card" data-trigger="scroll">
+    {% if article.image %}
+
+      <div>
+        <div class="cropped-image-wrapper">
+          {% assign image = article.image %}
+          {% assign img_url = image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' %}
+          <img
+          class="lazyload fade-in"
+          data-src="{{ img_url }}"
+          data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+          data-aspectratio="{{ image.aspect_ratio }}"
+          data-sizes="auto"
+          alt="{{ article.title }}"
+          >
+        </div>
+      </div>
+
+    {% endif %}
+    <div class="v-aligner text-content">
+      <div>
+        <div class="split-aligner small-caps metadata-row" data-anim="slide" data-anim-order="1">
+          {% capture date %}{{ article.published_at | time_tag: format: 'month_day_year' }}{% endcapture %}
+          {% if article.tags.size > 0 %}
+          <ul class="article-tags">
+            {% if article.tags.size > 0 %}
+            {% for tag in article.tags %}
+            <li>
+              <a href="{{ blog.url }}/tagged/{{ tag | handle }}">{{ tag }}</a>{% unless forloop.last %}, {% endunless %}
+            </li>
+            {% endfor %}
+            {% endif %}
+          </ul>
+          {% endif %}
+          <p class="date">
+            {{ date }}
+          </p>
+        </div>
+        <h3 class="heading--serif" data-reveal="lines-masked">{{ article.title }}</h3>
+      </div>
+    </div>
+
+  </header>
+
+</div>

@@ -1,3 +1,11 @@
 <div class="pagination">
-  {{ paginate | default_pagination }}
+  <div class="inner">
+    {% if paginate.previous.is_link %}
+      <a href="{{ paginate.previous.url }}" class="icon-next">{%- include 'icon-caret-left' -%}</a>
+    {% endif %}
+    {{ paginate | default_pagination }}
+    {% if paginate.next.is_link %}
+      <a href="{{ paginate.next.url }}" class="icon-prev">{%- include 'icon-caret-right' -%}</a>
+    {% endif %}
+  </div>
 </div>
