@@ -1,5 +1,8 @@
 
 .page-gift {
+  @include tablet-up {
+    padding-top: 3rem;
+  }
   h2 {
     font-family: $canela;
     font-size: 5rem;

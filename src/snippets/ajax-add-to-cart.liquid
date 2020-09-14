@@ -1,18 +1,166 @@
+{%- include 'ajax-cart-helpers' -%}
+
 <script type="text/javascript">
-  $('#add-to-cart-form').on('submit', function (e) {
+
+  /* ---------------------------------------------
+  ADD ITEM TO CART
+  ------------------------------------------------ */
+  function addItemToCart(variant_id, qty, frequency, unit_type) {
+
+    // COMPILE DATA, INCLUDING RECHARGE DATA
+    var data = {
+      'id': variant_id,
+      'quantity': qty,
+      'properties': {
+        'shipping_interval_frequency': frequency,
+        'shipping_interval_unit_type': unit_type
+      }
+    };
+
+
+    // ADD NEW CART ITEM
+    $.ajax({
+      type: 'POST',
+      url: '/cart/add.js',
+      data: data,
+      dataType: 'json',
+      success: function(lineItem, textStatus, jqXHR) {
+        // console.log(lineItem);
+
+        // HIDE EMPTY STATE
+        $('.js-empty-state').hide();
+
+        // ADD DATA FROM ORIGINAL PRODUCT (FOR RECHARGE PRODUCTS)
+        var originalHandle = $('.js-add-to-cart-btn').data('original-handle');
+        var originalTitle = $('.js-add-to-cart-btn').data('original-title');
+        var originalImage = $('.js-add-to-cart-btn').data('original-image');
+
+        lineItem.original_handle = originalHandle ? originalHandle : '';
+        lineItem.original_title = originalTitle ? originalTitle : '';
+        lineItem.original_image = originalImage ? originalImage : '';
+
+        addItemToCartDrawer(lineItem);
+
+        // GET CART OBJECT TO UPDATE COUNT
+        $.ajax({
+          type: 'GET',
+          url: '/cart.js',
+          data: data,
+          dataType: 'json',
+          success: function(cartData, textStatus, jqXHR) {
+            $('body').addClass('open-cart');
+
+            // console.log(cartData);
+            updateCartSitewide(cartData);
+          },
+          error: function(jqXHR, textStatus, errorThrown) {
+            // alert('Error: ' + errorThrown + '!');
+          }
+        });
+
+
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+        // alert('Error: ' + errorThrown + '!');
+      }
+    });
+
+  }
+
+  // FORM SUBMIT ------------------------------
+  $('#add-item-form').on('submit', function (e) {
     e.preventDefault();
-    let variantId = $('#variant-id').val();
-    let quantity = $('#quantity').val();
 
-    CartJS.addItem(variantId, quantity);
-    $('.js-flyout[data-flyout-name="confirmation-screen"]').addClass('active');
+    var selectedId = $('[name="id"]').val();
+    var purchaseType = $('[name="purchase_type"]:checked').val();
+
+    // SUBSCRIPTION
+    if (purchaseType == 'autodeliver') {
+      var shippingInterval = $('[name="properties[shipping_interval_unit_type]"]').val();
+      var numberMonths = $('.rc_select__frequency').val();
+      addItemToCart(selectedId, 1, numberMonths, shippingInterval);
+
+    } else {
+      var quantity = parseInt($('#quantity').val(), 10);
+      addItemToCart(selectedId, quantity);
+    }
   });
 
+  /* ---------------------------------------------
+  QUANTITY & PRICING
+  ------------------------------------------------ */
+  // UPDATE PRICE ------------------------------
+  function updatePrice (quantity, pricePerUnit) {
+    // HIDE THE ORIGINAL PRICE BUTTON SINCE RECHARGE ISN'T UPDATING CORRECTLY
+    $('[data-product-price]').addClass('temp-hidden');
+
+    // Calculate price & update button
+    var updatedAmount = ((quantity * pricePerUnit) / 100).toFixed(2);
+    $('.js-price').removeClass('temp-hidden');
+    $('.js-price').text('$' + updatedAmount);
+  }
+
+  // UPDATE QUANTITY
   $('#quantity').on('change', function () {
-    var selectedQuantity = parseInt($(this).val(), 10);
-    var variantPrice = $('.js-price').data('raw-price');
-    var variantPriceTimesQuantity = selectedQuantity * variantPrice;
-    $('.js-price').html(slate.Currency.formatMoney(variantPriceTimesQuantity, theme.moneyFormat));
+    var newQuantity = parseInt($('#quantity').val(), 10);
+
+    var purchaseType = $('[name="purchase_type"]:checked').val();
+
+    // If this is a one time purchase, update button text with new price
+    if (purchaseType != 'autodeliver') {
+      if (newQuantity < 1) {
+        $('#quantity').val('1');
+      }
+
+      var quantity = parseInt($('#quantity').val(), 10);
+      var pricePerUnit = parseFloat($('[data-onetime-unit-price]').data('onetime-unit-price'));
+      updatePrice(quantity, pricePerUnit);
+    }
+
   });
+
+  // UPDATE PRICE BUTTON ON PRODUCT DETAIL
+  function updatePriceButton () {
+    var purchaseType = $('[name="purchase_type"]:checked').val();
+
+    // SUBSCRIPTION PRICING
+    if (purchaseType == 'autodeliver') {
+      $('#quantity').prop('disabled', true);
+
+      // CAN ONLY ORDER 1 AT A TIME
+      var quantity = 1;
+      var pricePerUnit = parseFloat($('[data-subscription-unit-price]').data('subscription-unit-price'));
+
+      updatePrice(quantity, pricePerUnit);
+
+      $('.js-add-to-cart-text').text('Subscribe Now');
+
+    } else {
+      // ONE TIME PRICING
+      $('#quantity').prop('disabled', false);
+      var quantity = parseInt($('#quantity').val(), 10);
+      var pricePerUnit = parseFloat($('[data-onetime-unit-price]').data('onetime-unit-price'));
+
+      if (!pricePerUnit) {
+        return;
+      }
+
+      updatePrice(quantity, pricePerUnit);
+
+      $('.js-add-to-cart-text').text('Add to Cart');
+
+    }
+  }
+
+
+  // CHANGE BETWEEN SUBSCRIPTION AND REGULAR
+  $('[name="purchase_type"]').on('change', function () {
+    updatePriceButton();
+  });
+  // CHANGE BETWEEN SUBSCRIPTION AND REGULAR
+  $('#SingleOptionSelector-0').on('focus, blur', function () {
+    updatePriceButton();
+  });
+
 
 </script>

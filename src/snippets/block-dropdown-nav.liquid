@@ -1,0 +1,50 @@
+<div class="dropdown-navigation container hide-mobile" tabindex="-1">
+  <div class="cols-2-1">
+    <div class="cols-2 no-gutters">
+      <div class="menu-1">
+        {% if section.settings.dropdown_list_1_heading != blank %}
+          <h2 data-anim="slide" data-anim-order="1">{{ section.settings.dropdown_list_1_heading }}</h2>
+        {% endif %}
+        <div data-anim="slide" data-anim-order="2">
+          {%- include 'nav-menu', current_menu: section.settings.dropdown_list_1 -%}
+        </div>
+      </div>
+      <div class="menu-2">
+        {% if section.settings.dropdown_list_2_heading != blank %}
+          <h2 data-anim="slide" data-anim-order="3">{{ section.settings.dropdown_list_2_heading }}</h2>
+        {% endif %}
+        <div data-anim="slide" data-anim-order="4">
+          {%- include 'nav-menu', current_menu: section.settings.dropdown_list_2 -%}
+        </div>
+      </div>
+    </div>
+    <div class="image-section" >
+      {% if section.settings.dropdown_image != blank %}
+        <div class="cropped-image-wrapper"  data-anim="slide" data-anim-order="5">
+          {% assign image = section.settings.dropdown_image %}
+          {% assign alt_text = section.settings.dropdown_image_alt | escape %}
+          {% assign img_url = image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' %}
+          <img
+          class="lazyload fade-in"
+          data-src="{{ img_url }}"
+          data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+          data-aspectratio="{{ image.aspect_ratio }}"
+          data-sizes="auto"
+          alt="{{ alt_text }}"
+          data-anim="scale"
+          >
+        </div>
+      {% endif %}
+      {% if section.settings.image_section_heading != blank %}
+        <h3 class="h2"  data-anim="slide" data-anim-order="6">{{ section.settings.image_section_heading | newline_to_br }}</h3>
+      {% endif %}
+      {% if section.settings.button_text != blank %}
+        <a href="{{ section.settings.button_url }}"
+          class="link--underline"
+           data-anim="slide" data-anim-order="7">
+          {{ section.settings.button_text }}
+        </a>
+      {% endif %}
+    </div>
+  </div>
+</div>

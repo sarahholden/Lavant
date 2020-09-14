@@ -1188,8 +1188,38 @@ $(document).ready(function() {
   $(window).on('resize', function () {
     navbarHeight = $('.nav-wrapper').innerHeight();
     $('.nav-wrapper-placeholder').css('height', navbarHeight + 'px');
-
   });
+
+  /* ---------------------------------------------
+    DROPDOWN NAV
+  ------------------------------------------------ */
+  var navTimeout;
+  function hideNavOnLeave () {
+    navTimeout = setTimeout(function () {
+      $('body').removeClass('open-dropdown-nav');
+      $('.dropdown-navigation').removeClass('js-animate');
+    }, 500);
+  }
+
+  $('.left-nav .js-show-nav-dropdown').on('mouseenter', function () {
+    $('body').addClass('open-dropdown-nav');
+    setTimeout(function () {
+      $('.dropdown-navigation').addClass('js-animate');
+    }, 100);
+  });
+
+  $('.left-nav .js-show-nav-dropdown, .dropdown-navigation').on('mouseleave', function () {
+    hideNavOnLeave();
+  });
+
+  $('.left-nav .js-show-nav-dropdown, .dropdown-navigation').on('mouseenter', function () {
+    clearTimeout(navTimeout);
+  });
+
+
+
+
+
 
 
 
@@ -1273,9 +1303,15 @@ $(document).ready(function() {
   Accordion
   ------------------------------------------------ */
   $('.accordion').on('click', '.accordion-toggle', function() {
-    $(this)
-      .closest('.accordion-panel')
-      .toggleClass('expanded');
+    var $accordionPanel = $(this).closest('.accordion-panel');
+    $accordionPanel.toggleClass('expanded');
+    $accordionPanel.find('.accordion-text').slideToggle(300);
+
+    // TOGGLE ARIA-EXPANDED FOR ADA
+    $accordionPanel.attr('aria-expanded', function (i, attr) {
+      return attr == 'true' ? 'false' : 'true';
+    });
+
   });
 
 
@@ -1291,6 +1327,10 @@ $(document).ready(function() {
     e.preventDefault();
     $('body').removeClass('open-cart');
   });
+
+  if (window.location.hash && window.location.hash == '#view-cart') {
+    $('body').addClass('open-cart');
+  }
 
   /* ---------------------------------------------
   SELECTRIC

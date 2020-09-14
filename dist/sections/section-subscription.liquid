@@ -57,7 +57,7 @@ FAQs
       {% for block in section.blocks %}
       {% case block.type %}
       {% when 'faq_item' %}
-      <div class="accordion-panel animate-item">
+      <div class="accordion-panel animate-item" aria-expanded="false">
         <h3 class="accordion-toggle"><span class="text">{{ block.settings.title }}</span> <span class="icon"></span></h3>
         <div class="accordion-text">
           <div class="inner desc">

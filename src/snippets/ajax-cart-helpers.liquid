@@ -1,0 +1,90 @@
+<script type="text/javascript">
+
+  /* ---------------------------------------------
+  FORMAT CURRENCY
+  ------------------------------------------------ */
+  Handlebars.registerHelper('formatCurrency', function(value) {
+    return Shopify.formatMoney(value, "{{ shop.money_format }}");
+  });
+
+
+  /* ---------------------------------------------
+  ADD ITEM TO CART DRAWER
+  ------------------------------------------------ */
+  function addItemToCartDrawer (lineItem) {
+    // HANDLEBARS
+    var source = $('#cart-item-template').html();
+    var template = Handlebars.compile(source);
+
+    // SET ORIGINAL PRODUCT (FOR SUBSCRIPTION PRODUCTS)
+    lineItem.subscription_text = 'One-time Purchase';
+
+    // LOOP THROUGH RECHARGE PROPERTIES, DISPLAY FREQUENCY ON FRONT END
+    if (lineItem.properties) {
+
+      var properties = lineItem.properties;
+
+      if (properties.shipping_interval_frequency && properties.shipping_interval_unit_type) {
+        lineItem.subscription_text = 'Subscribe';
+        var lineItemIntervalUnit = properties.shipping_interval_frequency;
+        var lineItemfrequency = properties.shipping_interval_unit_type;
+        if (lineItemIntervalUnit == '1' &&  lineItemfrequency == 'Months') {
+          lineItem.frequency = 'Delever every month';
+        } else {
+          // example: Deliver every 2 Months
+          lineItem.frequency = 'Delever every ' + lineItemIntervalUnit + ' ' + lineItemfrequency;
+        }
+      }
+    }
+
+    // FIND PRODUCTS WITH THE SAME VARIANT ID
+    // IF RECHARGE FREQUENCY AND INTERVAL IS THE SAME, REMOVE OLD CART ITEMS
+    // (SO THAT ALL ITEMS ARE GROUPED TOGETHER, NOT REPEATED IN THE LIST)
+    var $duplicateVariantId = $('[data-product-id="' + lineItem.variant_id + '"]');
+
+    $.each($duplicateVariantId, function () {
+      var frequency = $(this).attr('data-frequency');
+      var intervalUnit = $(this).attr('data-interval-unit');
+      // console.log(frequency, lineItemIntervalUnit, lineItemfrequency, intervalUnit);
+      if ((frequency == lineItemIntervalUnit && lineItemfrequency == intervalUnit) || (!frequency && !intervalUnit && lineItemfrequency == undefined && lineItemIntervalUnit == undefined)) {
+        $(this).remove();
+      }
+    });
+
+    var html = template(lineItem);
+    $('#cart-items-container').prepend(html);
+  }
+
+  /* ---------------------------------------------
+  UPDATE CART COUNT / EMPTY STATE
+  ------------------------------------------------ */
+  function updateCartSitewide (cart) {
+    $('.js-cart-count').text(cart.item_count);
+    $('.js-cart-total').text(Shopify.formatMoney(cart.total_price, "{{ shop.money_format }}"));
+
+
+    // TOGGLE EMPTY STATE
+    if (cart.item_count == 0) {
+      $('.js-empty-cart').fadeIn();
+      $('#cart-items-container, .js-cart-total-row').hide();
+
+    } else {
+      // HIDE EMPTY STATE
+      $('.js-empty-cart').hide();
+      // SHOW CART DRAWER CHECKOUT BUTTON
+      $('#cart-items-container, .js-cart-total-row').fadeIn();
+    }
+  }
+
+  /* ---------------------------------------------
+  UPDATE LINE ITEM
+  ------------------------------------------------ */
+  function updateLineItem (cartItem, lineItem) {
+
+    $(cartItem).find('.js-line-item-total').text(Shopify.formatMoney(lineItem.line_price, "{{ shop.money_format }}"));
+    $(cartItem).find('.js-count-placeholder').text(lineItem.quantity);
+    $(cartItem).attr('data-quantity', lineItem.quantity);
+
+
+  }
+</script>

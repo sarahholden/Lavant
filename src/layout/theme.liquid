@@ -2,6 +2,13 @@
 <!--[if IE 9]> <html class="ie9 no-js supports-no-cookies" lang="{{ shop.locale }}"> <![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js supports-no-cookies" lang="{{ shop.locale }}"> <!--<![endif]-->
 <head>
+
+  {% if template == 'cart' %}
+    <script>
+    		window.location.replace('/#view-cart');
+  	</script>
+  {% endif %}
+
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -49,7 +56,7 @@
 
 
   <!-- Include Handlebars from a CDN -->
-  <!-- <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script> -->
+  <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
 
   <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.0/css/swiper.min.css" rel="stylesheet"/> -->
   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.0/js/swiper.min.js"></script> -->
@@ -124,8 +131,9 @@
     jQuery(function() {
       CartJS.init({{ cart | json }});
     });
-
-
   </script>
+
+  {% render 'spurit_po2_theme_snippet' %}
+  {% include 'subscription-theme-footer' %}
 </body>
 </html>

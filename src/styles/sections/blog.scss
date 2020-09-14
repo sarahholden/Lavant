@@ -74,6 +74,7 @@
         transition: $smoothTransition;
         background: black;
       }
+      &:focus::before,
       &:hover::before {
         transform: none;
       }
@@ -200,8 +201,8 @@
       margin-bottom: 4rem;
     }
   }
-  > div,
-  > a {
+  > a,
+  > div {
     @include tablet-up {
       width: 50%;
     }

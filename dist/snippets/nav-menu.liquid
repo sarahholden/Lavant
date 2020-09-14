@@ -3,7 +3,7 @@
     {% for link in linklists[current_menu].links %}
       {% if link.links != blank %}
         <li>
-          <a href="{{ link.url }}">{{ link.title | escape }}</a>
+          <a href="{{ link.url }}" class="{% if link.active %}current{% endif %}">{{ link.title | escape }}</a>
           <ul>
             {% for childlink in link.links %}
               {% if childlink.links != blank %}
@@ -27,7 +27,7 @@
         </li>
       {% else %}
         <li>
-          <a href="{{ link.url }}">{{ link.title | escape }}</a>
+          <a href="{{ link.url }}" class="{% if forloop.index == 1 %}js-show-nav-dropdown{% endif %} {% if link.active %}current{% endif %}">{{ link.title | escape }}</a>
         </li>
       {% endif %}
     {% endfor %}
