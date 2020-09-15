@@ -66,13 +66,13 @@
     // TOGGLE EMPTY STATE
     if (cart.item_count == 0) {
       $('.js-empty-cart').fadeIn();
-      $('#cart-items-container, .js-cart-total-row').hide();
+      $('#cart-items-container, .js-cart-total-row, .js-free-shipping').hide();
 
     } else {
       // HIDE EMPTY STATE
       $('.js-empty-cart').hide();
       // SHOW CART DRAWER CHECKOUT BUTTON
-      $('#cart-items-container, .js-cart-total-row').fadeIn();
+      $('#cart-items-container, .js-cart-total-row, .js-free-shipping').fadeIn();
     }
   }
 

@@ -23,10 +23,13 @@
     return true;
   }
 
-  function checkAllFields() {
+  function checkAllFields(currentForm) {
     invalid = 0;
     $('.error').remove();
-    $('#contact_form input, #contact_form textarea').each(function () {
+    $(currentForm).find('input').each(function () {
+      checkField($(this));
+    });
+    $(currentForm).find('textarea').each(function () {
       checkField($(this));
     });
 
@@ -48,7 +51,7 @@
     e.preventDefault();
 
     // First check to make sure all required fields are filled out
-    if (checkAllFields()){
+    if (checkAllFields($(this))){
 
       // Get form data
       // var formData = getFormData();
@@ -65,7 +68,7 @@
           $form.addClass('sending');
         },
         error: function(t) {
-          console.log(t);
+          // console.log(t);
           $form.addClass('sent');
         },
         success: function(response) {

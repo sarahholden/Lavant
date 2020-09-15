@@ -1,0 +1,90 @@
+/* --------------------------------------------------------------------------
+  ACCOUNT POPUP
+-----------------------------------------------------------------------------*/
+.account-popup {
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  z-index: 600;
+  form {
+    position: relative;
+    background: white;
+    width: 42.7rem;
+    transition: $smoothTransition;
+    padding: 5.5rem 4.2rem 3.5rem;
+    max-height: 100vh;
+    overflow-y: scroll;
+    backface-visibility: hidden;
+
+    h2 {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    .btn {
+      width: 100%;
+      display: block;
+      margin-top: 2rem;
+    }
+  }
+  .end-links {
+    margin-top: 3rem;
+    font-family: $canela;
+    font-size: 1.3rem;
+    color: #353535;
+    letter-spacing: 0.009rem;
+    text-align: center;
+    p {
+      margin-bottom: 0.4rem;
+    }
+  }
+}
+
+/* CLOSE BUTTON & OVERLAY ================== */
+.close-account-popup-overlay {
+  position: fixed;
+  opacity: 0;
+  visibility: hidden;
+  transition: $smoothTransition;
+  background: #464646;
+  pointer-events: none;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 590;
+}
+
+.close-popup-button {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  width: 1.8rem;
+  svg {
+    display: block;
+    width: 100%;
+  }
+}
+
+/* ANIMATION - SHOWING ================== */
+.open-account-popup {
+  .account-popup {
+    opacity: 1;
+    visibility: visible;
+    form {
+      pointer-events: auto;
+    }
+  }
+  .close-account-popup-overlay {
+    opacity: 0.5;
+    pointer-events: auto;
+    visibility: visible;
+  }
+}

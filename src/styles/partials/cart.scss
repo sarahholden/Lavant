@@ -52,9 +52,6 @@ $cartWidth: 38rem;
 
 /* OPEN CART STYLES ================== */
 .open-cart {
-  position: fixed;
-  overflow: hidden;
-  width: 100%;
   .cart-drawer {
     transform: none;
     transition: all 0.4s ease-in-out 0.1s;
@@ -77,6 +74,8 @@ $cartWidth: 38rem;
 -----------------------------------------------------------------------------*/
 .cart-drawer .empty-cart {
   margin-bottom: 2rem;
+  padding-top: 3rem;
+  text-align: center;
 }
 
 /* --------------------------------------------------------------------------
@@ -121,10 +120,12 @@ $cartWidth: 38rem;
     CART DRAWER - PRODUCTS
 -----------------------------------------------------------------------------*/
 .cart-drawer .cart-row {
-  display: flex;
-  padding-top: 3.2rem;
-  padding-bottom: 3.2rem;
-  &:not(:last-of-type) {
+  .inner-cart-row {
+    display: flex;
+    padding-top: 3.2rem;
+    padding-bottom: 3.2rem;
+  }
+  &:not(:last-of-type) .inner-cart-row {
     border-bottom: $border;
   }
 
@@ -139,9 +140,9 @@ $cartWidth: 38rem;
 
   .subscribe-text,
   .variant-text {
+    margin-bottom: 1rem;
     p {
       font-size: 1.2rem;
-      margin-bottom: 0.8rem;
       color: $darkGreyText;
     }
   }
@@ -179,7 +180,9 @@ $cartWidth: 38rem;
     text-align: right;
     line-height: 1;
   }
-
+  .quantity-row {
+    align-items: flex-end;
+  }
 }
 
 /* CART IMAGE ================== */

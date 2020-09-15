@@ -309,3 +309,56 @@
     }
   }
 }
+
+/* --------------------------------------------------------------------------
+  SUBSCRIPTION POPUP
+-----------------------------------------------------------------------------*/
+.product__option {
+  .product__options-title {
+    position: relative;
+    display: inline-block;
+  }
+  .tooltip {
+    display: inline-block;
+    width: 1rem;
+  }
+  .tooltip__text {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 120%);
+    border: $border;
+    background: white;
+    font-size: 1.3rem;
+    color: #505050;
+    letter-spacing: 0;
+    line-height: (17 / 13);
+    width: 24.2rem;
+    text-transform: none;
+    padding: 2rem;
+    z-index: 3;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    cursor: default;
+    transition: all 0.4s $ease;
+  }
+}
+
+.tooltip:hover {
+  .tooltip__text {
+    transform: translate(-50%, 100%);
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+
+  }
+}
+
+.frequency-and-quantity-row {
+  display: flex;
+  align-items: flex-end;
+  .quantity-select {
+    margin-left: 4rem;
+  }
+}

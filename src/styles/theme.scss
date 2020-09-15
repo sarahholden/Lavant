@@ -38,6 +38,7 @@
 @import url('sections/subscription.scss');
 @import url('sections/wholesale.scss');
 @import url('sections/gift.scss');
+@import url('sections/account.scss');
 
 /* --------------------------------------------------------------------------
 Section Comment
@@ -67,7 +68,7 @@ Section Comment
 
 /* 404 page ================== */
 .page-general,
-.template-404 {
+.template-404 main {
   text-align: center;
   h1 {
     margin-bottom: 2rem;

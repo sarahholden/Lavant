@@ -1,6 +1,9 @@
 <h1>{{ 'customer.account.title' | t }}</h1>
 
 <h2>{{ 'customer.orders.title' | t }}</h2>
+<!-- Begin ReCharge code -->
+<p><a href="/tools/recurring/login/">Manage Subscriptions</a></p>
+<!-- End ReCharge code -->
 
 {% paginate customer.orders by 20 %}
   {% if customer.orders.size != 0 %}

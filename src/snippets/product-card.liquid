@@ -7,9 +7,15 @@
 <div class="product-card {{ class_name }}">
   <a href="{{ product.url | within: link_collection }}">
     <div>
-      {%- assign lazy_image = product.featured_image -%}
-      {% assign alt_text = product.featured_image.alt | escape %}
-      {%- assign img_url = lazy_image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+      {% if product.metafields.custom_fields["product_image_white_bg"] != blank %}
+        {% assign image = product.metafields.custom_fields["product_image_white_bg"] %}
+        {% assign image_url = product.metafields.custom_fields["product_image_white_bg"] %}
+        {% assign alt_text = product.title %}
+      {% elsif product.featured_image != blank %}
+        {%- assign lazy_image = product.featured_image -%}
+        {% assign alt_text = product.featured_image.alt | escape %}
+        {%- assign img_url = lazy_image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+      {% endif %}
       <img class="lazyload"
           data-src="{{ img_url }}"
           data-widths="[360, 540, 720, 900, 1080, 1600]"

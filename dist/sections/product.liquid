@@ -22,17 +22,18 @@
 
           {% if product.metafields.custom_fields["pdp_image"] != blank %}
             {% assign product_img = product.metafields.custom_fields["pdp_image"] %}
+            {% assign product_img_url = product.metafields.custom_fields["pdp_image"] %}
             {% assign product_img_alt = product.metafields.custom_fields["pdp_image_alt"] %}
           {% elsif product.featured_image != blank %}
-            {% assign product_img = product.featured_image.src %}
-            {% assign product_img = product_img | img_url: '1x1' | replace: '_1x1.', '_{width}x.' %}
+            {% assign product_img = product.featured_image %}
+            {% assign product_img_url = product_img | img_url: '1x1' | replace: '_1x1.', '_{width}x.' %}
             {% assign product_img_alt = product.featured_image.alt %}
           {% endif %}
 
           <div class="cropped-image-wrapper">
             <img
             class="lazyload fade-in"
-            data-src="{{ product_img }}"
+            data-src="{{ product_img_url }}"
             data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
             data-aspectratio="{{ product_img.aspect_ratio }}"
             data-sizes="auto"
@@ -115,14 +116,52 @@
               {% endunless %}
 
 
-              <!-- ====== QUANTITY ======== -->
-              <div class="quantity-select">
-                <label for="quantity" arai-label="Quantity">QTY</label>
-                <select id="quantity" class="styled-select" name="quantity">
-                  {%- for i in (1..6) -%}
-                    <option value="{{ i }}">{{ i }}</option>
-                  {%- endfor -%}
-                </select>
+
+              <div class="{%- if product.available and product.metafields.subscriptions.has_subscription == 'True'-%}frequency-and-quantity-row{% endif %}">
+                {%- if product.available -%}
+                  {%- include 'subscription-product' -%}
+
+                  {%- if product.metafields.subscriptions.has_subscription == 'True' -%}
+
+                    <input class="js-unit-type" type="hidden" name="unit_type" value="{{ product.metafields.subscriptions.shipping_interval_unit_type }}">
+                    <div class="product__option">
+                      <label class="product__options-title" for="frequency">
+                        Frequency
+                        <span class="tooltip">
+                          <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-info" viewBox="0 0 50 50"><circle cx="25" cy="25" fill="none" r="24" stroke="#000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"></circle><path fill="none" d="M0 0h50v50H0z"></path><path d="M23.779 16.241c-.216 0-.357-.144-.357-.359v-2.618c0-.215.142-.359.357-.359h2.439c.215 0 .359.144.359.359v2.618c0 .215-.145.359-.359.359h-2.439zm.073 21.052c-.215 0-.358-.143-.358-.358V20.473c0-.215.144-.359.358-.359h2.295c.216 0 .359.144.359.359v16.462c0 .216-.144.358-.359.358h-2.295z"></path></svg>
+                          <div class="tooltip__text">
+                            {{ section.settings.subscription_popup }}
+                          </div>
+                        </span>
+                      </label>
+                      <select class="js-frequency-select select styled-select" name="frequency">
+                        {% unless subscription_only %}
+                        <option value="one-time">One-time Purchase</option>
+                        {% endunless %}
+                        {% for frequency in shipping_interval_frequency %}
+                        <option value="{{ frequency }}">
+                          Deliver Every {{ frequency }}
+                          {% if frequency == "1" and label_unit_type == 'Months' or label_unit_type == 'Weeks' %}
+                          {{ label_unit_type | remove: 's' }}
+                          {% else %}
+                          {{ label_unit_type }}
+                          {% endif %}
+                        </option>
+                        {% endfor %}
+                      </select>
+                    </div>
+
+                  {%- endif -%}
+                {%- endif -%}
+                <!-- ====== QUANTITY ======== -->
+                <div class="quantity-select">
+                  <label for="quantity" arai-label="Quantity">QTY</label>
+                  <select id="quantity" class="styled-select" name="quantity">
+                    {%- for i in (1..6) -%}
+                      <option value="{{ i }}">{{ i }}</option>
+                    {%- endfor -%}
+                  </select>
+                </div>
               </div>
 
               <!-- ====== HIDDEN VARIANT SELECT ======== -->
@@ -140,8 +179,11 @@
               <button
                 type="submit"
                 name="add"
-                class="btn btn--black"
+                class="btn btn--black js-add-to-cart-btn"
                 data-add-to-cart
+                data-original-handle="{{ product.handle }}"
+                data-original-title="{{ product.title }}"
+                data-original-image="{{ product_img }}"
                 {% unless current_variant.available %}disabled="disabled"{% endunless %}
                 data-metafield-image="{{ product_img }}">
                   <span data-add-to-cart-text>
@@ -202,7 +244,6 @@
     </div>
   </header>
 
-
   <section class="elevated-performance">
     <div class="cols-2 no-gutters">
       <div class="container text-content v-aligner">
@@ -262,6 +303,15 @@
   {
     "name": "Product pages",
     "settings": [
+      {
+        "type": "header",
+        "content": "Subscription popup"
+      },
+      {
+        "id": "subscription_popup",
+        "type": "richtext",
+        "label": "Subscription Popup Message"
+      },
       {
         "type": "header",
         "content": "Elevated Performance"

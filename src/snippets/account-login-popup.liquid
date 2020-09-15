@@ -1,0 +1,119 @@
+
+
+<div class="js-close-account-popup close-account-popup-overlay"></div>
+<div class="js-account-popup account-popup" tabindex="-1">
+  <form id="account-popup-form" action="" novalidate>
+    <button class="text-only js-close-account-popup close-popup-button">
+      {%- include 'icon-cart-close' -%}
+    </button>
+    <h2 data-reveal="lines-masked">Create Account</h2>
+    <div class="validation-wrapper" data-anim="slide" data-anim-order="1">
+      <label for="FirstName" class="visually-hidden">
+        {{ 'customer.register.first_name' | t }}
+      </label>
+      <input type="text"
+        name="customer[first_name]"
+        id="FirstName"
+        placeholder="First Name"
+        autofocus
+        required
+        {% if form.first_name %}value="{{ form.first_name }}"{% endif %}>
+    </div>
+    <div class="validation-wrapper" data-anim="slide" data-anim-order="2">
+      <label for="LastName" class="visually-hidden">
+        {{ 'customer.register.last_name' | t }}
+      </label>
+      <input type="text"
+        name="customer[last_name]"
+        id="LastName"
+        required
+        placeholder="{{ 'customer.register.last_name' | t }}"
+        {% if form.last_name %}value="{{ form.last_name }}"{% endif %}>
+    </div>
+    <div class="validation-wrapper" data-anim="slide" data-anim-order="3">
+      <label for="Email" class="visually-hidden">
+        {{ 'customer.register.email' | t }}
+      </label>
+      <input type="email"
+        name="customer[email]"
+        id="Email"
+        class="{% if form.errors contains 'email' %}input-error{% endif %}"
+        placeholder="{{ 'customer.register.email' | t }}"
+        value="{% if form.email %}{{ form.email }}{% endif %}"
+        spellcheck="false"
+        autocomplete="off"
+        autocapitalize="off"
+        required>
+    </div>
+    <div class="validation-wrapper" data-anim="slide" data-anim-order="4">
+      <label for="CreatePassword" class="visually-hidden">
+        {{ 'customer.register.password' | t }}
+      </label>
+      <input type="password"
+        name="customer[password]"
+        id="CreatePassword"
+        class="{% if form.errors contains 'password' %}input-error{% endif %}"
+        placeholder="{{ 'customer.register.password' | t }}"
+        required>
+    </div>
+    <button type="submit" class="btn btn--black" data-anim="slide" data-anim-order="5">Register</button>
+    <div class="errors"></div>
+    <div class="end-links">
+      <p data-anim-order="6"><a href="#recover" id="RecoverPassword">Forgot Password?</a></p>
+      <p data-anim-order="7">Already have an account? <a href="#login" id="log-in">Login</a></p>
+    </div>
+  </form>
+</div>
+
+
+
+{%- include 'form-submission' -%}
+<script type="text/javascript">
+
+function createAccount(firstName, lastName, email, password){
+  var escapedData = {
+    firstName: escape(firstName),
+    lastName: escape(lastName),
+    email: escape(email),
+    password: escape(password).replace(/\+/g, '%2B')
+  }
+
+  var data = 'form_type=create_customer&utf8=%E2%9C%93&customer%5Bfirst_name%5D=';
+  data += escapedData.firstName;
+  data += '&customer%5Blast_name%5D=';
+  data += escapedData.lastName;
+  data += '&customer%5Bemail%5D=';
+  data += escapedData.email;
+  data += '&customer%5Bpassword%5D=';
+  data += escapedData.password;
+
+  $.post('/account', data)
+  .done(function(response){
+    var logErrors = $(response).find('.errors').text();
+    if (logErrors != '' && logErrors != 'undefined'){
+      console.error(logErrors);
+    }
+    else {
+      debugger;
+      window.location.replace('/account');
+    }
+  }).fail(function(){ console.error('error could not submit');} );
+  return false;
+}
+
+$('#account-popup-form').on('submit', function (e) {
+  e.preventDefault();
+
+  if (checkAllFields($(this))){
+
+    var firstName = $('#FirstName').val();
+    var lastName = $('#LastName').val();
+    var email = $('#Email').val();
+    var password = $('#CreatePassword').val();
+
+    createAccount(firstName, lastName, email, password);
+  }
+
+});
+
+</script>

@@ -17,7 +17,6 @@
       }
     };
 
-
     // ADD NEW CART ITEM
     $.ajax({
       type: 'POST',
@@ -72,13 +71,13 @@
     e.preventDefault();
 
     var selectedId = $('[name="id"]').val();
-    var purchaseType = $('[name="purchase_type"]:checked').val();
+    var purchaseType = $('.js-frequency-select').val();
 
     // SUBSCRIPTION
-    if (purchaseType == 'autodeliver') {
-      var shippingInterval = $('[name="properties[shipping_interval_unit_type]"]').val();
-      var numberMonths = $('.rc_select__frequency').val();
-      addItemToCart(selectedId, 1, numberMonths, shippingInterval);
+    if (purchaseType != 'one-time') {
+      var frequency = $('.js-frequency-select').val();
+      var unitType = $('.js-unit-type').val();
+      addItemToCart(selectedId, 1, frequency, unitType);
 
     } else {
       var quantity = parseInt($('#quantity').val(), 10);

@@ -4,7 +4,7 @@
 
   var pathname = window.location.hostname;
   var collectionHandle = '{{ collection.handle }}';
-  var urlHandle = '{{ urlFilter }}'; // CREATED ON COLLECTION PAGE
+  var urlHandle = '{{ url_filter }}'; // CREATED ON COLLECTION PAGE
   var productListRef = '.js-product-list';
   var requestUrl = '';
   var baseUrl = '//' + pathname ;
@@ -12,7 +12,6 @@
   var tagString = '';
   var collectionString = '';
   var defaultCollectionString = '/collections/' + collectionHandle;
-
 
   /* ---------------------------------------------
   HELPER FUNCTIONS
@@ -68,7 +67,7 @@
     }
 
     matches = matches.flat();
-    console.log(matches);
+    // console.log(matches);
 
     for (var k = 0; k < matches.length; k++) {
       $('.js-category-filter [data-tag="' + matches[k] + '"]').closest('li').show();
@@ -131,6 +130,7 @@
           updateFilterTags();
         }
 
+
         // updateFilterTags(requestUrl);
         // updatePagination(requestUrl);
 
@@ -144,6 +144,9 @@
 
       }
     });
+
+    $('.js-animate-in-on-load').addClass('js-animate');
+
   }
 
   function hideDropdowns () {
@@ -221,6 +224,16 @@
   /*=========================
   FILTER LINK CLICK
   ===========================*/
+  function createTagMarkup (filterText, selectedTag) {
+    var currentFilterTemplate = `<span class="js-filter-item"><span class="current-filter">${filterText}</span><button class="text-only clear" data-tag="${selectedTag}" aria-label="Clear All Filters"></button></span>`;
+    $('.js-active-filters').append(currentFilterTemplate);
+
+    // HIDE DOWN / UP CARET
+    $('.js-trigger-icon').hide();
+
+    $('.js-filter-trigger-text').text('Filter Selected:');
+  }
+
   $('.js-category-filter').on('click', 'a', function (e) {
     e.preventDefault();
     collectionString = '';
@@ -229,8 +242,10 @@
 
     $(this).closest('.js-filter-outer-wrapper').attr('data-visible', 'false');
 
-    selectedTag = $(this).data('tag');
+    var selectedTag = $(this).data('tag');
     var filterText = $(this).text();
+
+    $('.js-filter-title').text(filterText);
 
     // If a tag has already been selected, add this one on
     if (selectedTag != '' && tagString != '') {
@@ -239,13 +254,7 @@
       tagString += '/' + selectedTag;
     }
 
-    var currentFilterTemplate = `<span class="js-filter-item"><span class="current-filter">${filterText}</span><button class="text-only clear" data-tag="${selectedTag}" aria-label="Clear All Filters"></button></span>`;
-    $('.js-active-filters').append(currentFilterTemplate);
-
-    // HIDE DOWN / UP CARET
-    $('.js-trigger-icon').hide();
-
-    $('.js-filter-trigger-text').text('Filter Selected:');
+    createTagMarkup(filterText, selectedTag);
 
     collectionString = collectionString != '' ? collectionString : defaultCollectionString;
 
@@ -256,20 +265,23 @@
 
   });
 
-
-  console.log(urlHandle);
-  if (urlHandle != 'all') {
+  // SELECT A FILTER ON LOAD
+  if (urlHandle && urlHandle != '') {
+    $('.js-category-filter').find('[data-tag="' + urlHandle + '"]').trigger('click');
+  } else {
+    $('.js-animate-in-on-load').addClass('js-animate');
   }
+
 
   /*=========================
   CLEAR ALL FILTERS
   ===========================*/
   $('.js-active-filters').on('click', '.clear', function () {
+    addLoadingStyles();
     if ($('.js-active-filters .js-filter-item').length == 1) {
       clearAll();
     } else {
       // find tag to remove
-      debugger;
       var tagToRemove = $(this).attr('data-tag');
       collectionString = collectionString == '' ? defaultCollectionString : collectionString;
 
@@ -303,6 +315,8 @@
   function clearAll () {
     collectionString = defaultCollectionString;
     tagString = '';
+
+    $('.js-filter-title').text('All Products');
 
     // Remove tags from URL
     var requestUrl = baseUrl + collectionString;

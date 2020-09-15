@@ -1960,7 +1960,7 @@ $selectric-font-size: 12px !default; // Font size
 }
 
 .selectric {
-  border: $selectric-border-width solid $selectric-main-color;
+  border: $selectric-border-width solid #979797;
   border-radius: $selectric-border-radius;
   background: $selectric-bg-color;
   position: relative;
@@ -2001,21 +2001,24 @@ $selectric-font-size: 12px !default; // Font size
       bottom: 0;
       left: 0;
       margin: auto;
-      width: 0;
-      height: 0;
-      border: 4px solid transparent;
-      border-top-color: $selectric-secondary-color;
-      border-bottom: none;
+      width: 1.2rem;
+      height: 0.6rem;
+      display: block;
+      background-image: url("{{ 'icon-caret-down.svg' | asset_url }}");
+      background-size: 100%;
+      background-repeat: no-repeat;
+      background-position: center;
+
     }
   }
 }
 
 .selectric-focus .selectric {
-  border-color: darken($selectric-main-color, 20%);
+  border-color: #979797;
 }
 
 .selectric-hover .selectric {
-  border-color: darken($selectric-main-color, 10%);
+  border-color: #979797;
 
   .button {
     color: darken($selectric-secondary-color, 10%);
@@ -2136,17 +2139,17 @@ $selectric-font-size: 12px !default; // Font size
     cursor: pointer;
 
     &.selected {
-      background: #e0e0e0;
+      background: #F3F2F2;
       color: #444;
     }
 
     &.highlighted {
-      background: #d0d0d0;
+      background: #F3F2F2;
       color: #444;
     }
 
     &:hover {
-      background: #d5d5d5;
+      background: #F3F2F2;
       color: #444;
     }
   }
@@ -2235,9 +2238,6 @@ $cartWidth: 38rem;
 
 /* OPEN CART STYLES ================== */
 .open-cart {
-  position: fixed;
-  overflow: hidden;
-  width: 100%;
   .cart-drawer {
     transform: none;
     transition: all 0.4s ease-in-out 0.1s;
@@ -2260,6 +2260,8 @@ $cartWidth: 38rem;
 -----------------------------------------------------------------------------*/
 .cart-drawer .empty-cart {
   margin-bottom: 2rem;
+  padding-top: 3rem;
+  text-align: center;
 }
 
 /* --------------------------------------------------------------------------
@@ -2304,10 +2306,12 @@ $cartWidth: 38rem;
     CART DRAWER - PRODUCTS
 -----------------------------------------------------------------------------*/
 .cart-drawer .cart-row {
-  display: flex;
-  padding-top: 3.2rem;
-  padding-bottom: 3.2rem;
-  &:not(:last-of-type) {
+  .inner-cart-row {
+    display: flex;
+    padding-top: 3.2rem;
+    padding-bottom: 3.2rem;
+  }
+  &:not(:last-of-type) .inner-cart-row {
     border-bottom: $border;
   }
 
@@ -2322,9 +2326,9 @@ $cartWidth: 38rem;
 
   .subscribe-text,
   .variant-text {
+    margin-bottom: 1rem;
     p {
       font-size: 1.2rem;
-      margin-bottom: 0.8rem;
       color: $darkGreyText;
     }
   }
@@ -2362,7 +2366,9 @@ $cartWidth: 38rem;
     text-align: right;
     line-height: 1;
   }
-
+  .quantity-row {
+    align-items: flex-end;
+  }
 }
 
 /* CART IMAGE ================== */
@@ -3119,6 +3125,11 @@ Accordions
 -----------------------------------------------------------------------------*/
 #sh-yotpo .yotpo-first-review .yotpo-first-review-stars .yotpo-icon-star {
   color: black;
+}
+
+.yotpo.yotpo-main-widget .yotpo-bottomline .yotpo-icon {
+  font-size: 1.8rem !important;
+  transform: translateY(-.2rem);
 }
 
 /* --------------------------------------------------------------------------
@@ -4707,6 +4718,59 @@ Accordions
   }
 }
 
+/* --------------------------------------------------------------------------
+  SUBSCRIPTION POPUP
+-----------------------------------------------------------------------------*/
+.product__option {
+  .product__options-title {
+    position: relative;
+    display: inline-block;
+  }
+  .tooltip {
+    display: inline-block;
+    width: 1rem;
+  }
+  .tooltip__text {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 120%);
+    border: $border;
+    background: white;
+    font-size: 1.3rem;
+    color: #505050;
+    letter-spacing: 0;
+    line-height: (17 / 13);
+    width: 24.2rem;
+    text-transform: none;
+    padding: 2rem;
+    z-index: 3;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    cursor: default;
+    transition: all 0.4s $ease;
+  }
+}
+
+.tooltip:hover {
+  .tooltip__text {
+    transform: translate(-50%, 100%);
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+
+  }
+}
+
+.frequency-and-quantity-row {
+  display: flex;
+  align-items: flex-end;
+  .quantity-select {
+    margin-left: 4rem;
+  }
+}
+
 
 /* --------------------------------------------------------------------------
   COLLECTION LAYOUT
@@ -4721,6 +4785,9 @@ Accordions
     max-width: 102.5rem;
     margin-left: auto;
     margin-right: auto;
+  }
+  h1 {
+    text-transform: capitalize;
   }
 }
 
@@ -5181,6 +5248,97 @@ Accordions
   }
 }
 
+/* --------------------------------------------------------------------------
+  ACCOUNT POPUP
+-----------------------------------------------------------------------------*/
+.account-popup {
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  z-index: 600;
+  form {
+    position: relative;
+    background: white;
+    width: 42.7rem;
+    transition: $smoothTransition;
+    padding: 5.5rem 4.2rem 3.5rem;
+    max-height: 100vh;
+    overflow-y: scroll;
+    backface-visibility: hidden;
+
+    h2 {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    .btn {
+      width: 100%;
+      display: block;
+      margin-top: 2rem;
+    }
+  }
+  .end-links {
+    margin-top: 3rem;
+    font-family: $canela;
+    font-size: 1.3rem;
+    color: #353535;
+    letter-spacing: 0.009rem;
+    text-align: center;
+    p {
+      margin-bottom: 0.4rem;
+    }
+  }
+}
+
+/* CLOSE BUTTON & OVERLAY ================== */
+.close-account-popup-overlay {
+  position: fixed;
+  opacity: 0;
+  visibility: hidden;
+  transition: $smoothTransition;
+  background: #464646;
+  pointer-events: none;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 590;
+}
+
+.close-popup-button {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  width: 1.8rem;
+  svg {
+    display: block;
+    width: 100%;
+  }
+}
+
+/* ANIMATION - SHOWING ================== */
+.open-account-popup {
+  .account-popup {
+    opacity: 1;
+    visibility: visible;
+    form {
+      pointer-events: auto;
+    }
+  }
+  .close-account-popup-overlay {
+    opacity: 0.5;
+    pointer-events: auto;
+    visibility: visible;
+  }
+}
+
 
 /* --------------------------------------------------------------------------
 Section Comment
@@ -5210,7 +5368,7 @@ Section Comment
 
 /* 404 page ================== */
 .page-general,
-.template-404 {
+.template-404 main {
   text-align: center;
   h1 {
     margin-bottom: 2rem;

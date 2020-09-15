@@ -152,7 +152,7 @@ $(document).ready(function() {
   /* ---------------------------------------------
   REMOVE BUTTON
   ------------------------------------------------ */
-  $('.remove-item').on('click', function(e) {
+  $('.js-cart-drawer').on('click', '.js-remove-item', function(e) {
     e.preventDefault();
 
     var cartItem = $(this).closest('.js-cart-item');
@@ -171,16 +171,16 @@ $(document).ready(function() {
       data: addToCartData,
       dataType: 'json',
       success: function (cart) {
-        $(cartItem).find('.subtract-one').hide();
-        $('#CartCount').html(cart.item_count);
-        var totalPrice = cart.total_price / 100;
-        totalPrice = totalPrice.toFixed(2);
-        $('.subtotal').html('$' + totalPrice);
-        $itemCountWrapper.html('0');
-        $(cartItem).find('.line-item-total').html('$0.00');
-        $(cartItem).delay(200).fadeOut(350, function () {
+        $(cartItem).fadeOut(350, function () {
+          $(cartItem).find('.subtract-one').hide();
+          $('#CartCount').html(cart.item_count);
+          var totalPrice = cart.total_price / 100;
+          totalPrice = totalPrice.toFixed(2);
+          $('.subtotal').html('$' + totalPrice);
+          $itemCountWrapper.html('0');
+          $(cartItem).find('.line-item-total').html('$0.00');
           if (cart.item_count == 0) {
-            location.reload();
+            $('.open-cart').removeClass('open-cart');
           }
         });
 

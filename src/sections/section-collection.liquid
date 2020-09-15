@@ -1,6 +1,7 @@
 <!-- If the user has filtered by colleciton, save that in a variable -->
-{% assign urlFilter = collection.handle %}
+
 {% assign urlCollection = collection %}
+{% assign url_filter = current_tags[0] %}
 
 {%- if section.settings.ordered_collection and collection.handle == 'all' -%}
   {% assign collection = collections[section.settings.ordered_collection] %}
@@ -11,19 +12,8 @@
   <div class="inner">
     {% paginate collection.products by 20 %}
       <!-- ====== HEADER ======== -->
-      <header role="banner" data-trigger="scroll">
-        <h1 class="heading--serif-grey" data-reveal="lines-masked">
-          {%- if urlFilter != 'all' and urlFilter != 'section.settings.ordered_collection' -%}
-            {{ urlCollection.title }}
-          {%- else -%}
-            All Products
-          {%- endif -%}
-        </h1>
-        {% if collection.description != blank %}
-          <div class="rte">
-            {{ collection.description }}
-          </div>
-        {% endif %}
+      <header role="banner" class="js-animate-in-on-load">
+        <h1 class="heading--serif-grey js-filter-title" data-reveal="lines-masked">All Products</h1>
       </header>
 
       <!-- ====== FILTER ======== -->

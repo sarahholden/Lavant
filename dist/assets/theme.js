@@ -973,13 +973,14 @@ theme.customerLogin = (function() {
 
 
 $(document).ready(function() {
+  console.group('Site Credits');
   console.log('👋🏻')
   console.log('Design: Kati Forner');
   console.log('https://katiforner.com/');
   console.log('Web Development: Sarah Holden');
   console.log('https://saraheholden.com/');
   console.log('👀');
-
+  console.groupEnd();
 
   var sections = new slate.Sections();
   sections.register('product', theme.Product);
@@ -1216,6 +1217,7 @@ $(document).ready(function() {
     $('body').addClass('open-dropdown-nav');
     setTimeout(function () {
       $('.dropdown-navigation').addClass('js-animate');
+      $('.dropdown-navigation').focus();
     }, 100);
   });
 
@@ -1228,9 +1230,23 @@ $(document).ready(function() {
   });
 
 
+  /* ---------------------------------------------
+    DROPDOWN NAV
+  ------------------------------------------------ */
+  $('.js-trigger-account-popup').on('click', function (e) {
+    e.preventDefault();
+    $('body').addClass('open-account-popup');
+    $('.js-account-popup').addClass('js-animate');
+    setTimeout(function () {
+      $('.js-account-popup form input').eq(0).focus();
+    }, 100);
+  });
 
-
-
+  $('.js-close-account-popup').on('click', function (e) {
+    e.preventDefault();
+    $('body').removeClass('open-account-popup');
+    $('.js-account-popup').removeClass('js-animate');
+  });
 
 
 

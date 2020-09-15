@@ -13,8 +13,8 @@
         {%- include 'icon-cart-close' -%}
       </button>
     </div>
-    <div class="free-shipping-row">
-      <p>You're <strong>$65</strong> away from receiving free shipping with this order!</p>
+    <div class="hide js-free-shipping free-shipping-row {% if cart.item_count == 0 %}hide{% endif %}">
+      <p>You're <strong>$65</strong> away from receiving  free shipping with this order!</p>
     </div>
     <main>
 
@@ -34,64 +34,68 @@
           data-frequency="{{ properties.shipping_interval_frequency }}"
           data-quantity="{{ quantity }}">
 
-          {{! CART IMAGE =============== }}
-          <div class="cart-image">
-            {{# if original_image }}
-            <a href="/products/{{ original_handle }}">
-              <img src="{{ original_image }}" alt="{{ original_title }}">
-            </a>
-            {{/if}}
-          </div>
-
-          {{! CART INFO =============== }}
-          <div class="cart-info">
-
-            {{! CART TITLE =============== }}
-            <!-- <h3><a href="{{ originalProduct.url }}">{{ originalProduct.title }}</a></h3> -->
-            <h3><a href="/products/{{ original_handle }}">{{ original_title }}</a></h3>
-
-            {{#if variant_title}}
-              <div class="variant-text">
-                <p>
-                  {{ variant_title }}
-                </p>
-              </div>
-            {{/if}}
-            <div class="subscribe-text">
-              <p>{{ subscription_text }}</p>
-              {{# if frequency }}
-                <p>{{ frequency }}</p>
+          <div class="inner-cart-row">
+            {{! CART IMAGE =============== }}
+            <div class="cart-image">
+              {{# if original_image }}
+              <a href="/products/{{ original_handle }}">
+                <img src="{{ original_image }}" alt="{{ original_title }}">
+              </a>
               {{/if}}
             </div>
 
-            {{! SUBTOTAL =============== }}
-            <div data-label="Subtotal" class="total-cell">
-              <p><span class="js-line-item-total price line-item-total">{{ formatCurrency line_price }}</span></p>
-            </div>
+            {{! CART INFO =============== }}
+            <div class="cart-info">
 
-            {{! QUANTITY =============== }}
-            <div data-label="Quantity" class="quantity-cell">
-              <label for="updates_{{ key }}" class="visually-hidden">Quantity </label>
-              <div class="number-input-wrapper cart-number-input-wrapper">
-                <input type="number"
-                  class="visually-hidden"
-                  name="updates[]"
-                  id="updates_{{ key }}"
-                  value="{{ quantity }}"
-                  min="0"
-                  aria-label="Cart Item Quantity"
-                  onblur="this.form.submit();">
-                <a href="#" class="subtract-one" data-operation="subtract" >-</a>
-                <span class="js-count-placeholder placeholder item-count">{{ quantity }}</span>
-                <a href="#" class="add-one" data-operation="add">+</a>
+              {{! CART TITLE =============== }}
+              <!-- <h3><a href="{{ originalProduct.url }}">{{ originalProduct.title }}</a></h3> -->
+              <h3><a href="/products/{{ original_handle }}">{{ original_title }}</a></h3>
+
+              {{#if variant_title}}
+                <div class="variant-text">
+                  <p>
+                    {{ variant_title }}
+                  </p>
+                </div>
+              {{/if}}
+              <div class="subscribe-text">
+                <p>{{ subscription_text }}</p>
+                {{# if frequency }}
+
+                  <p>{{ frequency }}</p>
+                {{/if}}
               </div>
+
+              {{! SUBTOTAL =============== }}
+              <div data-label="Subtotal" class="total-cell">
+                <p><span class="js-line-item-total price line-item-total">{{ formatCurrency line_price }}</span></p>
+              </div>
+
+              <div class="split-aligner quantity-row">
+                {{! QUANTITY =============== }}
+                <div data-label="Quantity" class="quantity-cell">
+                  <label for="updates_{{ key }}" class="visually-hidden">Quantity </label>
+                  <div class="number-input-wrapper cart-number-input-wrapper">
+                    <input type="number"
+                    class="visually-hidden"
+                    name="updates[]"
+                    id="updates_{{ key }}"
+                    value="{{ quantity }}"
+                    min="0"
+                    aria-label="Cart Item Quantity"
+                    onblur="this.form.submit();">
+                    <a href="#" class="subtract-one" data-operation="subtract" >-</a>
+                    <span class="js-count-placeholder placeholder item-count">{{ quantity }}</span>
+                    <a href="#" class="add-one" data-operation="add">+</a>
+                  </div>
+                </div>
+                <button class="text-only js-remove-item remove-item">Remove</button>
+
+              </div>
+
+
+
             </div>
-            <div>
-              <button class="text-only remove-item">Remove</button>
-            </div>
-
-
-
           </div>
         </div>
         {% endraw %}
@@ -132,6 +136,7 @@
           item.original_handle = originalProduct.handle;
           item.original_title = originalProduct.title;
           item.original_image = originalProduct.featured_image;
+          item.has_subscriptions = '{{ has_subscriptions }}' == 'true' ? true : false;
 
           // console.log('{{settings.free_shipping_amount}}');
 
@@ -146,7 +151,7 @@
     <!-- ======================================
     EMPTY STATE
     =========================================== -->
-      <p class="js-empty-cart empty-cart container {% if cart.item_count > 0 %}hide{% endif %}">
+      <p class="js-empty-cart empty-cart cart-container {% if cart.item_count > 0 %}hide{% endif %}">
         Your cart is empty
       </p>
     </main>
@@ -155,7 +160,8 @@
     CART FOOTER (BUTTON ROW)
     =========================================== -->
     <div class="js-cart-total-row footer-content {% if cart.item_count == 0 %}hide{% endif %}" >
-      <a class="btn btn--black small-caps" href="/checkout"><span class="js-cart-total">{{ cart.total_price | money }}</span> Checkout</a>
+
+      <a class="btn btn--black small-caps" href="/checkout"><span class="js-cart-total">{{ cart.total_price | money }}</span> - Checkout</a>
     </div>
   </div>
 </section>

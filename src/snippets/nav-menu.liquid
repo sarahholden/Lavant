@@ -27,7 +27,10 @@
         </li>
       {% else %}
         <li>
-          <a href="{{ link.url }}" class="{% if forloop.index == 1 %}js-show-nav-dropdown{% endif %} {% if link.active %}current{% endif %}">{{ link.title | escape }}</a>
+          <a href="{{ link.url }}"
+            class="{% if forloop.index == 1 %}js-show-nav-dropdown{% endif %} {% if link.active %}current{% endif %} {% if link.url contains 'account' %}js-trigger-account-popup{% endif %}">
+            {{ link.title | escape }}
+          </a>
         </li>
       {% endif %}
     {% endfor %}
