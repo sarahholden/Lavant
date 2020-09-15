@@ -1,11 +1,11 @@
 <div class="page-info container">
-  <div class="inner">
+  <div class="inner" data-trigger="scroll">
 
       <header>
-        <h1>{{ page.title }}</h1>
+        <h1 data-reveal="lines-masked">{{ page.title }}</h1>
       </header>
 
-      <div class="rte desc">
+      <div class="rte desc" data-anim="slide" data-anim-order="2">
         {{ page.content }}
       </div>
 

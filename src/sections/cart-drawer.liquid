@@ -4,11 +4,17 @@
     <!-- ======================================
     HEADER ROW
     =========================================== -->
-    <div class="top-row container">
-      <h2>Cart (<span class="js-cart-count">{{ cart.item_count }}</span>)</h2>
-      <button type="button" class="js-close-cart text-button close-cart-text text-only" aria-label="Close Cart Drawer">
-        <img src="{{ 'icon-close.svg' | asset_url }}" alt="Close Cart" width="17">
+    <div class="top-row cart-container">
+      <h2>
+        Cart
+        <!-- (<span class="js-cart-count">{{ cart.item_count }}</span>) -->
+      </h2>
+      <button type="button" class="js-close-cart text-button close-cart-button text-only" aria-label="Close Cart Drawer">
+        {%- include 'icon-cart-close' -%}
       </button>
+    </div>
+    <div class="free-shipping-row">
+      <p>You're <strong>$65</strong> away from receiving free shipping with this order!</p>
     </div>
     <main>
 
@@ -21,7 +27,7 @@
       <script id="cart-item-template" type="text/x-handlebars-template">
         {% raw %}
         <div data-label="Product"
-          class="js-cart-item cart-row"
+          class="js-cart-item cart-row cart-container"
           data-product-id="{{ variant_id }}"
           data-variant-key="{{ key }}"
           data-interval-unit="{{ properties.shipping_interval_unit_type }}"
@@ -29,7 +35,7 @@
           data-quantity="{{ quantity }}">
 
           {{! CART IMAGE =============== }}
-          <div class="cart-image container">
+          <div class="cart-image">
             {{# if original_image }}
             <a href="/products/{{ original_handle }}">
               <img src="{{ original_image }}" alt="{{ original_title }}">
@@ -37,27 +43,35 @@
             {{/if}}
           </div>
 
-          <hr>
-
           {{! CART INFO =============== }}
-          <div class="cart-info container">
+          <div class="cart-info">
 
             {{! CART TITLE =============== }}
             <!-- <h3><a href="{{ originalProduct.url }}">{{ originalProduct.title }}</a></h3> -->
             <h3><a href="/products/{{ original_handle }}">{{ original_title }}</a></h3>
 
-
+            {{#if variant_title}}
+              <div class="variant-text">
+                <p>
+                  {{ variant_title }}
+                </p>
+              </div>
+            {{/if}}
             <div class="subscribe-text">
-              <h4>{{ subscription_text }}</h4>
+              <p>{{ subscription_text }}</p>
               {{# if frequency }}
-                <h4>{{ frequency }}</h4>
+                <p>{{ frequency }}</p>
               {{/if}}
             </div>
 
+            {{! SUBTOTAL =============== }}
+            <div data-label="Subtotal" class="total-cell">
+              <p><span class="js-line-item-total price line-item-total">{{ formatCurrency line_price }}</span></p>
+            </div>
 
             {{! QUANTITY =============== }}
             <div data-label="Quantity" class="quantity-cell">
-              <h4>Quantity </h4>
+              <label for="updates_{{ key }}" class="visually-hidden">Quantity </label>
               <div class="number-input-wrapper cart-number-input-wrapper">
                 <input type="number"
                   class="visually-hidden"
@@ -72,13 +86,12 @@
                 <a href="#" class="add-one" data-operation="add">+</a>
               </div>
             </div>
-
-
-            {{! SUBTOTAL =============== }}
-            <div data-label="Subtotal" class="total-cell">
-              <h4>Subtotal</h4>
-              <h4><span class="js-line-item-total small-caps line-item-total">{{ formatCurrency line_price }}</span></h4>
+            <div>
+              <button class="text-only remove-item">Remove</button>
             </div>
+
+
+
           </div>
         </div>
         {% endraw %}
@@ -103,7 +116,7 @@
 
         <!-- SUBSCRIPTION RECHARGE: If this is a subscription item, get info for original variant.  -->
         {%- if has_subscriptions -%}
-          {% assign original_handle = item.product.metafields.subscriptions.original_handle %}%}
+          {% assign original_handle = item.product.metafields.subscriptions.original_handle %}
           {% assign originalProduct = all_products[original_handle] %}
         {%- else -%}
           {% assign originalProduct = item.product %}
@@ -120,7 +133,7 @@
           item.original_title = originalProduct.title;
           item.original_image = originalProduct.featured_image;
 
-          // console.log(originalProduct);
+          // console.log('{{settings.free_shipping_amount}}');
 
           cartItems.push(item);
         </script>
@@ -133,7 +146,6 @@
     <!-- ======================================
     EMPTY STATE
     =========================================== -->
-
       <p class="js-empty-cart empty-cart container {% if cart.item_count > 0 %}hide{% endif %}">
         Your cart is empty
       </p>

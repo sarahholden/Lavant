@@ -19,7 +19,7 @@ GIFTS REASONS
 <section class="gifts-info">
   <div class="cols-2">
     <!-- ====== IMAGE COLUMN ======== -->
-    <div>
+    <div data-trigger="scroll">
       {% if section.settings.image != blank %}
         {%- assign lazy_image = section.settings.image -%}
         {% assign alt_text = section.settings.image_alt | escape %}
@@ -29,7 +29,10 @@ GIFTS REASONS
             data-widths="[360, 540, 720, 900, 1080, 1600]"
             data-aspectratio="{{ lazy_image.aspect_ratio }}"
             data-sizes="auto"
-            alt="{{ alt_text }}">
+            alt="{{ alt_text }}"
+            data-anim="scale"
+            data-scale-from="1"
+            data-scale-to=".9">
       {% endif %}
     </div>
     <!-- ====== TEXT CONTENT ======== -->

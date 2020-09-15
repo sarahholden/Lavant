@@ -1,19 +1,21 @@
 
-<section class="flex-columns image-text-columns {% if section.settings.image_side == 'right' %}reverse{% endif %}">
-  <div class="image-col">
+<section class="flex-columns image-text-columns {% if section.settings.image_side == 'right' %}reverse{% endif %}" >
+  <div class="image-col" data-trigger="scroll">
     <a href="{{ section.settings.button_url }}">
       <div class="cropped-image-wrapper">
         {% assign image = section.settings.image %}
         {% assign alt_text = section.settings.image_alt | escape %}
         {% assign img_url = image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' %}
         <img
-        class="lazyload fade-in"
+        class="lazyload img-scale-in"
         data-src="{{ img_url }}"
         data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
         data-aspectratio="{{ image.aspect_ratio }}"
         data-sizes="auto"
         alt="{{ alt_text }}"
         data-anim="scale"
+        data-duration="300%"
+        data-trigger-hook="1"
         >
       </div>
     </a>

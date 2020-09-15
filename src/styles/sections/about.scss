@@ -67,6 +67,15 @@
   IMAGE DIVIDER
 -----------------------------------------------------------------------------*/
 .page-about .image-divider {
+  @include tablet-up {
+    height: 70rem;
+    overflow: hidden;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
   .cropped-image-wrapper {
     @include tablet-up {
       padding-bottom: 51%;

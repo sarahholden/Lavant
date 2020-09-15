@@ -2,20 +2,20 @@
 <!-- ======================================
 INTRO
 =========================================== -->
-<section class="container padded">
+<section class="container padded" data-trigger="scroll">
   <div class="inner">
     {% if section.settings.heading != blank %}
-      <h1 class="heading--serif-grey">{{ section.settings.heading | newline_to_br }}</h1>
+      <h1 class="heading--serif-grey" data-reveal="lines-masked">{{ section.settings.heading | newline_to_br }}</h1>
     {% endif %}
     {% if section.settings.desc != blank %}
-      <div class="desc">
+      <div class="desc" data-anim="slide" data-anim-order="2">
         {{ section.settings.desc }}
       </div>
     {% endif %}
 
   </div>
 
-  <div class="ingredients-chart">
+  <div class="ingredients-chart" data-anim="slide" data-anim-order="4">
     {{ page.content }}
   </div>
 </section>

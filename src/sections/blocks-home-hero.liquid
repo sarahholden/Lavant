@@ -1,10 +1,10 @@
-<header>
+<header class="js-smooth-load-hero">
   <div class="cropped-image-wrapper">
     {% assign image = section.settings.image %}
     {% assign alt_text = section.settings.image_alt | escape %}
     {% assign img_url = image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' %}
     <img
-    class="lazyload fade-in"
+    class="lazyload img-scale-in"
     data-src="{{ img_url }}"
     data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
     data-aspectratio="{{ image.aspect_ratio }}"
@@ -13,7 +13,7 @@
     data-anim="scale"
     >
   </div>
-  <div class="text-content container" data-trigger="scroll">
+  <div class="text-content container">
     {% if section.settings.heading != blank %}
       <h1 data-reveal="lines-masked">{{ section.settings.heading | newline_to_br }}</h1>
     {% endif %}

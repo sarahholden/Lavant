@@ -141,7 +141,7 @@
 }
 
 /* FORM STYLES ================== */
-.template-product {
+.template-product form {
   label {
     font-size: 1.2rem;
     letter-spacing: 0.183rem;
@@ -149,13 +149,37 @@
     display: block;
     text-transform: uppercase;
   }
+  .variant-select {
+    margin-bottom: 3rem;
+  }
   .quantity-select {
     max-width: 7.2rem;
   }
-  .btn {
+  .btn,
+  .spurit-po-wrapper {
     width: 100%;
     margin-top: 3.4rem;
     margin-bottom: 2.9rem;
+  }
+
+  /* PRE ORDER MANAGER ================== */
+  .design-pre-order-template-wrapper.hover-visible.true-style,
+  .spurit-po-wrapper,
+  .spurit-po-wrapper .pre-order-2-button,
+  .spurit-po-wrapper button,
+  .spurit-po-wrapper pre-order-2-button {
+    width: 100% !important;
+  }
+  .design-pre-order-template-wrapper.hover-visible.top-direction .pre-order-2-message {
+    max-width: 24.2rem;
+    left: 0;
+    transform: none;
+    color: #505050;
+    background: white;
+    bottom: 68%;
+    @include tablet-up {
+      left: -2rem;
+    }
   }
 }
 

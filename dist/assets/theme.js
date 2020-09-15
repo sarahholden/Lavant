@@ -973,8 +973,13 @@ theme.customerLogin = (function() {
 
 
 $(document).ready(function() {
-  console.log('Shopify developer: Sarah Holden 🏄🏻‍♀️');
+  console.log('👋🏻')
+  console.log('Design: Kati Forner');
+  console.log('https://katiforner.com/');
+  console.log('Web Development: Sarah Holden');
   console.log('https://saraheholden.com/');
+  console.log('👀');
+
 
   var sections = new slate.Sections();
   sections.register('product', theme.Product);
@@ -1032,6 +1037,11 @@ $(document).ready(function() {
     }
   });
 
+  if ($('.js-smooth-load-hero').length > 0) {
+    setTimeout(function () {
+      $('.js-smooth-load-hero').addClass('js-animate');
+    }, 1000);
+  }
 
   /* ---------------------------------------------
     SPLIT TEXT
@@ -1149,11 +1159,12 @@ $(document).ready(function() {
               var translateFrom = $(this).data('translate-from') != undefined ? parseFloat($(this).data('translate-from')) : 40;
               var translateTo = $(this).data('translate-to') != undefined ? parseFloat($(this).data('translate-to')) : -40;
               var dataDuration = $(this).data('duration') != undefined ? $(this).data('duration') : '100%';
+              var pointToTrigger = $(this).data('trigger-hook') != undefined ? parseFloat($(this).data('trigger-hook')) : 0.4;
               timelineParallax.fromTo($(this), 1, {y: translateFrom}, {y: translateTo});
 
               var scene = new ScrollMagic.Scene({
                 triggerElement: scrollWrapper,
-                triggerHook: 0.4,
+                triggerHook: pointToTrigger,
                 duration: dataDuration
               })
               .setTween(timelineParallax)

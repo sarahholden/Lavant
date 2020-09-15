@@ -15,7 +15,8 @@ button {
   &:hover {}
 }
 
-.btn--black {
+.btn--black,
+.spurit-po-wrapper button {
   display: inline-block;
   background: black;
   color: white;

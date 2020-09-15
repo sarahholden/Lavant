@@ -3,6 +3,8 @@
 -----------------------------------------------------------------------------*/
 .template-index header {
   position: relative;
+  overflow: hidden;
+  background: $lightGreyBg;
   @include mobile-only {
     padding-bottom: 3rem;
   }
@@ -24,11 +26,36 @@
     @include mobile-only {
       margin-top: 3rem;
     }
-
   }
   .desc {
     letter-spacing: 0.59px;
   }
+  .link--underline::before {
+    opacity: 0;
+  }
+  &.js-animate .link--underline::before {
+    opacity: 1;
+  }
+}
+
+.template-index header .img-scale-in {
+  opacity: 0;
+  transform: scale(1.09);
+  &.lazyloaded {
+    animation: fade-and-scale-in 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  }
+}
+
+@keyframes fade-and-scale-in {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1.09);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+
 }
 
 /* --------------------------------------------------------------------------
@@ -37,6 +64,9 @@
 .template-index .favorites {
   h2 {
     width: 100%;
+    @include mobile-only {
+      text-align: center;
+    }
   }
   .product-card {
     @include tablet-up {
@@ -53,7 +83,10 @@
     }
     &:hover {
       img {
-        transform: scale(1.035);
+        transform: scale(1.04);
+      }
+      h3 {
+        text-decoration: underline;
       }
     }
   }
@@ -91,7 +124,7 @@
 .template-index .featured-in {
   background: $lightGreyBg;
   @include tablet-up {
-    padding-bottom: 10rem;
+    padding-bottom: 7rem;
   }
   @include mobile-only {
     padding-bottom: 7rem;
@@ -128,6 +161,11 @@
       margin-bottom: 2rem;
       padding: 2rem;
     }
+    transition: 0.7s all $ease;
+    &:hover {
+      transform: translateY(.3rem);
+      opacity: 0.8;
+    }
     img {
       width: auto;
       height: auto;
@@ -152,6 +190,9 @@
 .template-index .image-text-columns {
   background: $lightGreyBg;
   text-align: center;
+  @include tablet-up {
+    padding-top: 3rem;
+  }
   .cropped-image-wrapper {
     padding-bottom: 84%;
   }

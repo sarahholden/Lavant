@@ -2,7 +2,7 @@
 HEADER
 ================================= -->
 <header>
-  <div class="cols-2 no-gutters">
+  <div class="cols-2 no-gutters" data-trigger="scroll">
     <div>
       {%- if section.settings.image -%}
         <div class="cropped-image-wrapper">
@@ -10,7 +10,7 @@ HEADER
           {% assign alt_text = section.settings.image_alt | escape %}
           {% assign img_url = image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' %}
           <img
-          class="lazyload fade-in"
+          class="lazyload"
           data-src="{{ img_url }}"
           data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
           data-aspectratio="{{ image.aspect_ratio }}"
@@ -25,16 +25,17 @@ HEADER
     <div class="v-aligner">
       <div class="container padded">
         {% if section.settings.heading != blank %}
-          <h1>{{ section.settings.heading | newline_to_br }}</h1>
+          <h1 data-anim="slide" data-anim-order="1">{{ section.settings.heading | newline_to_br }}</h1>
         {% endif %}
         {% if section.settings.desc != blank %}
-          <div class="desc">
+          <div class="desc" data-anim="slide" data-anim-order="2">
             {{ section.settings.desc }}
           </div>
         {% endif %}
         {% if section.settings.button_text != blank %}
           <a href="{{ section.settings.button_url }}"
             class="link--underline"
+            data-anim="slide" data-anim-order="3"
             {% if section.settings.button_alt != blank %}alt="{{ section.settings.button_alt }}"{% endif %}>
             {{ section.settings.button_text }}
           </a>

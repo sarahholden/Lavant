@@ -38,6 +38,7 @@
             data-sizes="auto"
             alt="{{ product_img_alt }}"
             data-anim="scale"
+
             >
           </div>
         </div>
@@ -87,18 +88,20 @@
             <meta itemprop="price" content="{{ current_variant.price | divided_by: 100.00 }}">
             <link itemprop="availability" href="http://schema.org/{% if current_variant.available %}InStock{% else %}OutOfStock{% endif %}">
 
-            <form action="/cart/add" method="post" enctype="multipart/form-data">
+            <form id="add-item-form" action="/cart/add" method="post" enctype="multipart/form-data" >
+
+              <!-- ====== VARIANT ======== -->
               {% unless product.has_only_default_variant %}
                 {% for option in product.options_with_values %}
-                  <div class="selector-wrapper js">
+                  <div class="selector-wrapper js variant-select">
                     <label for="SingleOptionSelector-{{ forloop.index0 }}">
                       {{ option.name }}
                     </label>
-
                     <select
                       id="SingleOptionSelector-{{ forloop.index0 }}"
                       data-single-option-selector
-                      data-index="option{{ option.position }}">
+                      data-index="option{{ option.position }}"
+                      class="styled-select">
                       {% for value in option.values %}
                         <option
                           value="{{ value | escape }}"
@@ -111,6 +114,18 @@
                 {% endfor %}
               {% endunless %}
 
+
+              <!-- ====== QUANTITY ======== -->
+              <div class="quantity-select">
+                <label for="quantity" arai-label="Quantity">QTY</label>
+                <select id="quantity" class="styled-select" name="quantity">
+                  {%- for i in (1..6) -%}
+                    <option value="{{ i }}">{{ i }}</option>
+                  {%- endfor -%}
+                </select>
+              </div>
+
+              <!-- ====== HIDDEN VARIANT SELECT ======== -->
               <select name="id" class="no-js visually-hidden" data-product-select>
                 {% for variant in product.variants %}
                   <option
@@ -122,21 +137,13 @@
                 {% endfor %}
               </select>
 
-              <div class="quantity-select">
-                <label for="quantity" arai-label="Quantity">QTY</label>
-                <select id="quantity" class="styled-select" name="quantity">
-                  {%- for i in (1..6) -%}
-                    <option value="{{ i }}">{{ i }}</option>
-                  {%- endfor -%}
-                </select>
-              </div>
-
               <button
                 type="submit"
                 name="add"
                 class="btn btn--black"
                 data-add-to-cart
-                {% unless current_variant.available %}disabled="disabled"{% endunless %}>
+                {% unless current_variant.available %}disabled="disabled"{% endunless %}
+                data-metafield-image="{{ product_img }}">
                   <span data-add-to-cart-text>
                     {% if current_variant.available %}
                       {{ 'products.product.add_to_cart' | t }}
@@ -207,7 +214,7 @@
               {{ section.settings.elevated_heading }}
             {%- endif -%}
           </h5>
-          
+
           {%- if product.metafields.custom_fields["elevated_performance_body"] -%}
             {{ product.metafields.custom_fields["elevated_performance_body"] }}
           {%- else -%}

@@ -1,77 +1,166 @@
-<section id="cart-drawer" class="cart-drawer">
+<section id="cart-drawer" class="js-cart-drawer cart-drawer">
   <div class="cart-inner">
-    <div class="top-row">
-      <h2>Your Cart</h2>
-      <button class="text-button js-close-cart close-cart-text text-only" type="button">
-        Close
+
+    <!-- ======================================
+    HEADER ROW
+    =========================================== -->
+    <div class="top-row cart-container">
+      <h2>
+        Cart
+        <!-- (<span class="js-cart-count">{{ cart.item_count }}</span>) -->
+      </h2>
+      <button type="button" class="js-close-cart text-button close-cart-button text-only" aria-label="Close Cart Drawer">
+        {%- include 'icon-cart-close' -%}
       </button>
     </div>
-    <main data-cart-view="data-cart-view">
-      <div class="cart-product-wrap" rv-each-item="cart.items">
+    <div class="free-shipping-row">
+      <p>You're <strong>$65</strong> away from receiving free shipping with this order!</p>
+    </div>
+    <main>
 
-        <div class="cart-image">
-          <a rv-href="item.url">
-            <img rv-src="item.image | productImageSize '220x213_crop_center'" src="">
-          </a>
-        </div>
-        <div class="info-col v-aligner">
-          <div>
-            <div class=" cart-title-price">
-              <h3 class="cart-title split-aligner" >
-                <a rv-href="item.url">
-                  <span rv-text="item.product_title"></span>
-                </a>
-                <a href="#" rv-data-cart-remove="index | plus 1" class="cart-remove">
-                  {%- include 'icon-close' -%}
-                </a>
-              </h3>
-            </div>
-            <div class="desc">
-              <p rv-text="item.product_description"></p>
-            </div>
-            <div class="split-aligner">
-              <div class="cart-quantity">
-                <a href="#" rv-data-cart-quantity="item.quantity | minus 1" rv-data-cart-update="index | plus 1">&ndash;</a>
-                <span rv-text="item.quantity"></span>
-                <a href="#" rv-data-cart-quantity="item.quantity | plus 1" rv-data-cart-update="index | plus 1">+</a>
+
+      <!-- ======================================
+      HANDLEBARS CART
+      =========================================== -->
+      <div id="cart-items-container"></div>
+
+      <script id="cart-item-template" type="text/x-handlebars-template">
+        {% raw %}
+        <div data-label="Product"
+          class="js-cart-item cart-row cart-container"
+          data-product-id="{{ variant_id }}"
+          data-variant-key="{{ key }}"
+          data-interval-unit="{{ properties.shipping_interval_unit_type }}"
+          data-frequency="{{ properties.shipping_interval_frequency }}"
+          data-quantity="{{ quantity }}">
+
+          {{! CART IMAGE =============== }}
+          <div class="cart-image">
+            {{# if original_image }}
+            <a href="/products/{{ original_handle }}">
+              <img src="{{ original_image }}" alt="{{ original_title }}">
+            </a>
+            {{/if}}
+          </div>
+
+          {{! CART INFO =============== }}
+          <div class="cart-info">
+
+            {{! CART TITLE =============== }}
+            <!-- <h3><a href="{{ originalProduct.url }}">{{ originalProduct.title }}</a></h3> -->
+            <h3><a href="/products/{{ original_handle }}">{{ original_title }}</a></h3>
+
+            {{#if variant_title}}
+              <div class="variant-text">
+                <p>
+                  {{ variant_title }}
+                </p>
               </div>
-              <span class="cart-price" rv-html="item.line_price | money Currency.currentCurrency"></span>
+            {{/if}}
+            <div class="subscribe-text">
+              <p>{{ subscription_text }}</p>
+              {{# if frequency }}
+                <p>{{ frequency }}</p>
+              {{/if}}
             </div>
+
+            {{! SUBTOTAL =============== }}
+            <div data-label="Subtotal" class="total-cell">
+              <p><span class="js-line-item-total price line-item-total">{{ formatCurrency line_price }}</span></p>
+            </div>
+
+            {{! QUANTITY =============== }}
+            <div data-label="Quantity" class="quantity-cell">
+              <label for="updates_{{ key }}" class="visually-hidden">Quantity </label>
+              <div class="number-input-wrapper cart-number-input-wrapper">
+                <input type="number"
+                  class="visually-hidden"
+                  name="updates[]"
+                  id="updates_{{ key }}"
+                  value="{{ quantity }}"
+                  min="0"
+                  aria-label="Cart Item Quantity"
+                  onblur="this.form.submit();">
+                <a href="#" class="subtract-one" data-operation="subtract" >-</a>
+                <span class="js-count-placeholder placeholder item-count">{{ quantity }}</span>
+                <a href="#" class="add-one" data-operation="add">+</a>
+              </div>
+            </div>
+            <div>
+              <button class="text-only remove-item">Remove</button>
+            </div>
+
+
+
           </div>
         </div>
-      </div>
+        {% endraw %}
+      </script>
 
-      <!-- <div class="order-notes" rv-show="cart.item_count | gt 0">
-        {% if settings.cart_notes_enable %}
-          <textarea id="CartSpecialInstructions" name="note" placeholder="Order Notes">{{ cart.note }}</textarea>
-        {% endif %}
-      </div> -->
 
-      <p class="empty-cart" rv-show="cart.item_count | lt 1">
+
+    <script type="text/javascript">
+      var cartObject = {{ cart | json }};
+      var cartItems = [];
+    </script>
+
+
+      {% for item in cart.items %}
+
+        {% assign has_subscriptions = false %}
+        {% for p in item.properties %}
+          {% if p.first == 'shipping_interval_frequency' %}
+            {% assign has_subscriptions = true %}
+          {% endif %}
+        {% endfor %}
+
+        <!-- SUBSCRIPTION RECHARGE: If this is a subscription item, get info for original variant.  -->
+        {%- if has_subscriptions -%}
+          {% assign original_handle = item.product.metafields.subscriptions.original_handle %}
+          {% assign originalProduct = all_products[original_handle] %}
+        {%- else -%}
+          {% assign originalProduct = item.product %}
+        {%- endif -%}
+
+        {%- if originalProduct == blank -%}
+          {% assign originalProduct = item.product %}
+        {%- endif -%}
+
+        <script type="text/javascript">
+          var item = {{ item | json }};
+          var originalProduct = {{ originalProduct | json }};
+          item.original_handle = originalProduct.handle;
+          item.original_title = originalProduct.title;
+          item.original_image = originalProduct.featured_image;
+
+          // console.log('{{settings.free_shipping_amount}}');
+
+          cartItems.push(item);
+        </script>
+
+
+      {% endfor %}
+
+      {% include 'ajax-cart-drawer' %}
+
+    <!-- ======================================
+    EMPTY STATE
+    =========================================== -->
+      <p class="js-empty-cart empty-cart container {% if cart.item_count > 0 %}hide{% endif %}">
         Your cart is empty
       </p>
-
     </main>
-    <div class="footer-content" data-cart-view="data-cart-view" rv-show="cart.item_count | gt 0">
-      <div class="cart-total-row split-aligner">
-        <div rv-show="cart.item_count | gt 0">
-          <h6>Subtotal: <span rv-html="cart.total_price | money Currency.currentCurrency"></span></h6>
-        </div>
 
-      </div>
-
-      <div class="shipping-note">Shipping & taxes calculated at checkout</div>
-      <a class="btn" href="/checkout">Checkout</a>
+    <!-- ======================================
+    CART FOOTER (BUTTON ROW)
+    =========================================== -->
+    <div class="js-cart-total-row footer-content {% if cart.item_count == 0 %}hide{% endif %}" >
+      <a class="btn btn--black small-caps" href="/checkout"><span class="js-cart-total">{{ cart.total_price | money }}</span> Checkout</a>
     </div>
   </div>
 </section>
+
+<!-- ======================================
+OVERLAY
+=========================================== -->
 <div class="close-cart-overlay js-close-cart"></div>
-
-
-<script type="text/javascript">
-$('#CartSpecialInstructions').on('blur', function (){
-  // Set a custom cart note.
-  CartJS.setNote($(this).val());
-})
-
-</script>
