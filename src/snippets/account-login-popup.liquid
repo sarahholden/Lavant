@@ -2,8 +2,8 @@
 
 <div class="js-close-account-popup close-account-popup-overlay"></div>
 <div class="js-account-popup account-popup" tabindex="-1">
-  <form id="account-popup-form" action="" novalidate>
-    <button class="text-only js-close-account-popup close-popup-button">
+  <form id="account-popup-form" action="/account" method="post" novalidate>
+    <button type="button" class="text-only js-close-account-popup close-popup-button">
       {%- include 'icon-cart-close' -%}
     </button>
     <h2 data-reveal="lines-masked">Create Account</h2>
@@ -78,32 +78,55 @@ function createAccount(firstName, lastName, email, password){
     password: escape(password).replace(/\+/g, '%2B')
   }
 
-  var data = 'form_type=create_customer&utf8=%E2%9C%93&customer%5Bfirst_name%5D=';
-  data += escapedData.firstName;
-  data += '&customer%5Blast_name%5D=';
-  data += escapedData.lastName;
-  data += '&customer%5Bemail%5D=';
-  data += escapedData.email;
-  data += '&customer%5Bpassword%5D=';
-  data += escapedData.password;
+  // var data = 'form_type=create_customer&utf8=%E2%9C%93&customer%5Bfirst_name%5D=';
+  // data += escapedData.firstName;
+  // data += '&customer%5Blast_name%5D=';
+  // data += escapedData.lastName;
+  // data += '&customer%5Bemail%5D=';
+  // data += escapedData.email;
+  // data += '&customer%5Bpassword%5D=';
+  // data += escapedData.password;
 
-  $.post('/account', data)
-  .done(function(response){
-    var logErrors = $(response).find('.errors').text();
-    if (logErrors != '' && logErrors != 'undefined'){
-      console.error(logErrors);
+  var data = {
+  'customer[email]': escapedData.email,
+  'customer[password]': escapedData.password,
+  'customer[first_name]': escapedData.firstName,
+  'customer[last_name]': escapedData.lastName,
+    form_type: 'create_customer',
+    utf8: '✓'
+  };
+
+  debugger;
+
+  jQuery.ajax({
+    url: '/account',
+    method: 'post',
+    data: data,
+    dataType: 'html',
+    async: true
+  })
+  .done(function(data, textStatus, xhr){
+    debugger;
+    e.preventDefault();
+    if (xhr.status != 429) {
+      e.preventDefault();
+      var logErrors = $(response).find('.errors').text();
+      if (logErrors != '' && logErrors != 'undefined'){
+        console.error(logErrors);
+      }
+      else {
+        window.location.replace('/account');
+      }
     }
-    else {
-      debugger;
-      window.location.replace('/account');
-    }
+
   }).fail(function(){ console.error('error could not submit');} );
   return false;
 }
 
 $('#account-popup-form').on('submit', function (e) {
-  e.preventDefault();
 
+
+  debugger;
   if (checkAllFields($(this))){
 
     var firstName = $('#FirstName').val();

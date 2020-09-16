@@ -49,28 +49,7 @@ HEADER
 <!-- ============================
 FAQs
 ================================= -->
-<section class="container faq-section padded">
-  <div class="content-wrap">
-    <div>
-      <h2 class="heading--serif">{{ section.settings.list_heading }}</h2>
-    </div>
-    <div class="accordion list-animation-wrapper">
-      {% for block in section.blocks %}
-      {% case block.type %}
-      {% when 'faq_item' %}
-      <div class="accordion-panel animate-item" aria-expanded="false">
-        <h3 class="accordion-toggle"><span class="text">{{ block.settings.title }}</span> <span class="icon"></span></h3>
-        <div class="accordion-text">
-          <div class="inner desc">
-            {{ block.settings.desc }}
-          </div>
-        </div>
-      </div>
-      {% endcase %}
-      {% endfor %}
-    </div>
-  </div>
-</section>
+{%- include 'block-faq' -%}
 
 {% schema %}
 {

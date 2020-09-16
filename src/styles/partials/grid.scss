@@ -36,6 +36,15 @@ Grid Styles
 	}
 }
 
+.flex-columns-2 {
+	@include tablet-up {
+		display: flex;
+		> div {
+			width: 50%;
+		}
+	}
+}
+
 .cols-2-sm {
 	@include mobile-only {
 		display: -ms-grid;

@@ -62,17 +62,31 @@
     $('.js-cart-count').text(cart.item_count);
     $('.js-cart-total').text(Shopify.formatMoney(cart.total_price, "{{ shop.money_format }}"));
 
-
     // TOGGLE EMPTY STATE
     if (cart.item_count == 0) {
       $('.js-empty-cart').fadeIn();
-      $('#cart-items-container, .js-cart-total-row, .js-free-shipping').hide();
+      $('#cart-items-container, .js-cart-total-row, .js-subtotal-row, .js-free-shipping').hide();
 
     } else {
       // HIDE EMPTY STATE
       $('.js-empty-cart').hide();
       // SHOW CART DRAWER CHECKOUT BUTTON
-      $('#cart-items-container, .js-cart-total-row, .js-free-shipping').fadeIn();
+      $('#cart-items-container, .js-cart-total-row, .js-subtotal-row, .js-free-shipping').fadeIn();
+
+      if (freeShippingAmount) {
+        var totalPrice = parseInt(cart.total_price, 10);
+        var freeShipping = parseInt(freeShippingAmount, 10);
+        var remainder = freeShipping - totalPrice;
+        if (remainder <= 0) {
+          $('.js-shipping-remainder').closest('.js-wrap').hide();
+          $('.js-shipping-congrats').closest('.js-wrap').fadeIn();
+        } else {
+          $('.js-shipping-remainder').closest('.js-wrap').fadeIn();
+          $('.js-shipping-congrats').closest('.js-wrap').hide();
+          $('.js-remainder').text(Shopify.formatMoney(remainder, "{{ shop.money_format }}"))
+        }
+
+      }
     }
   }
 

@@ -13,9 +13,18 @@
         {%- include 'icon-cart-close' -%}
       </button>
     </div>
-    <div class="hide js-free-shipping free-shipping-row {% if cart.item_count == 0 %}hide{% endif %}">
-      <p>You're <strong>$65</strong> away from receiving  free shipping with this order!</p>
-    </div>
+    {%- if settings.free_shipping_amount -%}
+      {% assign remainder_on_load = settings.free_shipping_amount | minus: cart.total_price %}
+      <div class="js-free-shipping free-shipping-row {% if cart.item_count == 0 %}hide{% endif %}">
+
+        <div class="js-wrap {% if remainder_on_load < 0 %}hide{% endif %}">
+          <p class="js-shipping-remainder">{{ settings.free_shipping_before  }} <strong class="js-remainder">{{ remainder_on_load | money_without_trailing_zeros }}</strong> {{ settings.free_shipping_after }}</p>
+        </div>
+        <div class="js-wrap {% if remainder_on_load >= 0 %}hide{% endif %}">
+          <p class=" js-shipping-congrats">{{ settings.has_free_shipping }}</p>
+        </div>
+      </div>
+    {%- endif -%}
     <main>
 
 
@@ -58,13 +67,12 @@
                   </p>
                 </div>
               {{/if}}
-              <div class="subscribe-text">
-                <p>{{ subscription_text }}</p>
-                {{# if frequency }}
-
+              {{# if frequency }}
+                <div class="subscribe-text">
+                  <p>{{ subscription_text }}</p>
                   <p>{{ frequency }}</p>
-                {{/if}}
-              </div>
+                </div>
+              {{/if}}
 
               {{! SUBTOTAL =============== }}
               <div data-label="Subtotal" class="total-cell">
@@ -93,8 +101,6 @@
 
               </div>
 
-
-
             </div>
           </div>
         </div>
@@ -106,6 +112,7 @@
     <script type="text/javascript">
       var cartObject = {{ cart | json }};
       var cartItems = [];
+      var freeShippingAmount = '{{ settings.free_shipping_amount }}';
     </script>
 
 
@@ -154,14 +161,30 @@
       <p class="js-empty-cart empty-cart cart-container {% if cart.item_count > 0 %}hide{% endif %}">
         Your cart is empty
       </p>
+
+      <!-- ====== SUBTOTAL ROW ======== -->
+      <div class="js-subtotal-row subtotal-row cart-container {% if cart.item_count == 0 %}hide{% endif %}">
+        <div class="inner-footer">
+          <p class="split-aligner"><span>Subtotal</span><span class="js-cart-total">{{ cart.total_price | money }}</span></p>
+          <p class="split-aligner"><span>Tax (calculated at checkout)</span><span >&mdash;</span></p>
+          <p class="split-aligner"><span>Shipping (free standard shipping)</span><span >Free</span></p>
+        </div>
+      </div>
     </main>
 
     <!-- ======================================
     CART FOOTER (BUTTON ROW)
     =========================================== -->
-    <div class="js-cart-total-row footer-content {% if cart.item_count == 0 %}hide{% endif %}" >
+    <div class="js-cart-total-row cart-total-row cart-container footer-content {% if cart.item_count == 0 %}hide{% endif %}" >
 
-      <a class="btn btn--black small-caps" href="/checkout"><span class="js-cart-total">{{ cart.total_price | money }}</span> - Checkout</a>
+      <div class="inner-footer">
+        <p class="split-aligner">
+          <span class="total-text">Estimated Total</span>
+          <span class="js-cart-total total-amount">{{ cart.total_price | money }}</span>
+        </p>
+
+        <a class="btn btn--black small-caps" href="/checkout">Checkout</a>
+      </div>
     </div>
   </div>
 </section>

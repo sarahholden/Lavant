@@ -47,14 +47,14 @@
 								url: '/cart/update.js',
 								dataType: 'json',
 								success: function() {
-									window.location.href = '/cart';
+									$('body').addClass('open-cart');
 								}
 							});
 						} else {
-							window.location.href = '/cart';
+							$('body').addClass('open-cart');
 						}
 					} catch (e) {
-						window.location.href = '/cart';
+						$('body').addClass('open-cart');
 					}
 				}
 

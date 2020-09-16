@@ -1,0 +1,42 @@
+
+<!-- ============================
+FAQs
+================================= -->
+{%- include 'block-faq' -%}
+
+{% schema %}
+{
+  "name": "FAQ Content",
+  "settings": [
+    {
+      "type": "header",
+      "content": "FAQ List"
+    },
+    {
+      "id": "list_heading",
+      "type": "text",
+      "label": "List Heading"
+    }
+
+  ],
+  "blocks": [
+    {
+      "type": "faq_item",
+      "name": "FAQ Item",
+      "settings": [
+        {
+          "id": "title",
+          "type": "text",
+          "label": "Question"
+        },
+        {
+          "id": "desc",
+          "type": "richtext",
+          "label": "Answer"
+        }
+
+      ]
+    }
+  ]
+}
+{% endschema %}

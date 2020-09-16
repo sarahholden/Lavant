@@ -79,3 +79,18 @@ Section Comment
     margin-right: auto;
   }
 }
+
+/* CAPTCHA ================== */
+.shopify-challenge__container {
+  padding-top: 10rem;
+  padding-bottom: 10rem;
+  .shopify-challenge__message {
+    margin-bottom: 2rem;
+  }
+  input[type="submit"] {
+    @extend .btn;
+    @extend .btn--black;
+    margin-top: 4rem;
+    display: inline-block;
+  }
+}

@@ -11,18 +11,22 @@
         {% assign image = product.metafields.custom_fields["product_image_white_bg"] %}
         {% assign image_url = product.metafields.custom_fields["product_image_white_bg"] %}
         {% assign alt_text = product.title %}
+        {{ image }}
       {% elsif product.featured_image != blank %}
         {%- assign lazy_image = product.featured_image -%}
         {% assign alt_text = product.featured_image.alt | escape %}
         {%- assign img_url = lazy_image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+        <img class="lazyload"
+            data-src="{{ img_url }}"
+            data-widths="[360, 540, 720, 900, 1080, 1600]"
+            data-aspectratio="{{ lazy_image.aspect_ratio }}"
+            data-sizes="auto"
+            alt="{{ alt_text }}">
       {% endif %}
-      <img class="lazyload"
-          data-src="{{ img_url }}"
-          data-widths="[360, 540, 720, 900, 1080, 1600]"
-          data-aspectratio="{{ lazy_image.aspect_ratio }}"
-          data-sizes="auto"
-          alt="{{ alt_text }}">
+
+
     </div>
+    {% assign img_url = '' %}
 
     <div class="product-info">
       <h3 class="h3">{{ product.title }}</h3>

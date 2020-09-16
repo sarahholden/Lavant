@@ -353,23 +353,19 @@ $(document).ready(function() {
   /* ---------------------------------------------
     SWIPER
   ------------------------------------------------ */
-  // const swiper = new Swiper('.swiper-container-myclass', {
-  //   pagination: {
-  //     el: '.swiper-pagination',
-  //     clickable: 'true'
-  //   },
-  //   speed: 600,
-  //   allowTouchMove: true,
-  //   loop: true,
-  //   effect: 'fade',
-  //   fadeEffect: {
-  //     crossFade: true
-  //   },
-  //   autoplay: {
-  //     delay: 10000,
-  //     disableOnInteraction: true
-  //   }
-  // });
+  const swiper = new Swiper('.swiper-container-pdp-quotes', {
+    speed: 600,
+    allowTouchMove: false,
+    loop: true,
+    effect: 'fade',
+    fadeEffect: {
+      crossFade: true
+    },
+    autoplay: {
+      delay: 7500,
+      disableOnInteraction: true
+    }
+  });
 
 
   /* ---------------------------------------------

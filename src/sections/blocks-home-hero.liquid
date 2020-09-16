@@ -1,8 +1,15 @@
 <header class="js-smooth-load-hero">
-  <div class="cropped-image-wrapper">
-    {% assign image = section.settings.image %}
-    {% assign alt_text = section.settings.image_alt | escape %}
-    {% assign img_url = image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' %}
+  {% assign image = section.settings.image %}
+  {% assign alt_text = section.settings.image_alt | escape %}
+  {% assign img_url = image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' %}
+  <!-- {{ image.width }} -->
+  <!-- {{ image.height }} -->
+  {% assign image_width = image.width | times: 100.0 %}
+  {% assign image_height = image.height | times: 100.0 %}
+  {% assign padding_bottom = image_height | divided_by: image_width  %}
+  <!-- {% assign padding_bottom = padding_bottom | times: 100 %} -->
+  <div class="cropped-image-wrapper " style="padding-bottom: {{ padding_bottom }}%;">
+
     <img
     class="lazyload img-scale-in"
     data-src="{{ img_url }}"

@@ -29,6 +29,7 @@
             {% assign product_img_url = product_img | img_url: '1x1' | replace: '_1x1.', '_{width}x.' %}
             {% assign product_img_alt = product.featured_image.alt %}
           {% endif %}
+          {% assign cart_img = product_img | img_url: '300x' %}
 
           <div class="cropped-image-wrapper">
             <img
@@ -183,7 +184,7 @@
                 data-add-to-cart
                 data-original-handle="{{ product.handle }}"
                 data-original-title="{{ product.title }}"
-                data-original-image="{{ product_img }}"
+                data-original-image="{{ cart_img }}"
                 {% unless current_variant.available %}disabled="disabled"{% endunless %}
                 data-metafield-image="{{ product_img }}">
                   <span data-add-to-cart-text>
@@ -245,7 +246,7 @@
   </header>
 
   <section class="elevated-performance">
-    <div class="cols-2 no-gutters">
+    <div class="flex-columns-2">
       <div class="container text-content v-aligner">
         <div>
           <h5 class="small-caps">
@@ -256,10 +257,33 @@
             {%- endif -%}
           </h5>
 
-          {%- if product.metafields.custom_fields["elevated_performance_body"] -%}
-            {{ product.metafields.custom_fields["elevated_performance_body"] }}
+        {% if product.metafields.custom_fields["elevated_performance_carousel"] != blank %}
+          <div class="swiper-container swiper-container-pdp-quotes">
+            <div class="swiper-wrapper">
+              {% assign separator = "|###|" %}
+              {% assign text_array = product.metafields.custom_fields["text"] | split: separator %}
+              {% assign fc_keys = product.metafields.custom_fields["elevated_performance_carousel"] | split: "," %}
+              {% for i in fc_keys %}
+                {% assign index = i | plus: 0 %}
+                <div class="swiper-slide">
+                  {{ text_array[index] }}
+                </div>
+              {% endfor %}
+            </div>
+          </div>
           {%- else -%}
-            {{ section.settings.elevated_body }}
+            <div class="swiper-container swiper-container-pdp-quotes">
+              <div class="swiper-wrapper">
+                {% for block in section.blocks %}
+                {% case block.type %}
+                {% when 'performance_text' %}
+                <div class="swiper-slide">
+                  {{ block.settings.text }}
+                </div>
+                {% endcase %}
+                {% endfor %}
+              </div>
+            </div>
           {%- endif -%}
         </div>
       </div>
@@ -347,6 +371,19 @@
         "type": "text",
         "label": "Related Products Heading",
         "default": "You may also like"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "performance_text",
+        "name": "Elevated Performance Text",
+        "settings": [
+          {
+            "id": "text",
+            "type": "richtext",
+            "label": "Text"
+          }
+        ]
       }
     ]
   }

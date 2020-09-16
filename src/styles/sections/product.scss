@@ -250,6 +250,15 @@
       }
     }
   }
+  .swiper-slide p {
+    opacity: 0;
+    transform: translateY(2rem);
+  }
+  .swiper-slide-active p {
+    transition: all 0.6s ease-in-out;
+    opacity: 1;
+    transform: none;
+  }
   .cropped-image-wrapper {
     padding-bottom: 83%;
     img {}
@@ -358,7 +367,20 @@
 .frequency-and-quantity-row {
   display: flex;
   align-items: flex-end;
+  animation: fade-in-on-load ease-in-out 2s forwards;
+  z-index: 3;
+  position: relative;
   .quantity-select {
     margin-left: 4rem;
   }
+}
+
+@keyframes fade-in-on-load {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+
 }

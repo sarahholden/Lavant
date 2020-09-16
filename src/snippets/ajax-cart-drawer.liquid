@@ -170,20 +170,13 @@ $(document).ready(function() {
       url: '/cart/update.js',
       data: addToCartData,
       dataType: 'json',
-      success: function (cart) {
-        $(cartItem).fadeOut(350, function () {
-          $(cartItem).find('.subtract-one').hide();
-          $('#CartCount').html(cart.item_count);
-          var totalPrice = cart.total_price / 100;
-          totalPrice = totalPrice.toFixed(2);
-          $('.subtotal').html('$' + totalPrice);
-          $itemCountWrapper.html('0');
-          $(cartItem).find('.line-item-total').html('$0.00');
-          if (cart.item_count == 0) {
-            $('.open-cart').removeClass('open-cart');
-          }
-        });
+      success: function (lineItem) {
+        updateLineItem(cartItem, lineItem);
 
+        // Update total cart count
+        $.getJSON('/cart.js', function(cart) {
+          updateCartSitewide(cart);
+        });
       }
     });
   });

@@ -17,7 +17,7 @@
   .text-content {
     @include tablet-up {
       position: absolute;
-      bottom: 16.7rem;
+      bottom: 13rem;
       left: 0;
       max-width: 66.5rem;
       margin-left: auto;
@@ -168,10 +168,8 @@
     }
     img {
       width: auto;
-      height: auto;
       display: block;
-      max-width: 25.7rem;
-      max-height: 5.8rem;
+      height: 3.8vw;
       margin-left: auto;
       margin-right: auto;
       mix-blend-mode: multiply;
@@ -179,6 +177,7 @@
         max-width: 100%;
         max-height: 100%;
         width: 100%;
+        height: auto;
       }
     }
   }

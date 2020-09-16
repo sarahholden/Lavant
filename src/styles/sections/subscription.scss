@@ -1,6 +1,7 @@
 /* --------------------------------------------------------------------------
   SUBSCRIPTION HEADER
 -----------------------------------------------------------------------------*/
+.page-faq header,
 .page-subscription header {
   text-align: center;
   background: $lightGreyBg;
@@ -27,6 +28,7 @@
 /* --------------------------------------------------------------------------
   SUBSCRIPTION HEADER
 -----------------------------------------------------------------------------*/
+.page-faq .faq-section,
 .page-subscription .faq-section {
   padding-bottom: 15rem;
   @include mobile-only {

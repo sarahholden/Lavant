@@ -11,7 +11,7 @@ $cartWidth: 38rem;
   width: $cartWidth;
   z-index: 300;
   background: white;
-  padding: 1.6rem 0 6rem;
+  padding: 1.6rem 0 16.6rem;
   transform: translateX(100%);
   transition: all 0.3s ease-in-out 0.3s;
   overflow-y: scroll;
@@ -85,7 +85,7 @@ $cartWidth: 38rem;
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  margin-bottom: 4rem;
+  margin-bottom: 2rem;
   h2 {
     margin-bottom: 0;
   }
@@ -99,8 +99,8 @@ $cartWidth: 38rem;
 -----------------------------------------------------------------------------*/
 .free-shipping-row {
   background: $lightGreyBg;
-  padding-top: 3rem;
-  padding-bottom: 3rem;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
   p {
     max-width: 30rem;
     margin-left: auto;
@@ -202,22 +202,56 @@ $cartWidth: 38rem;
 }
 
 /* --------------------------------------------------------------------------
-  PRODUCTS
+  TOTAL ROW
 -----------------------------------------------------------------------------*/
+.subtotal-row {
+  padding-bottom: 3rem;
+  font-size: 1.4rem;
+  .inner-footer {
+    border-top: $border;
+    padding-top: 2rem;
+  }
+}
+
 .cart-drawer .footer-content {
   margin-top: 4rem;
-  padding: 0;
+  padding-bottom: 4rem;
   position: fixed;
   bottom: 0;
   right: 0;
   width: $cartWidth;
+  background: white;
+
   @include mobile-only {
     left: 0;
     right: 0;
     width: 100%;
   }
+  .inner-footer {
+    border-top: $border;
+    padding-top: 2rem;
+  }
+
+  .total-text {
+    font-family: Canela-Light;
+    font-size: 1.6rem;
+    letter-spacing: 0.052rem;
+    line-height: (19 / 16);
+  }
+  .total-amount {
+    font-size: 1.6rem;
+    text-align: right;
+    line-height: (25 / 16);
+  }
   .btn {
     width: 100%;
     text-align: center;
+    font-size: 1.4rem;
+    font-weight: normal;
+    margin-top: 3rem;
+    &:hover {
+      color: white;
+      background: black;
+    }
   }
 }
