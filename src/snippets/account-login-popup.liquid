@@ -96,7 +96,7 @@ function createAccount(firstName, lastName, email, password){
     utf8: '✓'
   };
 
-  debugger;
+  // debugger;
 
   jQuery.ajax({
     url: '/account',
@@ -106,7 +106,7 @@ function createAccount(firstName, lastName, email, password){
     async: true
   })
   .done(function(data, textStatus, xhr){
-    debugger;
+    // debugger;
     e.preventDefault();
     if (xhr.status != 429) {
       e.preventDefault();
@@ -126,7 +126,7 @@ function createAccount(firstName, lastName, email, password){
 $('#account-popup-form').on('submit', function (e) {
 
 
-  debugger;
+  // debugger;
   if (checkAllFields($(this))){
 
     var firstName = $('#FirstName').val();

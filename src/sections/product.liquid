@@ -229,7 +229,13 @@
                           {{ panel_body_array[index] }}
 
                           {%- if panel_button_link_array[index] != blank or panel_button_text_array[index] != blank -%}
-                            <a href="{{ panel_button_link_array[index] }}" class="btn btn--grey" target="_blank">{{ panel_button_text_array[index] }}</a>
+                            <a href="{{ panel_button_link_array[index] }}" class="btn btn--grey" target="_blank">
+                              {%- if panel_button_text_array[index] -%}
+                                {{ panel_button_text_array[index] }}
+                              {%- else -%}
+                                CA ingredients Disclosure requirements
+                              {%- endif -%}
+                            </a>
                           {%- endif -%}
 
                         </div>

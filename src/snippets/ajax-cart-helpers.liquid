@@ -94,11 +94,33 @@
   UPDATE LINE ITEM
   ------------------------------------------------ */
   function updateLineItem (cartItem, lineItem) {
+    if (!lineItem.quantity) {
+      $(cartItem).remove();
+    }
 
     $(cartItem).find('.js-line-item-total').text(Shopify.formatMoney(lineItem.line_price, "{{ shop.money_format }}"));
     $(cartItem).find('.js-count-placeholder').text(lineItem.quantity);
     $(cartItem).attr('data-quantity', lineItem.quantity);
-
-
   }
+
+
+
+  $('.js-cart-drawer').on('click', '.js-add-note', function () {
+
+    $('.js-gift-field-wrapper').slideToggle();
+
+    if ($(this).hasClass('active')) {
+      $(this).text('Add a note');
+    } else {
+      $(this).text('Close');
+    }
+
+    $(this).toggleClass('active');
+
+    // ADA
+    $('.js-gift-field-wrapper').attr('aria-expanded', function (i, attr) {
+      return attr == 'true' ? 'false' : 'true';
+    });
+
+  })
 </script>
