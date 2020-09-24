@@ -28,6 +28,10 @@
         </div>
       </div>
 
+      <div class="js-empty-state empty-state hide">
+        <h2>{{ section.settings.coming_soon_text }}</h2>
+      </div>
+
       <!-- ====== PRODUCT LISTS ======== -->
       <section class="js-product-list collection-grid cols-3 cols-2-sm">
         {% for product in collection.products %}
@@ -98,6 +102,12 @@
       "type": "textarea",
       "label": "Sort Trigger Text",
       "default": "Sort By:"
+    },
+    {
+      "id": "coming_soon_text",
+      "type": "text",
+      "label": "Coming Soon Text",
+      "default": "Coming Soon"
     }
 
   ]

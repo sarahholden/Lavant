@@ -1,3 +1,9 @@
+
+<script type="text/javascript">
+  showLoginForm();
+</script>
+
+{% comment %}
 <div class="form-success hide" id="ResetSuccess">
   {{ 'customer.recover_password.success' | t }}
 </div>
@@ -85,3 +91,5 @@
     <input type="submit" class="btn" value="{{ 'customer.login.guest_continue' | t }}">
   {% endform %}
 {% endif %}
+
+{% endcomment %}

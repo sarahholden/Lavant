@@ -2,7 +2,7 @@
 {% if linklists[footer_linklist].links.size > 0 %}
   <ul>
     {% for link in linklists[footer_linklist].links %}
-      <li><a href="{{ link.url }}" {% if menu_type == 'social' %}target="_blank"{% endif %}>{{ link.title }}</a></li>
+      <li><a href="{{ link.url }}" class="{% if link.url contains 'account' %}{% unless customer %}js-trigger-account-popup{% endunless %}{% endif %}"{% if menu_type == 'social' %}target="_blank"{% endif %}>{{ link.title }}</a></li>
     {% endfor %}
   </ul>
 {% endif %}

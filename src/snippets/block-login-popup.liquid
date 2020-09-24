@@ -1,0 +1,69 @@
+
+<div class="js-close-account-popup close-account-popup-overlay"></div>
+
+<div class="js-account-popup account-popup" tabindex="-1">
+  <input type="hidden" name="return_to" value="/account" />
+  {%- include 'block-form-register' -%}
+  {%- include 'block-form-password' -%}
+  {%- include 'block-form-login' -%}
+
+</div>
+
+
+
+<script type="text/javascript">
+  function showRecoverPasswordForm() {
+    $('#recover-password').fadeIn();
+    $('#create_customer').hide();
+    $('#login-form').hide();
+    return false;
+  }
+
+  function showRegisterForm() {
+    $('#recover-password').hide();
+    $('#create_customer').fadeIn();
+    $('#login-form').hide();
+    return false;
+  }
+
+  function showLoginForm() {
+    $('#recover-password').hide();
+    $('#create_customer').hide();
+    $('#login-form').fadeIn();
+    return false;
+  }
+
+  $('.js-recover-password').on('click', function () {
+    showRecoverPasswordForm();
+  });
+
+  $('.js-create-account').on('click', function () {
+    showRegisterForm();
+  });
+
+  $('.js-login').on('click', function () {
+    showLoginForm();
+  });
+
+  // Show correct form on load
+  if (window.location.hash == '#recover') {
+    showRecoverPasswordForm()
+  }
+
+  if (window.location.hash == '#login') {
+    showLoginForm()
+  }
+
+  if (window.location.hash == '#register') {
+    showRegisterForm()
+  }
+
+  if (window.location.hash == '#recover' || window.location.hash == '#login' || window.location.hash == '#register') {
+    $('body').addClass('open-account-popup');
+    $('.js-account-popup').addClass('js-animate');
+    setTimeout(function () {
+      $('.js-account-popup form input').eq(0).focus();
+    }, 100);
+  }
+
+</script>

@@ -1233,6 +1233,11 @@ $(document).ready(function() {
   /* ---------------------------------------------
     DROPDOWN NAV
   ------------------------------------------------ */
+
+  function removeHash () {
+      history.pushState("", document.title, window.location.pathname + window.location.search);
+  }
+
   $('.js-trigger-account-popup').on('click', function (e) {
     e.preventDefault();
     $('body').addClass('open-account-popup');
@@ -1246,6 +1251,7 @@ $(document).ready(function() {
     e.preventDefault();
     $('body').removeClass('open-account-popup');
     $('.js-account-popup').removeClass('js-animate');
+    removeHash();
   });
 
 

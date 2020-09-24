@@ -1,46 +1,86 @@
-<h1>{{ 'customer.account.title' | t }}</h1>
 
-<h2>{{ 'customer.orders.title' | t }}</h2>
-<!-- Begin ReCharge code -->
-<p><a href="/tools/recurring/login/">Manage Subscriptions</a></p>
-<!-- End ReCharge code -->
+<div class="page-padded secondary-page account-page account-dashboard">
 
-{% paginate customer.orders by 20 %}
-  {% if customer.orders.size != 0 %}
-    <table class="responsive-table">
-      <thead>
-        <tr>
-          <th>{{ 'customer.orders.order_number' | t }}</th>
-          <th>{{ 'customer.orders.date' | t }}</th>
-          <th>{{ 'customer.orders.payment_status' | t }}</th>
-          <th>{{ 'customer.orders.fulfillment_status' | t }}</th>
-          <th>{{ 'customer.orders.total' | t }}</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for order in customer.orders %}
-          <tr class="responsive-table-row">
-            <td data-label="{{ 'customer.orders.order_number' | t }}">{{ order.name | link_to: order.customer_url }}</td>
-            <td data-label="{{ 'customer.orders.date' | t }}">{{ order.created_at | date: format: 'month_day_year' }}</td>
-            <td data-label="{{ 'customer.orders.payment_status' | t }}">{{ order.financial_status_label }}</td>
-            <td data-label="{{ 'customer.orders.fulfillment_status' | t }}">{{ order.fulfillment_status_label }}</td>
-            <td data-label="{{ 'customer.orders.total' | t }}">{{ order.total_price | money }}</td>
-          </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  {% else %}
-    <p>{{ 'customer.orders.none' | t }}</p>
-  {% endif %}
+  <div class="container">
+    <div class="inner">
+      <h1>{{ 'customer.account.title' | t }}</h1>
 
-  {% if paginate.pages > 1 %}
-    {% include 'pagination' %}
-  {% endif %}
+      <div class="cols-2">
+        <div class="account-col">
+          <h2 class="heading--sm no-caps" >{{ 'customer.orders.title' | t }}</h2>
 
-{% endpaginate %}
+          {% paginate customer.orders by 20 %}
+            {% if customer.orders.size != 0 %}
+            {% for order in customer.orders %}
 
-<h2>{{ 'customer.account.details' | t }}</h2>
+              <div class="order-row">
+                <div class="order-item-row">
+                  <div>
+                    {{ 'customer.orders.order_number' | t }}
+                  </div>
+                  <div>
+                    {{ order.name | link_to: order.customer_url }}
+                  </div>
+                </div>
+                <div class="order-item-row">
+                  <div>
+                    {{ 'customer.orders.date' | t }}
+                  </div>
+                  <div>
+                    {{ order.created_at | date: format: 'month_day_year' }}
+                  </div>
+                </div>
+                <div class="order-item-row">
+                  <div>
+                    {{ 'customer.orders.payment_status' | t }}
+                  </div>
+                  <div>
+                    {{ order.financial_status_label }}
+                  </div>
+                </div>
+                <div class="order-item-row">
+                  <div>
+                    {{ 'customer.orders.fulfillment_status' | t }}
+                  </div>
+                  <div>
+                    {{ order.fulfillment_status_label }}
+                  </div>
+                </div>
+                <div class="order-item-row">
+                  <div>
+                    {{ 'customer.orders.total' | t }}
+                  </div>
+                  <div>
+                    {{ order.total_price | money }}
+                  </div>
+                </div>
+              </div>
+              {% endfor %}
+            {% else %}
+              <p class="no-orders">{{ 'customer.orders.none' | t }}</p>
+            {% endif %}
 
-{{ customer.default_address | format_address }}
+            {% if paginate.pages > 1 %}
+              {% include 'pagination' %}
+            {% endif %}
 
-<a href="/account/addresses">{{ 'customer.account.view_addresses' | t }} ({{ customer.addresses_count }})</a>
+          {% endpaginate %}
+        </div>
+
+        <div class="account-col">
+          <h2 class="heading--sm no-caps" >{{ 'customer.account.details' | t }}</h2>
+
+          <div class="existing-address">
+            {{ customer.default_address | format_address }}
+          </div>
+
+          <p><a href="/account/addresses" class="link--underline">View Addresses ({{ customer.addresses_count }})</a></p>
+          <!-- Begin ReCharge code -->
+          <p><a href="/tools/recurring/login/" class="link--underline">Manage Subscriptions</a></p>
+          <!-- End ReCharge code -->
+          <a href="/account/logout" class="link--underline">Logout</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

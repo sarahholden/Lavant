@@ -2423,7 +2423,7 @@ $cartWidth: 38rem;
   }
 
   .total-text {
-    font-family: Canela-Light;
+    font-family: $canela;
     font-size: 1.6rem;
     letter-spacing: 0.052rem;
     line-height: (19 / 16);
@@ -3500,6 +3500,137 @@ Accordions
 }
 
 
+// Price Align fix
+.product-card {
+  display: flex;
+  > a {
+    display: flex;
+    flex-direction: column;
+    .product-info {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      flex-grow: 1;
+    }
+  }
+}
+
+/* PRODUCT CARDS ================== */
+.product-card {
+  text-align: center;
+  &:hover {
+    img {
+      transform: scale(1.04);
+    }
+  }
+  img {
+    height: 42rem;
+    object-fit: contain;
+    object-position: center bottom;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    transition: all 1.5s $ease;
+    @include mobile-only {
+      height: 23rem;
+    }
+  }
+  .product-info {
+    position: relative;
+    z-index: 3;
+  }
+  h3 {
+    font-size: 1.7rem;
+    letter-spacing: 0.055rem;
+    line-height: (23 / 17);
+    max-width: 19rem;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 2rem;
+  }
+  .price {
+    font-size: 1.2rem;
+    letter-spacing: 0.243rem;
+  }
+}
+
+/* FAVORITES (HOME) ================== */
+.favorites .product-card {
+  text-align: left;
+  @include tablet-up {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  @include mobile-only {
+    margin-bottom: 2rem;
+  }
+  img {
+    transition: all 2s $ease;
+    width: 100%;
+  }
+  &:hover {
+    img {
+      transform: scale(1.04);
+    }
+    h3 {
+      text-decoration: underline;
+    }
+  }
+  .product-info {
+    border-top: $border;
+    padding-top: 1.5rem;
+    max-width: 18rem;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    z-index: 2;
+    @include tablet-up {
+
+      min-height: 9rem;
+    }
+    @include mobile-only {
+      text-align: center;
+    }
+  }
+  h3 {
+    margin-bottom: 2rem;
+    @include mobile-only {
+      margin-bottom: 1rem;
+      max-width: 18rem;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+}
+
+/* --------------------------------------------------------------------------
+  RELATED PRODUCTS
+-----------------------------------------------------------------------------*/
+.related-products {
+  text-align: center;
+  @include mobile-only {
+    padding-top: 5rem;
+  }
+  .inner {
+    max-width: 106.2rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .product-card {
+    h3 {
+      font-size: 1.7rem;
+      line-height: (23 / 17);
+      letter-spacing: 0.055rem;
+    }
+    .price {
+      font-size: 1.2rem;
+    }
+  }
+
+}
+
+
 /*================ SECTIONS ================*/
 /* --------------------------------------------------------------------------
   ABOUT
@@ -4126,54 +4257,6 @@ Accordions
       text-align: center;
     }
   }
-  .product-card {
-    @include tablet-up {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-    @include mobile-only {
-      margin-bottom: 2rem;
-    }
-    img {
-      transition: all 2s $ease;
-      width: 100%;
-    }
-    &:hover {
-      img {
-        transform: scale(1.04);
-      }
-      h3 {
-        text-decoration: underline;
-      }
-    }
-  }
-  .product-info {
-    border-top: $border;
-    padding-top: 1.5rem;
-    max-width: 18rem;
-    margin-left: auto;
-    margin-right: auto;
-    position: relative;
-    z-index: 2;
-    @include tablet-up {
-
-      min-height: 9rem;
-    }
-    @include mobile-only {
-      text-align: center;
-    }
-  }
-  h3 {
-    margin-bottom: 2rem;
-    @include mobile-only {
-      margin-bottom: 1rem;
-      max-width: 18rem;
-      margin-left: auto;
-      margin-right: auto;
-    }
-  }
-
 }
 
 /* --------------------------------------------------------------------------
@@ -4248,7 +4331,10 @@ Accordions
   background: $lightGreyBg;
   text-align: center;
   @include tablet-up {
-    padding-top: 3rem;
+    &:not(.reverse) {
+      padding-top: 3rem;
+    }
+
   }
   .cropped-image-wrapper {
     padding-bottom: 84%;
@@ -4596,6 +4682,9 @@ Accordions
   .variant-select {
     margin-bottom: 3rem;
   }
+  .variant-wrapper {
+    margin-top: 3rem;
+  }
   .quantity-select {
     max-width: 7.2rem;
   }
@@ -4604,6 +4693,10 @@ Accordions
     width: 100%;
     margin-top: 3.4rem;
     margin-bottom: 2.9rem;
+  }
+
+  .GiftWizard-gift-button {
+    margin-top: 1.5rem !important;
   }
 
   /* PRE ORDER MANAGER ================== */
@@ -4717,53 +4810,6 @@ Accordions
 }
 
 /* --------------------------------------------------------------------------
-  RELATED PRODUCTS
------------------------------------------------------------------------------*/
-.related-products {
-  text-align: center;
-  @include mobile-only {
-    padding-top: 5rem;
-  }
-  img {
-    max-width: 95%;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 2rem;
-    @include mobile-only {
-      margin-bottom: 1rem;
-    }
-
-  }
-  .inner {
-    max-width: 106.2rem;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  h2 {
-    margin-bottom: 4.5rem;
-    @include mobile-only {
-      margin-bottom: 1rem;
-    }
-  }
-  h3 {
-    font-family: Canela-Light;
-    font-size: 1.7rem;
-    line-height: (23 / 17);
-    letter-spacing: 0.055rem;
-    margin-bottom: 1.2rem;
-    max-width: 17.2rem;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  .price {
-    font-size: 1.2rem;
-    @include mobile-only {
-      margin-bottom: 3rem;
-    }
-  }
-}
-
-/* --------------------------------------------------------------------------
   SUBSCRIPTION POPUP
 -----------------------------------------------------------------------------*/
 .product__option {
@@ -4836,6 +4882,9 @@ Accordions
 .collection-container {
   @extend .collection;
   padding-top: 5rem;
+  @include tablet-up {
+    min-height: 700px;
+  }
   @include mobile-only {
     padding-top: 3.5rem;
   }
@@ -4848,10 +4897,6 @@ Accordions
     text-transform: capitalize;
   }
 }
-
-/* --------------------------------------------------------------------------
-  COLLECTION HEADER
------------------------------------------------------------------------------*/
 
 /* --------------------------------------------------------------------------
   COLLECTION FILTER
@@ -5045,48 +5090,34 @@ Accordions
 }
 
 /* --------------------------------------------------------------------------
+  EMPTY STATE
+-----------------------------------------------------------------------------*/
+.empty-state {
+  text-align: center;
+  margin-top: 4rem;
+  margin-bottom: 10rem;
+}
+
+/* --------------------------------------------------------------------------
   PRODUCT GRID
 -----------------------------------------------------------------------------*/
+// .product-card {
+//   display: flex;
+//   > a {
+//     display: flex;
+//     flex-direction: column;
+//     .product-info {
+//       flex-grow: 1;
+//       display: flex;
+//       flex-direction: column;
+//       .price {
+//         align-self: flex-end;
+//       }
+//     }
+//   }
+// }
 .collection-grid {
   padding-bottom: 6.8rem;
-
-  .product-card {
-    text-align: center;
-    &:hover {
-      img {
-        transform: scale(1.04);
-      }
-    }
-  }
-  img {
-    height: 42rem;
-    object-fit: contain;
-    object-position: center bottom;
-    width: 90%;
-    margin-left: auto;
-    margin-right: auto;
-    transition: all 1.5s $ease;
-    @include mobile-only {
-      height: 23rem;
-    }
-  }
-  .product-info {
-    position: relative;
-    z-index: 3;
-  }
-  h3 {
-    font-size: 1.7rem;
-    letter-spacing: 0.055rem;
-    line-height: (23 / 17);
-    max-width: 17.2rem;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 2rem;
-  }
-  .price {
-    font-size: 1.2rem;
-    letter-spacing: 0.243rem;
-  }
 }
 
 /* --------------------------------------------------------------------------
@@ -5357,6 +5388,31 @@ Accordions
   }
 }
 
+.template-login,
+.template-register {
+  .js-close-account-popup {
+    display: none !important;
+    visibility: hidden !important;
+  }
+  .account-popup {
+    pointer-events: auto;
+    position: static;
+    margin-left: auto;
+    margin-right: auto;
+    opacity: 1;
+    visibility: visible;
+    padding-bottom: 10rem;
+    [data-anim="slide"],
+    [data-reveal="lines-masked"] {
+      display: block;
+      opacity: 1;
+      visibility: visible;
+      transform: none;
+    }
+  }
+
+}
+
 /* CLOSE BUTTON & OVERLAY ================== */
 .close-account-popup-overlay {
   position: fixed;
@@ -5396,6 +5452,231 @@ Accordions
     opacity: 0.5;
     pointer-events: auto;
     visibility: visible;
+  }
+}
+
+/* --------------------------------------------------------------------------
+  GENERAL STYLES
+-----------------------------------------------------------------------------*/
+.account-page {
+  @include mobile-only {
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+  form {
+    max-width: 63.7rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .form-end-row {
+    margin-top: 3rem;
+    align-items: center;
+    @include mobile-only {
+      flex-direction: column;
+      > * {
+        margin-bottom: 2rem;
+      }
+    }
+    a {
+      text-decoration: underline;
+      font-size: 2.1rem;
+      color: black;
+    }
+  }
+  .btn-row {
+    text-align: right;
+    width: 100%;
+  }
+  h1 + p {
+    text-align: center;
+  }
+  .btn--outline-lg {
+    margin-top: 2.5rem;
+  }
+
+}
+
+/* FORM DIVIDER 'OR' TEXT ================== */
+.account-page .form-divider {
+  text-align: center;
+  font-size: 3rem;
+  color: black;
+  letter-spacing: 0;
+  line-height: (66 / 30);
+  position: relative;
+  margin-top: 2rem;
+  &::before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    transform: translateY(-50%);
+    background: black;
+  }
+  p {
+    padding-left: 2rem;
+    padding-right: 2rem;
+    display: inline-block;
+    position: relative;
+    z-index: 2;
+  }
+
+}
+
+/* --------------------------------------------------------------------------
+  LOGIN PAGE
+-----------------------------------------------------------------------------*/
+.account-dashboard {
+  text-align: center;
+  @include tablet-up {
+    min-height: 600px;
+  }
+  .cols-2 {
+    position: relative;
+    &::before {
+      content: '';
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0.4rem;
+      height: 100%;
+    }
+  }
+  .account-col {
+    padding: 2rem 6rem 4rem;
+  }
+  .inner {
+    max-width: 112rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .no-orders {
+    font-size: 1.8rem;
+    color: black;
+    letter-spacing: 0;
+  }
+
+  .existing-address p {
+    margin-bottom: 2rem;
+  }
+  // JUST FOR TROOP
+  h2 {
+    @extend .heading--sm;
+    @extend .no-caps;
+    margin-bottom: 2rem;
+  }
+  .btn {
+    min-width: 27.4rem;
+    margin-bottom: 0.6rem;
+    text-transform: none;
+    font-size: 1.8rem;
+    border: 2px solid black;
+    &:hover {
+      background: black;
+      color: white;
+    }
+  }
+
+}
+
+/* ORDERS ================== */
+.account-dashboard .order-row {
+  padding-bottom: 1.2rem;
+  + .order-row {
+    padding-top: 1.2rem;
+  }
+  .order-item-row {
+    display: flex;
+    text-align: left;
+    padding-top: 0.6rem;
+    padding-bottom: 0.6rem;
+    // border-bottom: 1px solid black;
+
+    &:first-of-type {
+      // border-top: 1px solid black;
+
+    }
+    > div {
+      width: 50%;
+
+    }
+  }
+}
+
+/* --------------------------------------------------------------------------
+  RECHARGE
+-----------------------------------------------------------------------------*/
+
+/* RECHARGE ================== */
+.rc_layout__container {
+  padding-top: 20rem;
+  padding-bottom: 6rem;
+  h2,
+  h4:not(.rc__subscriptions__subscription__address) {
+    @extend .heading--sm;
+    color: black;
+    margin-bottom: 2rem;
+    text-transform: none;
+    margin-top: 2rem;
+    letter-spacing: 0.1;
+  }
+  .rc_menu__item {
+    text-decoration: underline;
+    margin-bottom: 0.8rem;
+    display: block;
+  }
+  .rc__subscriptions__subscription__address {
+    text-transform: none;
+    margin-bottom: 2rem;
+    font-weight: normal;
+    color: black;
+    font-family: $bodyTextFont;
+    display: block;
+    font-size: 2rem;
+  }
+  table {
+    margin-bottom: 3rem;
+    margin-top: 1rem;
+    p {
+      max-width: 26rem;
+    }
+    td p {
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+    }
+  }
+  .rc_button--fa-plus-circle:before {
+    margin-right: 1rem;
+    display: inline-block;
+  }
+  thead {
+    border-bottom: 1px solid black;
+    padding-bottom: 0.5rem;
+  }
+  .rc_form__label.form__label {
+    padding: 0 0 1rem;
+  }
+  .rc_form__input {
+    padding: 1rem;
+    border: 1px solid black;
+    margin-bottom: 2rem;
+  }
+  .btn-default,
+  .rc_button--primary {
+    @extend .btn;
+    @extend .btn--outline;
+    margin-bottom: 1rem;
+    margin-right: 1rem;
+    border: 1px solid black;
+  }
+  .rc_product-item__media {
+    margin-bottom: 1rem;
   }
 }
 

@@ -1,0 +1,130 @@
+
+// Price Align fix
+.product-card {
+  display: flex;
+  > a {
+    display: flex;
+    flex-direction: column;
+    .product-info {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      flex-grow: 1;
+    }
+  }
+}
+
+/* PRODUCT CARDS ================== */
+.product-card {
+  text-align: center;
+  &:hover {
+    img {
+      transform: scale(1.04);
+    }
+  }
+  img {
+    height: 42rem;
+    object-fit: contain;
+    object-position: center bottom;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    transition: all 1.5s $ease;
+    @include mobile-only {
+      height: 23rem;
+    }
+  }
+  .product-info {
+    position: relative;
+    z-index: 3;
+  }
+  h3 {
+    font-size: 1.7rem;
+    letter-spacing: 0.055rem;
+    line-height: (23 / 17);
+    max-width: 19rem;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 2rem;
+  }
+  .price {
+    font-size: 1.2rem;
+    letter-spacing: 0.243rem;
+  }
+}
+
+/* FAVORITES (HOME) ================== */
+.favorites .product-card {
+  text-align: left;
+  @include tablet-up {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  @include mobile-only {
+    margin-bottom: 2rem;
+  }
+  img {
+    transition: all 2s $ease;
+    width: 100%;
+  }
+  &:hover {
+    img {
+      transform: scale(1.04);
+    }
+    h3 {
+      text-decoration: underline;
+    }
+  }
+  .product-info {
+    border-top: $border;
+    padding-top: 1.5rem;
+    max-width: 18rem;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    z-index: 2;
+    @include tablet-up {
+
+      min-height: 9rem;
+    }
+    @include mobile-only {
+      text-align: center;
+    }
+  }
+  h3 {
+    margin-bottom: 2rem;
+    @include mobile-only {
+      margin-bottom: 1rem;
+      max-width: 18rem;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+}
+
+/* --------------------------------------------------------------------------
+  RELATED PRODUCTS
+-----------------------------------------------------------------------------*/
+.related-products {
+  text-align: center;
+  @include mobile-only {
+    padding-top: 5rem;
+  }
+  .inner {
+    max-width: 106.2rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .product-card {
+    h3 {
+      font-size: 1.7rem;
+      line-height: (23 / 17);
+      letter-spacing: 0.055rem;
+    }
+    .price {
+      font-size: 1.2rem;
+    }
+  }
+
+}

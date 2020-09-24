@@ -47,6 +47,31 @@
   }
 }
 
+.template-login,
+.template-register {
+  .js-close-account-popup {
+    display: none !important;
+    visibility: hidden !important;
+  }
+  .account-popup {
+    pointer-events: auto;
+    position: static;
+    margin-left: auto;
+    margin-right: auto;
+    opacity: 1;
+    visibility: visible;
+    padding-bottom: 10rem;
+    [data-anim="slide"],
+    [data-reveal="lines-masked"] {
+      display: block;
+      opacity: 1;
+      visibility: visible;
+      transform: none;
+    }
+  }
+
+}
+
 /* CLOSE BUTTON & OVERLAY ================== */
 .close-account-popup-overlay {
   position: fixed;
@@ -86,5 +111,230 @@
     opacity: 0.5;
     pointer-events: auto;
     visibility: visible;
+  }
+}
+
+/* --------------------------------------------------------------------------
+  GENERAL STYLES
+-----------------------------------------------------------------------------*/
+.account-page {
+  @include mobile-only {
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+  form {
+    max-width: 63.7rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .form-end-row {
+    margin-top: 3rem;
+    align-items: center;
+    @include mobile-only {
+      flex-direction: column;
+      > * {
+        margin-bottom: 2rem;
+      }
+    }
+    a {
+      text-decoration: underline;
+      font-size: 2.1rem;
+      color: black;
+    }
+  }
+  .btn-row {
+    text-align: right;
+    width: 100%;
+  }
+  h1 + p {
+    text-align: center;
+  }
+  .btn--outline-lg {
+    margin-top: 2.5rem;
+  }
+
+}
+
+/* FORM DIVIDER 'OR' TEXT ================== */
+.account-page .form-divider {
+  text-align: center;
+  font-size: 3rem;
+  color: black;
+  letter-spacing: 0;
+  line-height: (66 / 30);
+  position: relative;
+  margin-top: 2rem;
+  &::before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    transform: translateY(-50%);
+    background: black;
+  }
+  p {
+    padding-left: 2rem;
+    padding-right: 2rem;
+    display: inline-block;
+    position: relative;
+    z-index: 2;
+  }
+
+}
+
+/* --------------------------------------------------------------------------
+  LOGIN PAGE
+-----------------------------------------------------------------------------*/
+.account-dashboard {
+  text-align: center;
+  @include tablet-up {
+    min-height: 600px;
+  }
+  .cols-2 {
+    position: relative;
+    &::before {
+      content: '';
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0.4rem;
+      height: 100%;
+    }
+  }
+  .account-col {
+    padding: 2rem 6rem 4rem;
+  }
+  .inner {
+    max-width: 112rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .no-orders {
+    font-size: 1.8rem;
+    color: black;
+    letter-spacing: 0;
+  }
+
+  .existing-address p {
+    margin-bottom: 2rem;
+  }
+  // JUST FOR TROOP
+  h2 {
+    @extend .heading--sm;
+    @extend .no-caps;
+    margin-bottom: 2rem;
+  }
+  .btn {
+    min-width: 27.4rem;
+    margin-bottom: 0.6rem;
+    text-transform: none;
+    font-size: 1.8rem;
+    border: 2px solid black;
+    &:hover {
+      background: black;
+      color: white;
+    }
+  }
+
+}
+
+/* ORDERS ================== */
+.account-dashboard .order-row {
+  padding-bottom: 1.2rem;
+  + .order-row {
+    padding-top: 1.2rem;
+  }
+  .order-item-row {
+    display: flex;
+    text-align: left;
+    padding-top: 0.6rem;
+    padding-bottom: 0.6rem;
+    // border-bottom: 1px solid black;
+
+    &:first-of-type {
+      // border-top: 1px solid black;
+
+    }
+    > div {
+      width: 50%;
+
+    }
+  }
+}
+
+/* --------------------------------------------------------------------------
+  RECHARGE
+-----------------------------------------------------------------------------*/
+
+/* RECHARGE ================== */
+.rc_layout__container {
+  padding-top: 20rem;
+  padding-bottom: 6rem;
+  h2,
+  h4:not(.rc__subscriptions__subscription__address) {
+    @extend .heading--sm;
+    color: black;
+    margin-bottom: 2rem;
+    text-transform: none;
+    margin-top: 2rem;
+    letter-spacing: 0.1;
+  }
+  .rc_menu__item {
+    text-decoration: underline;
+    margin-bottom: 0.8rem;
+    display: block;
+  }
+  .rc__subscriptions__subscription__address {
+    text-transform: none;
+    margin-bottom: 2rem;
+    font-weight: normal;
+    color: black;
+    font-family: $bodyTextFont;
+    display: block;
+    font-size: 2rem;
+  }
+  table {
+    margin-bottom: 3rem;
+    margin-top: 1rem;
+    p {
+      max-width: 26rem;
+    }
+    td p {
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+    }
+  }
+  .rc_button--fa-plus-circle:before {
+    margin-right: 1rem;
+    display: inline-block;
+  }
+  thead {
+    border-bottom: 1px solid black;
+    padding-bottom: 0.5rem;
+  }
+  .rc_form__label.form__label {
+    padding: 0 0 1rem;
+  }
+  .rc_form__input {
+    padding: 1rem;
+    border: 1px solid black;
+    margin-bottom: 2rem;
+  }
+  .btn-default,
+  .rc_button--primary {
+    @extend .btn;
+    @extend .btn--outline;
+    margin-bottom: 1rem;
+    margin-right: 1rem;
+    border: 1px solid black;
+  }
+  .rc_product-item__media {
+    margin-bottom: 1rem;
   }
 }

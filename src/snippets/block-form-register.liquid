@@ -1,0 +1,61 @@
+{% form 'create_customer' %}
+  <button type="button" class="text-only js-close-account-popup close-popup-button">
+    {%- include 'icon-cart-close' -%}
+  </button>
+  <h2  data-anim="slide" data-anim-order="2">Create Account</h2>
+  {{ form.errors | default_errors }}
+  <div class="validation-wrapper" data-anim="slide" data-anim-order="1">
+    <label for="FirstName" class="visually-hidden">
+      {{ 'customer.register.first_name' | t }}
+    </label>
+    <input type="text"
+      name="customer[first_name]"
+      id="FirstName"
+      placeholder="First Name"
+      autofocus
+      required
+      {% if form.first_name %}value="{{ form.first_name }}"{% endif %}>
+  </div>
+  <div class="validation-wrapper" data-anim="slide" data-anim-order="2">
+    <label for="LastName" class="visually-hidden">
+      {{ 'customer.register.last_name' | t }}
+    </label>
+    <input type="text"
+      name="customer[last_name]"
+      id="LastName"
+      required
+      placeholder="{{ 'customer.register.last_name' | t }}"
+      {% if form.last_name %}value="{{ form.last_name }}"{% endif %}>
+  </div>
+  <div class="validation-wrapper" data-anim="slide" data-anim-order="3">
+    <label for="Email" class="visually-hidden">
+      {{ 'customer.register.email' | t }}
+    </label>
+    <input type="email"
+      name="customer[email]"
+      id="Email"
+      class="{% if form.errors contains 'email' %}input-error{% endif %}"
+      placeholder="{{ 'customer.register.email' | t }}"
+      value="{% if form.email %}{{ form.email }}{% endif %}"
+      spellcheck="false"
+      autocomplete="off"
+      autocapitalize="off"
+      required>
+  </div>
+  <div class="validation-wrapper" data-anim="slide" data-anim-order="4">
+    <label for="CreatePassword" class="visually-hidden">
+      {{ 'customer.register.password' | t }}
+    </label>
+    <input type="password"
+      name="customer[password]"
+      id="CreatePassword"
+      class="{% if form.errors contains 'password' %}input-error{% endif %}"
+      placeholder="{{ 'customer.register.password' | t }}"
+      required>
+  </div>
+  <button type="submit" class="btn btn--black" data-anim="slide" data-anim-order="5">Register</button>
+  <div class="end-links">
+    <p data-anim-order="6"><a href="#recover" class="js-recover-password">Forgot Password?</a></p>
+    <p data-anim-order="7">Already have an account? <a href="#login" class="js-login">Login</a></p>
+  </div>
+{% endform %}

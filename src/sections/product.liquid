@@ -67,7 +67,7 @@
 
 
           <!-- ====== YOTPO WIDGET ======== -->
-          <div class="sh-yotpo-stars">
+          <div class="sh-yotpo-stars {% if product.type == 'Gift Card' %}hide{% endif %}">
             <div class="yotpo bottomLine"
               data-appkey="gxjEPYqH6A7XNNqgNle58mI1O4pQ66xNFGaEXB0m"
               data-domain="{{shop.permanent_domain | escape }}"
@@ -95,7 +95,7 @@
               <!-- ====== VARIANT ======== -->
               {% unless product.has_only_default_variant %}
                 {% for option in product.options_with_values %}
-                  <div class="selector-wrapper js variant-select">
+                  <div class="selector-wrapper js variant-select variant-wrapper">
                     <label for="SingleOptionSelector-{{ forloop.index0 }}">
                       {{ option.name }}
                     </label>
@@ -155,9 +155,9 @@
                   {%- endif -%}
                 {%- endif -%}
                 <!-- ====== QUANTITY ======== -->
-                <div class="quantity-select">
+                <div class="quantity-select {% if product.type == 'Gift Card' %}hide{% endif %}">
                   <label for="quantity" arai-label="Quantity">QTY</label>
-                  <select id="quantity" class="styled-select" name="quantity">
+                  <select id="quantity" class="styled-select " name="quantity">
                     {%- for i in (1..6) -%}
                       <option value="{{ i }}">{{ i }}</option>
                     {%- endfor -%}
@@ -177,21 +177,22 @@
                 {% endfor %}
               </select>
 
-              <button
-                type="submit"
-                name="add"
-                class="btn btn--black js-add-to-cart-btn"
-                data-add-to-cart
-                data-original-handle="{{ product.handle }}"
-                data-original-title="{{ product.title }}"
-                data-original-image="{{ cart_img }}"
-                {% unless current_variant.available %}disabled="disabled"{% endunless %}
-                data-metafield-image="{{ product_img }}">
+              <div class="">
+                  <button
+                  type="submit"
+                  name="add"
+                  class="btn btn--black js-add-to-cart-btn product-form__cart-submit"
+                  data-add-to-cart
+                  data-original-handle="{{ product.handle }}"
+                  data-original-title="{{ product.title }}"
+                  data-original-image="{{ cart_img }}"
+                  {% unless current_variant.available %}disabled="disabled"{% endunless %}
+                  data-metafield-image="{{ product_img }}">
                   <span data-add-to-cart-text>
                     {% if current_variant.available %}
-                      {{ 'products.product.add_to_cart' | t }}
+                    {{ 'products.product.add_to_cart' | t }}
                     {% else %}
-                      {{ 'products.product.sold_out' | t }}
+                    {{ 'products.product.sold_out' | t }}
                     {% endif %}
                   </span>
                   &mdash;
@@ -209,7 +210,9 @@
                     </s>
                     {% endif %}
                   </span>
-              </button>
+                </button>
+
+              </div>
             </form>
 
             {% if product.metafields.custom_fields["accordion_panels"] != blank %}
@@ -255,6 +258,7 @@
     <div class="flex-columns-2">
       <div class="container text-content v-aligner">
         <div>
+
           <h5 class="small-caps">
             {%- if product.metafields.custom_fields["elevated_performance_heading"] -%}
               {{ product.metafields.custom_fields["elevated_performance_heading"] }}
@@ -262,16 +266,17 @@
               {{ section.settings.elevated_heading }}
             {%- endif -%}
           </h5>
-
         {% if product.metafields.custom_fields["elevated_performance_carousel"] != blank %}
           <div class="swiper-container swiper-container-pdp-quotes">
             <div class="swiper-wrapper">
               {% assign separator = "|###|" %}
               {% assign text_array = product.metafields.custom_fields["text"] | split: separator %}
+              {% assign heading_array = product.metafields.custom_fields["heading"] | split: separator %}
               {% assign fc_keys = product.metafields.custom_fields["elevated_performance_carousel"] | split: "," %}
               {% for i in fc_keys %}
                 {% assign index = i | plus: 0 %}
                 <div class="swiper-slide">
+                  <h5 class="small-caps">{{ heading_array[index] }}</h5>
                   {{ text_array[index] }}
                 </div>
               {% endfor %}
@@ -283,9 +288,10 @@
                 {% for block in section.blocks %}
                 {% case block.type %}
                 {% when 'performance_text' %}
-                <div class="swiper-slide">
-                  {{ block.settings.text }}
-                </div>
+                  <div class="swiper-slide">
+                    <h5 class="small-caps">{{ block.settings.heading }}</h5>
+                    {{ block.settings.text }}
+                  </div>
                 {% endcase %}
                 {% endfor %}
               </div>
@@ -347,17 +353,6 @@
         "content": "Elevated Performance"
       },
       {
-        "id": "elevated_heading",
-        "type": "text",
-        "label": "Elevated Heading",
-        "default": "Elevated Performance"
-      },
-      {
-        "id": "elevated_body",
-        "type": "richtext",
-        "label": "Elevated Body"
-      },
-      {
         "id": "elevated_image",
         "type": "image_picker",
         "label": "Elevated Image"
@@ -384,6 +379,11 @@
         "type": "performance_text",
         "name": "Elevated Performance Text",
         "settings": [
+          {
+            "id": "heading",
+            "type": "text",
+            "label": "Heading"
+          },
           {
             "id": "text",
             "type": "richtext",

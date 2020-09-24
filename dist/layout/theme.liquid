@@ -117,10 +117,10 @@
     {{ content_for_layout }}
   </main>
 
+  {%- include 'block-login-popup' -%}
   {% section 'component-newsletter' %}
   {% section 'footer' %}
   {% section 'cart-drawer' %}
-  {%- include 'account-login-popup' -%}
 
 
   <!-- Initialize Cart.js for AJAX cart -->

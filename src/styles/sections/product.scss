@@ -152,6 +152,9 @@
   .variant-select {
     margin-bottom: 3rem;
   }
+  .variant-wrapper {
+    margin-top: 3rem;
+  }
   .quantity-select {
     max-width: 7.2rem;
   }
@@ -160,6 +163,10 @@
     width: 100%;
     margin-top: 3.4rem;
     margin-bottom: 2.9rem;
+  }
+
+  .GiftWizard-gift-button {
+    margin-top: 1.5rem !important;
   }
 
   /* PRE ORDER MANAGER ================== */
@@ -270,53 +277,6 @@
 -----------------------------------------------------------------------------*/
 .reviews-section {
   padding-top: 7.6rem;
-}
-
-/* --------------------------------------------------------------------------
-  RELATED PRODUCTS
------------------------------------------------------------------------------*/
-.related-products {
-  text-align: center;
-  @include mobile-only {
-    padding-top: 5rem;
-  }
-  img {
-    max-width: 95%;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 2rem;
-    @include mobile-only {
-      margin-bottom: 1rem;
-    }
-
-  }
-  .inner {
-    max-width: 106.2rem;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  h2 {
-    margin-bottom: 4.5rem;
-    @include mobile-only {
-      margin-bottom: 1rem;
-    }
-  }
-  h3 {
-    font-family: Canela-Light;
-    font-size: 1.7rem;
-    line-height: (23 / 17);
-    letter-spacing: 0.055rem;
-    margin-bottom: 1.2rem;
-    max-width: 17.2rem;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  .price {
-    font-size: 1.2rem;
-    @include mobile-only {
-      margin-bottom: 3rem;
-    }
-  }
 }
 
 /* --------------------------------------------------------------------------
