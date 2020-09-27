@@ -21,6 +21,43 @@
   }
 }
 
+.page-ingredients .tooltip-wrapper {
+  cursor: pointer;
+  position: relative;
+  display: inline-block;
+  @include tablet-up {
+    .tooltip {
+      position: absolute;
+      right: -1rem;
+      top: 0;
+      transform: translate(100%, -90%);
+      pointer-events: none;
+      background: white;
+      border: $border;
+      padding: 1.6rem;
+      opacity: 0;
+      visibility: hidden;
+      font-family: $proxima;
+      text-transform: none;
+      font-size: 1.3rem;
+      color: #505050;
+      letter-spacing: 0;
+      line-height: (17 / 13);
+      width: 30rem;
+      font-weight: normal;
+      text-align: left;
+      transition: all 0.3s $ease;
+    }
+    &:hover {
+      .tooltip {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+      }
+    }
+  }
+}
+
 .page-ingredients .ingredients-chart {
   padding-bottom: 5rem;
   max-width: 110rem;

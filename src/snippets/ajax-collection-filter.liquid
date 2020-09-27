@@ -274,7 +274,23 @@
 
   // SELECT A FILTER ON LOAD
   if (urlHandle && urlHandle != '') {
-    $('.js-category-filter').find('[data-tag="' + urlHandle + '"]').trigger('click');
+    // IF THIS IS A FILTER ITEM, FIND IT AND TRIGGER A CLICK
+    if ($('.js-category-filter').find('[data-tag="' + urlHandle + '"]').length > 0) {
+      $('.js-category-filter').find('[data-tag="' + urlHandle + '"]').trigger('click');
+    } else {
+      tagString = '/' + urlHandle;
+      collectionString = collectionString != '' ? collectionString : defaultCollectionString;
+
+      createTagMarkup(urlHandle, urlHandle);
+
+      var requestUrl = baseUrl + collectionString + tagString + sortOrder;
+
+      // debugger;
+
+      ajaxUpdateResults(requestUrl);
+      $('.js-filter-title').text(urlHandle);
+      // createTagMarkup(urlHandle, urlHandle);
+    }
   } else {
     $('.js-animate-in-on-load').addClass('js-animate');
   }
@@ -297,7 +313,6 @@
 
 
       var requestUrl = baseUrl + collectionString + tagString + sortOrder;
-      console.log(requestUrl);
 
       // UPDATE PRODUCT LIST
       ajaxUpdateResults(requestUrl);

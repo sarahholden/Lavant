@@ -110,7 +110,9 @@
 
   <a class="in-page-link skip-link" href="#MainContent">{{ 'general.accessibility.skip_to_content' | t }}</a>
 
-  {% section 'promo-bar' %}
+  {% comment %}
+    {% section 'promo-bar' %}
+  {% endcomment %}
   {% section 'header' %}
 
   <main role="main" id="MainContent" class="site-content  {% if template.suffix != blank %}page-{{ template.suffix }}{% endif %}">
@@ -119,6 +121,7 @@
 
   {%- include 'block-login-popup' -%}
   {% section 'component-newsletter' %}
+  {% section 'cookies-bar' %}
   {% section 'footer' %}
   {% section 'cart-drawer' %}
 

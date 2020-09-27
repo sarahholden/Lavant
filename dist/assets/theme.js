@@ -1405,29 +1405,52 @@ $(document).ready(function() {
   ------------------------------------------------ */
 
   // MAILCHIMP =========================
-  // function getCookie(name) {
-  //   const dc = document.cookie;
-  //   const prefix = `${name}=`;
-  //   let begin = dc.indexOf(`; ${prefix}`);
-  //   if (begin == -1) {
-  //     begin = dc.indexOf(prefix);
-  //     if (begin != 0) return null;
-  //   } else {
-  //     begin += 2;
-  //     var end = document.cookie.indexOf(';', begin);
-  //     if (end == -1) {
-  //       end = dc.length;
-  //     }
-  //   }
-  //   // because unescape has been deprecated, replaced with decodeURI
-  //   // return unescape(dc.substring(begin + prefix.length, end));
-  //   return decodeURI(dc.substring(begin + prefix.length, end));
-  // }
-  //
-  // const urlParams = new URLSearchParams(window.location.search);
-  // // const isPreview = urlParams.get('preview'); // FOR TESTING
-  //
-  // const hasVisited = getCookie('show-email-popup');
+  function getCookie(name) {
+    const dc = document.cookie;
+    const prefix = `${name}=`;
+    let begin = dc.indexOf(`; ${prefix}`);
+    if (begin == -1) {
+      begin = dc.indexOf(prefix);
+      if (begin != 0) return null;
+    } else {
+      begin += 2;
+      var end = document.cookie.indexOf(';', begin);
+      if (end == -1) {
+        end = dc.length;
+      }
+    }
+    // because unescape has been deprecated, replaced with decodeURI
+    // return unescape(dc.substring(begin + prefix.length, end));
+    return decodeURI(dc.substring(begin + prefix.length, end));
+  }
+
+
+  const urlParams = new URLSearchParams(window.location.search);
+  // const isPreview = urlParams.get('preview'); // FOR TESTING
+
+  const acceptsCookies = getCookie('accepted-cookies');
+  // if (true) {
+  if (acceptsCookies === null) {
+    $('body').addClass('show-cookies-notice');
+  }
+
+  $('.js-close-cookies-bar').on('click', function(e) {
+    e.preventDefault();
+    $('body').removeClass('show-cookies-notice');
+
+    // Set a cookie so the popup only shows once every 30 days
+    const date = new Date();
+    const days = 30;
+
+    // Get unix milliseconds at current time plus number of days
+    date.setTime(+date + days * 86400000); // 24 * 60 * 60 * 1000
+    window.document.cookie = `${'accepted-cookies' +
+      '=' +
+      'no' +
+      '; expires='}${date.toGMTString()}; path=/`;
+  });
+
+
   // // var hasVisited = null; // FOR TESTING
   //
   // // if (true) {
