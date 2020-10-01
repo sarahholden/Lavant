@@ -101,6 +101,7 @@
 
   // UPDATE QUANTITY
   $('#quantity').on('change', function () {
+
     var newQuantity = parseInt($('#quantity').val(), 10);
 
     var purchaseType = $('[name="purchase_type"]:checked').val();
@@ -112,7 +113,7 @@
       }
 
       var quantity = parseInt($('#quantity').val(), 10);
-      var pricePerUnit = parseFloat($('[data-onetime-unit-price]').data('onetime-unit-price'));
+      var pricePerUnit = parseFloat($('.js-price').data('raw-price'));
       updatePrice(quantity, pricePerUnit);
     }
 

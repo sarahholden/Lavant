@@ -196,7 +196,7 @@
                     {% endif %}
                   </span>
                   &mdash;
-                  <span data-price-wrapper class="price-wrapper">
+                  <span data-price-wrapper data-unit-price="{{ 'products.product.regular_price' | t }}" class="price-wrapper">
                     <span class="js-price" data-raw-price="{{ current_variant.price }}" data-product-price>
                       {{ current_variant.price | money }}
                     </span>
