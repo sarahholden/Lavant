@@ -118,9 +118,27 @@
   GENERAL STYLES
 -----------------------------------------------------------------------------*/
 .account-page {
+  padding-bottom: 5rem;
+  @include tablet-up {
+    padding-top: 5rem;
+  }
   @include mobile-only {
     padding-left: 3rem;
     padding-right: 3rem;
+  }
+  .btn,
+  h1,
+  h2,
+  h3,
+  h4,
+  input,
+  p,
+  select,
+  ul {
+    margin-bottom: 2rem;
+  }
+  a:not(.link--underline) {
+    text-decoration: underline;
   }
   form {
     max-width: 63.7rem;
@@ -241,7 +259,40 @@
       color: white;
     }
   }
+  form {
+    text-align: left;
+    padding-bottom: 5rem;
+  }
+  input[type="checkbox"] {
+    width: auto;
+  }
+  label {
+    margin-bottom: 0.8rem;
+  }
+  header,
+  section {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+}
 
+/* TABLES ================== */
+.account-dashboard,
+.rc_layout__container {
+  table {
+    width: 80rem;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 3rem;
+    td,
+    th {
+      border: 1px solid black;
+      padding: 1rem;
+    }
+    a {
+      text-decoration: underline;
+    }
+  }
 }
 
 /* ORDERS ================== */
@@ -274,7 +325,7 @@
 
 /* RECHARGE ================== */
 .rc_layout__container {
-  padding-top: 20rem;
+  padding-top: 10rem;
   padding-bottom: 6rem;
   h2,
   h4:not(.rc__subscriptions__subscription__address) {
@@ -284,6 +335,9 @@
     text-transform: none;
     margin-top: 2rem;
     letter-spacing: 0.1;
+  }
+  a {
+    text-decoration: underline;
   }
   .rc_menu__item {
     text-decoration: underline;
@@ -336,5 +390,29 @@
   }
   .rc_product-item__media {
     margin-bottom: 1rem;
+  }
+}
+
+.address-page {
+  header {
+    margin-bottom: 4.5rem;
+  }
+  h2 {
+    text-align: center;
+  }
+  .btn {
+    display: inline-block;
+    background: black;
+    color: white;
+    padding: 1.5rem 3.8rem;
+    border: 2px solid black;
+    text-transform: uppercase;
+    font-family: $proxima;
+    font-size: 1.2rem;
+    letter-spacing: 0.183rem;
+    text-align: center;
+    line-height: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
   }
 }

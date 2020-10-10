@@ -231,14 +231,13 @@ $(document).ready(function() {
   ------------------------------------------------ */
   var navbarHeight = $('.nav-wrapper').innerHeight();
   $('.nav-wrapper-placeholder').css('height', navbarHeight + 'px');
-  $('.nav-wrapper').addClass('loaded');
+  $('.fixed-nav-wrapper').addClass('loaded');
 
   $(window).on('scroll', function () {
     if ($(window).scrollTop() > 20) {
       $('.nav-wrapper').addClass('scrolled');
     } else {
       $('.nav-wrapper').removeClass('scrolled');
-
     }
 
   });
@@ -447,9 +446,8 @@ $(document).ready(function() {
   // });
 
   /* ---------------------------------------------
-  PROMO POPUP
+  PROMO AND COOKIES POPUP
   ------------------------------------------------ */
-
   // MAILCHIMP =========================
   function getCookie(name) {
     const dc = document.cookie;
@@ -470,11 +468,27 @@ $(document).ready(function() {
     return decodeURI(dc.substring(begin + prefix.length, end));
   }
 
+  function setCookie(name) {
+    // Set a cookie so the popup only shows once every 30 days
+    const date = new Date();
+    const days = 30;
+
+    // Get unix milliseconds at current time plus number of days
+    date.setTime(+date + days * 86400000); // 24 * 60 * 60 * 1000
+    window.document.cookie = `${name +
+      '=' +
+      'no' +
+      '; expires='}${date.toGMTString()}; path=/`;
+  }
+
 
   const urlParams = new URLSearchParams(window.location.search);
   // const isPreview = urlParams.get('preview'); // FOR TESTING
 
   const acceptsCookies = getCookie('accepted-cookies');
+  const alreadyClosedPromo = getCookie('closed-promo-bar');
+
+  // COOKIES BAR =======================
   // if (true) {
   if (acceptsCookies === null) {
     $('body').addClass('show-cookies-notice');
@@ -484,16 +498,20 @@ $(document).ready(function() {
     e.preventDefault();
     $('body').removeClass('show-cookies-notice');
 
-    // Set a cookie so the popup only shows once every 30 days
-    const date = new Date();
-    const days = 30;
+    setCookie('accepted-cookies');
+  });
 
-    // Get unix milliseconds at current time plus number of days
-    date.setTime(+date + days * 86400000); // 24 * 60 * 60 * 1000
-    window.document.cookie = `${'accepted-cookies' +
-      '=' +
-      'no' +
-      '; expires='}${date.toGMTString()}; path=/`;
+  // PROMO BAR =======================
+  // if (true) {
+  if (alreadyClosedPromo == null) {
+    setTimeout(function () {
+      $('.js-promo-bar').slideDown();
+    }, 2000);
+  }
+
+  $('.js-close-promo-bar').on('click', function () {
+    $('.js-promo-bar').slideUp(400);
+    setCookie('closed-promo-bar');
   });
 
 

@@ -1,0 +1,13 @@
+<!-- -====================================
+PROMO BAR
+=========================================--->
+{% if section.settings.show_promo_bar %}
+  <div class="js-promo-bar promo-bar" style="background-color: {{section.settings.promo_bar_bg_color}};">
+    <div class="inner">
+      <h6 class="small-caps" style="color: {{section.settings.promo_bar_text_color}};">{{section.settings.promo_bar_text}}</h6>
+      <button type="button" class="text-only js-close-promo-bar" aria-label="close promotional banner">
+        {%- include 'icon-close' -%}
+      </button>
+    </div>
+  </div>
+{% endif %}

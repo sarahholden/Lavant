@@ -1,18 +1,17 @@
 
-<div class="page-padded secondary-page account-page account-dashboard">
+<div class="page-padded secondary-page account-page account-dashboard address-page">
 
   <div class="container">
     <div class="inner">
     {% paginate customer.addresses by 5 %}
 
       <header role="banner">
-        <h1>{{ 'customer.account.title' | t }}</h1>
-        <button type="button" class="btn address-new-toggle">{{ 'customer.addresses.add_new' | t }}</button>
+        <h2>{{ 'customer.account.title' | t }}</h2>
+        <button type="button" class="btn btn--black address-new-toggle">{{ 'customer.addresses.add_new' | t }}</button>
+        <p>
+          <a href="/account" >{{ 'customer.account.return' | t }}</a>
+        </p>
       </header>
-
-      <p>
-        <a href="/account">{{ 'customer.account.return' | t }}</a>
-      </p>
 
       <div id="AddressNewForm" class="hide">
         {% form 'customer_address', customer.new_address %}
@@ -111,10 +110,10 @@
                value="{{ form.phone }}"
                pattern="[0-9\-]*">
 
+         <label for="address_default_address_new">
+           {{ 'customer.addresses.set_default' | t }}
+         </label>
         {{ form.set_as_default_checkbox }}
-        <label for="address_default_address_new">
-          {{ 'customer.addresses.set_default' | t }}
-        </label>
 
         <input type="submit" class="btn" value="{{ 'customer.addresses.add' | t }}">
         <button type="button" class="address-new-toggle">
@@ -134,10 +133,10 @@
         {% endif %}
         {{ address | format_address }}
 
-        <button type="button" class="address-edit-toggle" data-form-id="{{ address.id }}">
+        <button type="button" class=" link--underline address-edit-toggle" data-form-id="{{ address.id }}">
           {{ 'customer.addresses.edit' | t }}
         </button>
-        <button type="button" class="address-delete" data-form-id="{{ address.id }}" data-confirm-message="{{ 'customer.addresses.delete_confirm' | t }}">
+        <button type="button" class=" link--underline address-delete" data-form-id="{{ address.id }}" data-confirm-message="{{ 'customer.addresses.delete_confirm' | t }}">
           {{ 'customer.addresses.delete' | t }}
         </button>
 
@@ -241,13 +240,13 @@
                  value="{{ form.phone }}"
                  pattern="[0-9\-]*">
 
+           <label for="address_default_address_{{ form.id }}">
+             {{ 'customer.addresses.set_default' | t }}
+           </label>
           {{ form.set_as_default_checkbox }}
-          <label for="address_default_address_{{ form.id }}">
-            {{ 'customer.addresses.set_default' | t }}
-          </label>
 
           <input type="submit" class="btn" value="{{ 'customer.addresses.update' | t }}">
-          <button type="button" class="address-edit-toggle" data-form-id="{{ form.id }}">
+          <button type="button" class="address-edit-toggle link--underline" data-form-id="{{ form.id }}">
             {{ 'customer.addresses.cancel' | t }}
           </button>
 

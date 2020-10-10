@@ -1,42 +1,45 @@
 <div data-section-id="{{ section.id }}" data-section-type="header-section">
   <div class="nav-wrapper-placeholder">
-    <div class="nav-wrapper container" role="banner">
-      {%- include 'block-dropdown-nav' -%}
-      
-      <div class="nav-front-layer">
-        <!--   LOGO   -->
-        {%- include 'nav-logo' -%}
+    <div class="fixed-nav-wrapper">
+      {%- include 'promo-bar' -%}
+      <div class="nav-wrapper container" role="banner">
 
-        <div class="inner nav-flyout">
+        {%- include 'block-dropdown-nav' -%}
 
-          <!--   NAV   -->
-          {%- include 'nav-menu', current_menu: section.settings.main_linklist, class_name: 'left-nav' -%}
+        <div class="nav-front-layer">
+          <!--   LOGO   -->
+          {%- include 'nav-logo' -%}
 
-          <div class="right-nav">
+          <div class="inner nav-flyout">
+
             <!--   NAV   -->
-            {%- include 'nav-menu', current_menu: section.settings.main_linklist_right, class_name: 'right-nav' -%}
+            {%- include 'nav-menu', current_menu: section.settings.main_linklist, class_name: 'left-nav' -%}
 
-            <div class="hide-mobile">
-              <!--   CART   -->
-              {%- include 'nav-cart-link' -%}
+            <div class="right-nav">
+              <!--   NAV   -->
+              {%- include 'nav-menu', current_menu: section.settings.main_linklist_right, class_name: 'right-nav' -%}
+
+              <div class="hide-mobile">
+                <!--   CART   -->
+                {%- include 'nav-cart-link' -%}
+              </div>
             </div>
           </div>
+
+          <div class="mobile-cart-link show-mobile">
+            <!--   CART   -->
+            {%- include 'nav-cart-link' -%}
+          </div>
+          <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+
         </div>
 
-        <div class="mobile-cart-link show-mobile">
-          <!--   CART   -->
-          {%- include 'nav-cart-link' -%}
-        </div>
-        <div class="hamburger">
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
 
       </div>
-
-
-    </div>
 
     </div>
 
@@ -47,6 +50,35 @@
   {
     "name": "Header",
     "settings": [
+      {
+        "type": "header",
+        "content": "Promo Bar"
+      },
+      {
+        "id": "promo_bar_text",
+        "type": "richtext",
+        "label": "Promo Bar Text",
+        "info": "Links will be underlined."
+      },
+      {
+        "id": "show_promo_bar",
+        "type": "checkbox",
+        "label": "Show Promo Bar"
+      },
+      {
+        "id": "promo_bar_bg_color",
+        "type": "color",
+        "label": "Promo Bar Bg Color"
+      },
+      {
+        "id": "promo_bar_text_color",
+        "type": "color",
+        "label": "Promo Bar Text Color"
+      },
+      {
+        "type": "header",
+        "content": "Nav Settings"
+      },
       {
         "id": "logo",
         "type": "url",

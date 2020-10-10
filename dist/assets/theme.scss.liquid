@@ -1257,6 +1257,58 @@ Body Open Mobile Nav Styles
 }
 
 /* --------------------------------------------------------------------------
+  PROMO BAR
+-----------------------------------------------------------------------------*/
+.promo-bar {
+  background: black;
+  color: white;
+  text-align: center;
+  position: relative;
+  display: none;
+  overflow: hidden;
+  .inner {
+    padding: 0.8rem 3.5rem 0.65rem;
+  }
+  .small-caps {
+    font-size: 1.1rem;
+    max-width: 77%;
+    margin-left: auto;
+    margin-right: auto;
+    @include mobile-only {
+      font-size: 0.9rem;
+    }
+  }
+  a {
+    text-decoration: underline;
+    color: inherit;
+  }
+  button {
+    position: absolute;
+    right: 2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    svg {
+      width: 2rem;
+    }
+    path {
+      fill: currentColor;
+    }
+  }
+}
+
+.fixed-nav-wrapper {
+  position: relative;
+  z-index: 190;
+  top: 0;
+  left: 0;
+  width: 100%;
+  &.loaded {
+    position: fixed;
+  }
+}
+
+/* --------------------------------------------------------------------------
   NAV WRAPPER STYLES
 -----------------------------------------------------------------------------*/
 .nav-wrapper {
@@ -1274,9 +1326,7 @@ Body Open Mobile Nav Styles
     padding-top: 4rem;
     padding-bottom: 4rem;
   }
-  &.loaded {
-    position: fixed;
-  }
+
   @include tablet-up {
     .inner {
       display: flex;
@@ -2202,7 +2252,7 @@ $cartWidth: 38rem;
   z-index: 300;
   background: white;
   padding: 1.6rem 0 16.6rem;
-  transform: translateX(100%);
+  transform: translateX(110%);
   transition: all 0.3s ease-in-out 0.3s;
   overflow-y: scroll;
   -webkit-box-shadow: -4px 0 5px -2px rgba(0,0,0,0.2);
@@ -5138,23 +5188,19 @@ Accordions
 /* --------------------------------------------------------------------------
   PRODUCT GRID
 -----------------------------------------------------------------------------*/
-// .product-card {
-//   display: flex;
-//   > a {
-//     display: flex;
-//     flex-direction: column;
-//     .product-info {
-//       flex-grow: 1;
-//       display: flex;
-//       flex-direction: column;
-//       .price {
-//         align-self: flex-end;
-//       }
-//     }
-//   }
-// }
 .collection-grid {
   padding-bottom: 6.8rem;
+}
+
+.template-list-collections main {
+  h1 {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  a {
+    margin-bottom: 4rem;
+    display: inline-block;
+  }
 }
 
 /* --------------------------------------------------------------------------
@@ -5496,9 +5542,27 @@ Accordions
   GENERAL STYLES
 -----------------------------------------------------------------------------*/
 .account-page {
+  padding-bottom: 5rem;
+  @include tablet-up {
+    padding-top: 5rem;
+  }
   @include mobile-only {
     padding-left: 3rem;
     padding-right: 3rem;
+  }
+  .btn,
+  h1,
+  h2,
+  h3,
+  h4,
+  input,
+  p,
+  select,
+  ul {
+    margin-bottom: 2rem;
+  }
+  a:not(.link--underline) {
+    text-decoration: underline;
   }
   form {
     max-width: 63.7rem;
@@ -5619,7 +5683,40 @@ Accordions
       color: white;
     }
   }
+  form {
+    text-align: left;
+    padding-bottom: 5rem;
+  }
+  input[type="checkbox"] {
+    width: auto;
+  }
+  label {
+    margin-bottom: 0.8rem;
+  }
+  header,
+  section {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+}
 
+/* TABLES ================== */
+.account-dashboard,
+.rc_layout__container {
+  table {
+    width: 80rem;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 3rem;
+    td,
+    th {
+      border: 1px solid black;
+      padding: 1rem;
+    }
+    a {
+      text-decoration: underline;
+    }
+  }
 }
 
 /* ORDERS ================== */
@@ -5652,7 +5749,7 @@ Accordions
 
 /* RECHARGE ================== */
 .rc_layout__container {
-  padding-top: 20rem;
+  padding-top: 10rem;
   padding-bottom: 6rem;
   h2,
   h4:not(.rc__subscriptions__subscription__address) {
@@ -5662,6 +5759,9 @@ Accordions
     text-transform: none;
     margin-top: 2rem;
     letter-spacing: 0.1;
+  }
+  a {
+    text-decoration: underline;
   }
   .rc_menu__item {
     text-decoration: underline;
@@ -5714,6 +5814,30 @@ Accordions
   }
   .rc_product-item__media {
     margin-bottom: 1rem;
+  }
+}
+
+.address-page {
+  header {
+    margin-bottom: 4.5rem;
+  }
+  h2 {
+    text-align: center;
+  }
+  .btn {
+    display: inline-block;
+    background: black;
+    color: white;
+    padding: 1.5rem 3.8rem;
+    border: 2px solid black;
+    text-transform: uppercase;
+    font-family: $proxima;
+    font-size: 1.2rem;
+    letter-spacing: 0.183rem;
+    text-align: center;
+    line-height: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
   }
 }
 
@@ -5781,7 +5905,7 @@ Section Comment
   left: 0;
   width: 100%;
   text-align: center;
-  padding: 1rem 3rem;
+  padding: 1rem 5rem;
   font-size: 1.5rem;
   font-weight: 600;
   opacity: 0;
@@ -5790,10 +5914,15 @@ Section Comment
   transform: translateY(200%);
   transition: all 0.6s $ease;
   p {
-    max-width: 58rem;
+    max-width: 55rem;
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 0;
+    line-height: 1.3;
+    font-size: 1.3rem;
+    @include mobile-only {
+      font-size: 1.1rem;
+    }
   }
   a {
     text-decoration: underline;
@@ -5817,4 +5946,5 @@ Section Comment
   visibility: visible;
   pointer-events: auto;
   transform: none;
+
 }
